@@ -3,9 +3,9 @@
   https://getbootstrap.com/docs/5.1/layout/containers/ 참조
   클래스로 화면크기 변할 때, 뷰포트도 변한다.(가변성) -->
     <h1>
-      <span span>OMDb</span>API<br/>
-      THE OPEN<br />
-      MOVIE DATABASE<br/>
+      <span span>Search</span>Movie<br/>
+      THE Search<br />
+      MOVIES<br/>
     </h1>
     <p>
      영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 영화검색 
