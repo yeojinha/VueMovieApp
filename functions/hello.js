@@ -1,11 +1,11 @@
 exports.handler = async function (event, context)
 {
   return {
-    stsusCode: 200,
+    statusCode: 200,
     body: JSON.stringify({
       name:'Yeojin',
       age: 30,
-      email: "hayeojin4966@gmilc.om"
+      email: "hayeojin4966@gmail.com"
     })
   }
 }
