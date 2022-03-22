@@ -1,5 +1,6 @@
 // Default variable overrides
-$primary: #FDC000;//primray라는 변수는 노란색을 가지게 된다.
+$primary: #48fd00;//primray라는 변수는 노란색을 가지게 된다.
+$fontStyle: 'fantasy' , Oswald;
 $container-max-widths: (
   sm: 540px,
   md: 704px,
@@ -14,6 +15,5 @@ $container-max-widths: (
 //만약 내가 먼저 다른 변수에 지정하고자 한다면, 이 import 위에 변수에 대한 색상 선언을 해주어야 한다.
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/root";
-
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 

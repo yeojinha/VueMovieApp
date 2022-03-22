@@ -8,7 +8,6 @@
       {{ name }}
     </div>
     <div>{{ email }}</div>
-    <div>{{ blog }}</div>
     <div>{{ phone }}</div>
   </div>
 </template>
@@ -29,7 +28,6 @@ export default {
     ...mapState('about',[// about 이라는 module 이름 명시하고 배열로 상태들의 이름을 명시함.
       'image',
       'email',
-      'blog',
       'name',
       'phone'
        ]),
@@ -80,7 +78,7 @@ export default {
   }
   .name {
     font-size: 40px;
-    font-family: "Oswald", sans-serif;
+    font-family: $fontStyle;
     margin-bottom: 20px;
   }
 }

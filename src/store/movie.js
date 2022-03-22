@@ -134,10 +134,10 @@ export default {
 
           }
         }
-      } catch ({message}) {
+      } catch (error) {
         commit('updateState', {
           movie: [],
-          message: message
+          message: error.message
         })
       }finally{
         commit('updateState',{

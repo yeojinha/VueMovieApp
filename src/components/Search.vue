@@ -5,7 +5,7 @@
       v-model="title"
       class="form-control"
       type="text"
-      placeholder="Search for Movies, Series & more" 
+      placeholder="Enter the Movie title" 
       @keyup.enter="apply"/><!-- enter key 누르면 apply 메소드 실행 -->
       <div class="selects">
         <!-- 

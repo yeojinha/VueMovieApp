@@ -3,7 +3,7 @@
   <RouterLink 
     to="/" 
     class="logo">
-    <span>OMDbAPI</span>.COM
+    <span>Movies</span>.COM
   </RouterLink>  
 </template>
 
@@ -11,7 +11,7 @@
 
 
   .logo {
-    font-family: "Oswald", sans-serif;
+    font-family: $fontStyle;
     font-size: 20px;
     color: $black;//main.scss에서 가져온 $black
     text-decoration: none;

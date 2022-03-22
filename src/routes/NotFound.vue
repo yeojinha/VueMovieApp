@@ -14,7 +14,7 @@
   .not-found{
     line-height: 1.2;
     text-align: center;
-    font-family: "Oswald", "sans-serif";
+    font-family: $fontStyle;
     padding: 80px, 20px;
     .status{
       font-size: 160px;

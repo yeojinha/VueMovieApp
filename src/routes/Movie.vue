@@ -189,7 +189,7 @@ export default {
       flex-grow: 1;
       .title{
         color: $black;
-        font-family: 'Oswald', sans-serif;
+        font-family: $fontStyle;
         font-size: 70px;
         line-height: 1;
         margin-bottom: 30px;
@@ -227,7 +227,7 @@ export default {
       h3{
         margin: 24px 0 6px;
         color: $black;
-        font-family: 'Oswald', sans-serif;
+        font-family: $fontStyle;
         font-size: 20px;
       }
     }
