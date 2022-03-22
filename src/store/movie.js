@@ -1,7 +1,7 @@
 import axios from 'axios'
 import _uniqBy from 'lodash/uniqBy'
 
-const _defaultMessage = "영화 검색하세요~"
+const _defaultMessage = " "
 
 export default {
   //module!
