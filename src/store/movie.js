@@ -70,6 +70,7 @@ export default {
         loading: true
       })
       try {
+        console.log(state.movie)
         /*
         Search.vue에서 movie.js의 searchMovies 실행, 안의 tile외 3개 객체는
         payload
