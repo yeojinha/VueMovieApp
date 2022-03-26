@@ -11,23 +11,26 @@
         <!-- 
           v-model 양방향 데이터 바인딩
           $data같은 경우 select 태그가 loop로 이루어져 있어 data명을 직접적으로 명시하지 못해
-          v-model="$data[filter.name]"과 같이 배열형태로 데이터바인딩을 하게 해준다.
+          v-model="$data[filter.name]"과 같이 배열형태로 데이터바인딩.
         -->
         <select
           v-for="filter in filters"
           v-model="$data[filter.name]"
           :key="filter.name"
           class="form-select">
+
           <option 
             v-if="filter.name === 'year'"
             value=""><!-- 빈문자 value -->
             All Years
           </option>
+         
           <option
           v-for="item in filter.items"
           :key="item">
           {{ item }}
           </option>
+          
         </select>
       </div>
       <button 
@@ -47,6 +50,7 @@ export default {
       type: 'movie',
       number: 10,
       year: '',
+      //star:'',
       filters: [
         {//type
           name: 'type',
@@ -75,7 +79,11 @@ export default {
           })();
 
           */
-        }
+        },
+        // {
+        //   name:"star",
+        //   items:[1,2,3,4,5,6,7,8,9,10]
+        // }
       ]
     }
   },
@@ -83,7 +91,7 @@ export default {
       //Search movies...
       /*
       Store의 Mutations를 실행할 때는 .commit()메소드를, 
-      Actions를 실행할 때는 .dispatch() 메소드를 사용합니다.
+      Actions를 실행할 때는 .dispatch() 메소드를 사용.
       */
       /*
       윗 부분에 v-model 양방향 데이터바인딩이 존재하는데
@@ -93,22 +101,20 @@ export default {
       store action이 사용할 수 있게 searchMovies 것에 전달할 수 있어야 한다. 
       */
      async apply() {//search 누르면 movie의 searchMovies에 전달되어 실행(API)
-
       this.$store.dispatch('movie/searchMovies', {
         title: this.title,
         type: this.type,
         number: this.number,
-        year: this.year
+        year: this.year,
+        //star: this.star
       })//store의 모듈에 movie.js 안에 searchMovies 
-      //payload 안에는 const {title, type, number, year} = payload;
+      //payload 안에는 const {title, type, number, year, star} = payload;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-
 .container {
   display: flex;
   > * { // >자식선택자로 * 전체 선택
@@ -134,7 +140,6 @@ export default {
     font-weight: 700;
     flex-shrink: 0;//지정된 너비보다 줄어드는 것을 방지
   }
-  
   @include media-breakpoint-down(lg){
     display: block;    
     input{

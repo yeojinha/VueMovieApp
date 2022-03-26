@@ -144,7 +144,7 @@ export default {
           loading: false//검색 종료 
         })
       }
-    },
+    },//searchMovies
     async searchMovieWithId({state, commit}, payload){
       if(state.loading) return //로딩하면 
       
@@ -175,3 +175,18 @@ export default {
 async function _fetchMovies(payload) {
   return await axios.post('/.netlify/functions/movie', payload)
 }
+
+
+
+
+/*
+"Ratings":[
+  {"Source":"Internet Movie Database","Value":"7.4/10"},
+  {"Source":"Rotten Tomatoes","Value":"90%"},
+  {"Source":"Metacritic","Value":"75/100"}],
+
+  "Metascore":
+  "75","imdbRating":"7.4","imdbVotes":"605,423",
+  "imdbID":"tt2294629","Type":"movie","DVD":"18 Mar 2014",
+  "BoxOffice":"$400,953,009","Production":"N/A","Website":"N/A","Response":"True"}
+*/
