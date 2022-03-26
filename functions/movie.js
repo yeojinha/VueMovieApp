@@ -10,8 +10,11 @@ exports.handler = async function (event){
     type,
     year,
     page,
-    id
+    id,
+    //json
   } = payload;
+  //&r=${json}
+  // &y=&plot=short&tomatoes=true&r=json
   const url = id 
     ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
     : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`

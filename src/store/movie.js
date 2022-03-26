@@ -30,7 +30,10 @@ export default {
   mutations: { //mutations에서만 state에 있는 데이터를 변경할 수 있다.
     updateState(state, payload) { //통합적으로 data 변경
       //payload로 어떤 data 들어올 수 있는지 
-
+      
+    //  for(let i=0;i<;i++){
+    //    console.log(state.movies[i]);
+    //  }
       Object.keys(payload).forEach(key => {
         state[key] = payload[key]
         //아래의 내용과 같다.
@@ -62,6 +65,7 @@ export default {
       state,
       commit
     }, payload) {
+      
       if(state.loading){//실행중(영화목록 가져오는 중인데, 또 누르면)이면 return하여 검색 종료
         return
       }
@@ -70,6 +74,7 @@ export default {
         loading: true
       })
       try {
+        
         /*
         Search.vue에서 movie.js의 searchMovies 실행, 안의 tile외 3개 객체는
         payload
@@ -101,7 +106,6 @@ export default {
         commit('updateState', { //payload에 들어가는 객체 데이터들  
           movies: _uniqBy(Search, 'imdbID') //영화정보를 mutation updateState통하여 state의 movies에 갱신
         })
-        console.log("더무비",movies.theMovie)
         console.log(totalResults) // 340
         console.log(typeof totalResults) // string
 
