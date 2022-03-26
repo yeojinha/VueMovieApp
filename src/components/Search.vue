@@ -32,12 +32,14 @@
           </option>
           
         </select>
-      </div>
+
       <button 
         class="btn btn-primary"
         @click="apply">
-        Apply
+        Search
       </button>
+      </div>
+      
   </div>
 </template>
 
@@ -58,7 +60,7 @@ export default {
         },
         {//number
           name: 'number',
-          items: [10,20,30]
+          items: [10,20,30,40,50]
         },
         {//year
           name: 'year',
@@ -109,7 +111,8 @@ export default {
         //rating:this.rating
       })//store의 모듈에 movie.js 안에 searchMovies 
       //payload 안에는 const {title, type, number, year, star} = payload;
-    }
+    },
+
   }
 }
 </script>
