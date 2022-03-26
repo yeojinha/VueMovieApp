@@ -1,9 +1,10 @@
-const axios = require('axios')
+const axios = require('axios');
+const { forEach } = require('lodash');
 const {OMDB_API_KEY} = process.env;
 
 exports.handler = async function (event){
   console.log(event)
-  console.log("eventLog:",JSON.parse(event.body.JSON))
+  console.log(event.JSON)
   const payload = JSON.parse(event.body)
    const {
     title,
