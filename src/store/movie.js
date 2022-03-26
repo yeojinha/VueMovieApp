@@ -22,7 +22,7 @@ export default {
   //computed!
   getters: {
     // movieIds(state){//state 안에 있는 movies를 가져오기
-    //   return state.movies.map(m=>m.imdbID)
+    //   return state.movies.map(m=>m.imdbID.theMovie)
     // }
   },
   //methods
@@ -70,7 +70,6 @@ export default {
         loading: true
       })
       try {
-        console.log(state.movie)
         /*
         Search.vue에서 movie.js의 searchMovies 실행, 안의 tile외 3개 객체는
         payload
@@ -102,6 +101,7 @@ export default {
         commit('updateState', { //payload에 들어가는 객체 데이터들  
           movies: _uniqBy(Search, 'imdbID') //영화정보를 mutation updateState통하여 state의 movies에 갱신
         })
+        console.log("더무비",movies.theMovie)
         console.log(totalResults) // 340
         console.log(typeof totalResults) // string
 

@@ -24,6 +24,12 @@
             value=""><!-- 빈문자 value -->
             All Years
           </option>
+
+          <option 
+            v-if="filter.name === 'rating'"
+            value=""><!-- 빈문자 value -->
+            All Ratings
+          </option>
          
           <option
           v-for="item in filter.items"
@@ -50,7 +56,7 @@ export default {
       type: 'movie',
       number: 10,
       year: '',
-      //star:'',
+      rating:'',
       filters: [
         {//type
           name: 'type',
@@ -80,10 +86,10 @@ export default {
 
           */
         },
-        // {
-        //   name:"star",
-        //   items:[1,2,3,4,5,6,7,8,9,10]
-        // }
+        {
+          name:"rating",
+          items:[10,20,30,40,50,60,70,80,90,100]
+        }
       ]
     }
   },
@@ -106,7 +112,7 @@ export default {
         type: this.type,
         number: this.number,
         year: this.year,
-        //star: this.star
+        rating:this.rating
       })//store의 모듈에 movie.js 안에 searchMovies 
       //payload 안에는 const {title, type, number, year, star} = payload;
     }
