@@ -7,10 +7,8 @@
     </div>
   </RouterLink>
 </template>
-
 <script>
 import Loader from "~/components/Loader";
-
 export default {
   components: {
     Loader: Loader,
@@ -35,7 +33,6 @@ export default {
   methods: {
     async init() {
       const poster = this.movie.Poster;
-
       if (!poster || poster == "N/A") {
         //poster 없으면 로딩 X
         this.imageLoading = false;

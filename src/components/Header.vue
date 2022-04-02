@@ -39,6 +39,7 @@ export default {
     Logo: Logo,
   },
   data() {
+    id:''
     return {
       navigations: [
         {
@@ -47,13 +48,21 @@ export default {
         },
         {
           name: "Movie",
-          href: "/movie/tt11032374",
+          href: "/movie/tt2005374",
           path: /^\/movie/, // '/movie'
         },
         {
           name: "About",
           href: "/about",
         },
+        {
+          name:"Index",
+          href:"/index"
+        }
+        // {
+        //   name:"Chat",
+        //   href:"./routes/public/index.html"
+        // }
       ],
     };
   },
@@ -71,7 +80,11 @@ export default {
   },
   methods: {
     isMatch(path) {
-      if (!path) return false;
+      if (!path) return false      
+      else if(path==="/selections"){
+        apply();
+        return path.test(this.$route.fullPath);
+      }
       return path.test(this.$route.fullPath);
     },
     toAbout() {
@@ -87,7 +100,7 @@ export default {
       />
     </RouterLink> 
       */
-    },
+    }
   },
 };
 </script>
