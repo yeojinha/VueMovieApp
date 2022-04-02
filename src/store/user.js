@@ -21,18 +21,20 @@ export default {
   mutations: {
     putUser(state, user){
       state.users.push(user)
+      console.log(state.users)
     },
     pullUser(state,index){
       if(index !== 1){
         state.users.splice(index, 1)[0]
       }
+      console.log(state.users)
     }
   },
   //비동기
   actions: {
     // Join user to chat
     userJoin({state},user) {
-      commit('addUser', user)
+      commit('putUser', user)
       console.log(state.users)
     },
     // Get current user
