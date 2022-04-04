@@ -8,7 +8,7 @@
 //   ignoreQueryPrefix: true,
 // });
 
-// const socket = io();
+// const socket = io();//클라이언트에서 io하면 
 
 // // Join chatroom
 // socket.emit('joinRoom', { username, room });
@@ -17,6 +17,7 @@
 // socket.on('roomUsers', ({ room, users }) => {
 //   outputRoomName(room);
 //   outputUsers(users);
+//   //on으로 roomUsers
 // });
 
 // // Message from server
