@@ -2,7 +2,8 @@
   <div class="chat-container">
     <header class="chat-header">
       <h1><i class="fas fa-smile"></i> ChatCord</h1>
-      <a href="index.html" class="btn">Leave Room</a>
+      <button class="btn" @click="onClickleaveRoom">Leave Room</button>
+      <!-- <a href="index.html" class="btn">Leave Room</a> -->
     </header>
     <main class="chat-main">
       <div class="chat-sidebar">
@@ -118,6 +119,7 @@ export default {
   },
   computed:{
     userList(){
+      //TODO this.$store.state.users가 undefined 받아들여지지 않는 듯함.
       console.log("this.$store.state.users: ",this.$store.state.users)
       return this.$store.state.users;
     }
@@ -187,12 +189,10 @@ export default {
       div.appendChild(para);
       document.querySelector('.chat-messages').appendChild(div);
     },
-    leaveRoom(){
-        const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-        if (leaveRoom) {
-        window.location = '#/index';
-        } else {
-        }
+    onClickleaveRoom(event){
+        event.preventDefault();
+         //TODO router.push하면 /이동이 아닌 index.html/으로 이동하여 home으로 이동된다.
+         this.$router.replace('/')
     }
    
   }

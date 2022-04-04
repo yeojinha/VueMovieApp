@@ -36,7 +36,11 @@ export default {
       List: {
         name:"Room",
         items:['Melo', 'Family', 'Fantasy', 'Action']
-      }
+      },
+      // nav:{
+      //   name:"chat",
+      //   href:`/chat?channel=${this.channel}`
+      // }
     };
   },
   methods: {
@@ -46,7 +50,8 @@ export default {
         name: this.user.name,
         room: this.user.room
       });
-      location.href = `http://localhost:8080/#/chat?channel=${this.user.room}`;
+      console.log("this.user.room:",this.user.room)
+       this.$router.push(`/chat?channel=${this.user.room}`)
     }
   },
 };
