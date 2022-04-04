@@ -23,10 +23,6 @@ export default {
   mutations: {
     putUser(state,user)
     {
-      const userList=[]
-      console.log("user: ",user)
-      userList.push(user)
-      console.log("userList: ",userList)
       state.users.push({
         name:user.name,
         room:user.room
