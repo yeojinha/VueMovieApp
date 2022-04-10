@@ -33,7 +33,7 @@
     <div class="chat-form-container">
       <form id="chat-form">
         <input id="msg" placeholder="Enter Message" required autocomplete="off" v-model="chatInputMessage" />
-        <button class="btn" @click="send"><i class="fas fa-paper-plane"></i> Send</button>
+        <button class="btn" @click="handleSend"><i class="fas fa-paper-plane"></i> Send</button>
       </form>
     </div>
   </div>
