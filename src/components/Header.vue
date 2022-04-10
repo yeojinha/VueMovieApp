@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-    websocket=this.$store.state.user.stateWebSocket,
+    websocket:this.$store.state.user.stateWebSocket,
     // user : this.$store.state.user.newUser,
       navigations: [
         {
