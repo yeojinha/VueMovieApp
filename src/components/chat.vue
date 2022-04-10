@@ -54,19 +54,14 @@ export default {
         this.appendNewMessage(this.tempName, vo.message, vo.time);
       }
     };
-    this.websocket.onopen = ()=>this.websocket.send("Message")
+    this.websocket.onopen = (event) => {
+      console.log('open event..', event);
+      
+    };
 
     this.websocket.onerror = (event) => {
       console.log('error', event);
     };
-
-
-    // this.websocket.ondisconnect=({data})=>{
-    //   const temp=JSON.parse(data);
-    //   if(vo.channel===this.channel){
-    //     console.log('disconnect',data);
-    //   }
-    // };
      this.websocket.onclose = (event) => {
             console.log('close', event); 
     };
@@ -103,6 +98,13 @@ export default {
   //   }
   // },
   methods: {
+   handleSend(){
+     if(this.websocket===WebSocket.OPEN){
+       send()
+     }else if(this.websocket==WebSocket.CONNECTING){
+       this.websocket.addEventListener('open',()=>this.handleSend())
+     }
+   },
     send() {
       if (this.chatInputMessage === '') return;
       const message = {
