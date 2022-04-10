@@ -119,7 +119,6 @@ export default {
       this.send();
     },
     appendNewMessage(username, message, time) {
-      console.log("userList: ",this.$store.state.user.users)
       const div = document.createElement('div');
       div.classList.add('message');
       const p = document.createElement('p');
@@ -136,12 +135,7 @@ export default {
     //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
     onClickleaveRoom(event){
         event.preventDefault();
-         //TODO router.push하면 /이동이 아닌 index.html/으로 이동하여 home으로 이동된다.
-        //  console.log("get User on chat: ", this.getUser)
-        //  this.$store.dispatch('user/userLeave',this.getUser)
-        //  localStorage.removeItem(this.getUser);      
          this.$router.replace('/')
-        //  console.log("After left userList on chat: ", this.$store.state.user.users)
          this.websocket.close();
     }
    

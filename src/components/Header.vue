@@ -97,7 +97,10 @@ export default {
       // localStorage.removeItem(this.user);          
       // console.log("After remove userList on Header: ", this.$store.state.user.users)
       this.websocket=this.$store.state.user.stateWebSocket;
-      this.websocket.close()
+      if(this.websocket===WebSocket.OPEN){
+        this.websocket.close()
+      }
+      
     }
     
   },
