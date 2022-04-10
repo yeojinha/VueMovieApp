@@ -99,8 +99,9 @@ export default {
   // },
   methods: {
    handleSend(){
+     console.log("handleSend working?")
      if(this.websocket===WebSocket.OPEN){
-       send()
+       this.send()
      }else if(this.websocket==WebSocket.CONNECTING){
        this.websocket.addEventListener('open',()=>this.handleSend())
      }
