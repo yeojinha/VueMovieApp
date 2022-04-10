@@ -100,7 +100,7 @@ export default {
   methods: {
    handleSend(){
      console.log("websocket is? ",this.websocket)
-     
+     console.log("websocket is on?",this.websocket===WebSocket.OPEN)
      if(this.websocket===WebSocket.OPEN){
        this.send()
      }else if(this.websocket==WebSocket.CONNECTING){
