@@ -7,6 +7,7 @@
           :to="nav.href"
           active-class="active"
           :class="{ active: isMatch(nav.path) }"
+          @click="clickEventSocket"
           class="nav-link"
         >
           {{ nav.name }}
@@ -39,12 +40,13 @@ export default {
     Logo: Logo,
   },
   data() {
-    id:''
     return {
+    // user : this.$store.state.user.newUser,
       navigations: [
         {
           name: "Search",
           href: "/",
+          
         },
         {
           name: "Movie",
@@ -52,17 +54,13 @@ export default {
           path: /^\/movie/, // '/movie'
         },
         {
+          name:"Chat",
+          href:"/index"
+        },
+        {
           name: "About",
           href: "/about",
         },
-        {
-          name:"Index",
-          href:"/index"
-        }
-        // {
-        //   name:"Chat",
-        //   href:"./routes/public/index.html"
-        // }
       ],
     };
   },
@@ -83,24 +81,25 @@ export default {
       if (!path) return false      
       else if(path==="/selections"){
         apply();
+        
         return path.test(this.$route.fullPath);
+        
       }
       return path.test(this.$route.fullPath);
     },
     toAbout() {
-      this.$router.push("/about");
-      /*
-      <RouterLink  
-    to="/about"
-    class="user"
-    >
-      <img 
-      :src="image" 
-      :alt="name"
-      />
-    </RouterLink> 
-      */
+      this.$router.replace("/about");
+    },
+    clickEventSocket(event){
+      // console.log("Before remove userList on Header: ", this.$store.state.user.users)
+      // console.log("This user on Header: ", this.user)
+      // this.$store.dispatch('user/userLeave',this.user)
+      // localStorage.removeItem(this.user);          
+      // console.log("After remove userList on Header: ", this.$store.state.user.users)
+      this.websocket=this.$store.state.user.stateWebSocket;
+      this.websocket.close()
     }
+    
   },
 };
 </script>

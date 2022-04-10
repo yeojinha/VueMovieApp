@@ -1,50 +1,78 @@
+import { toSafeInteger } from "lodash";
+
 export default {
   namespaced: true,
   state: {
+    stateWebSocket:null,
+      newUser:{
+        name:'',
+        room:'',
+        msg:''
+      },
       user:{
         name:'',
-        room:''
+        room:'',
+        msg:''
       },
       users: [],
       rooms: [],
       pulledUser:''
   },
-  getters: {
-    getCurrentUser(state,name) {
-      return state.users.find(user => user.name === name);
-    },
-    getLeftUser(state) {
-      return state.pulledUser;
-    },
-    getRoomUsers(state,room) {
-      return state.users.filter(user => user.room === room);
-    }
+  // getters: {
+  //   getCurrentUser(state,name) {
+  //     return state.users.find(user => user.name === name);
+  //   },
+  //   getLeftUser(state) {
+  //     return state.pulledUser;
+  //   }
+  // },
+  // computed:{
+  //     getRoomUsers(state,room) {
+  //     return state.users.filter(user => user.room === room);
+  //   },
+  //   getRecentUser(state){
+  //   return state.newUser;  
+  //   },
+  //   getRoomName(state){
+  //     return state.user.room;
+  //   },
+ 
+  // },
+  methods:{
+
   },
   mutations: {
-    putUser(state,user)
-    {
-      state.users.push({
-        name:user.name,
-        room:user.room
-        });
-      console.log("users array: ",state.users);    
-      
-    },
-    pullUser(state,name){
-      const index = state.users.find(user=>user.name===name)
-      if (index !== -1) {
-        state.pulledUser=state.users.splice(index, 1)[0];
-      }
-    }
+    // putUser(state,user)
+    // {
+    //   state.newUser = user; 
+    //   console.log("state newUser: ",state.newUser);
+    //   state.users.push({
+    //     name:user.name,
+    //     room:user.room,
+    //     msg:user.msg
+    //     });
+    //   console.log("users array: ",state.users);    
+    // },
+    // pullUser(state,user){
+    //     const temp = state.users.find(us=>us.name===user.name)
+    //     const index = state.users.indexOf(temp);
+    //     console.log('index: ',index)
+    //     if (index !== -1) {
+    //     state.pulledUser=state.users.splice(index, 1)[0];
+    //     console.log("usrs.list: ",state.users);
+    //     console.log("state.pulledUser: ", state.pulledUser)
+
+    //   }
+    // }
   },
   actions: {
-    userJoin(context,user) {
-      console.log('...user: ',{...user})
-      context.commit('putUser',user);
-    },
-    userLeave(context,{...user}){
-      context.commit('pullUser',user);
-    }
+    // userJoin(context,user) {
+    //   console.log('...user: ',{...user})
+    //   context.commit('putUser',user);
+    // },
+    // userLeave(context,user){
+    //   context.commit('pullUser',{...user});
+    // }
   }
 }
 

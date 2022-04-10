@@ -18,7 +18,23 @@ export default {//Home vue 열릴 때, components 갱신되어야 할 것들 목
     MovieList
   },
   created(){//store에서 무리
-    this.$store.commit('movie/resetMovies')//mutation의 resetMovies로 상태 변화
+    this.$store.commit('movie/resetMovies');//mutation의 resetMovies로 상태 변화    
+    
   }
+  ,mounted() {
+    window.addEventListener('beforeunload', this.unLoadEvent);
+
+  },
+  beforeUnmount() {
+    window.removeEventListener('beforeunload', this.unLoadEvent);
+  },
+  methods: {
+    unLoadEvent: function (event) {
+      if (this.isLeaveSite) return;
+      event.preventDefault();
+      event.returnValue = '';
+      localStorage.clear();
+    },
+}
 }
 </script>

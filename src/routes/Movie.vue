@@ -104,17 +104,11 @@ export default {
   created(){
     console.log(this.$route)
     this.$store.dispatch('movie/searchMovieWithId',{
-      // movie//tt123762
+
       id: this.$route.params.id
     })
-    // this.searchMovieWithId({
-    //   id: this.$route.params.id      
-    // })
   },
   methods:{
-    // ...mapActions('movie',[
-    //   'searchMovieWithId'
-    // ]),
     requestDiffSizeImage(url, size = 2000){
       if(!url || url == "N/A"){//포스터 없을 경우
         this.imageLoading = false

@@ -5,13 +5,9 @@
     </header>
     <main class="join-main">
       <form action="chat.html">
-        <!-- <div class="form-control">
-          <label for="username">Username</label>
-          <input type="text" v-model="user.name" placeholder="Enter username..." required />
-        </div> -->
         <div class="form-control">
           <label for="room">Room</label>
-          <select name="room" id="room" v-model="room">
+          <select name="room" id="room" v-model="this.selectedChannel">
             <option v-for="room in List.items" :key="room">
               {{ room }}
             </option>
@@ -26,14 +22,15 @@
 export default {
   data() {
     return {
-      // user:{
-      //   name:'',
-      //   room:'Melo',
-      //   msg:''
-      // },
-      room:'Melo',
+      user:{
+        name:'',
+        room:'',
+        msg:''
+      },
+      //id: '',
+      selectedChannel: '',
+      //Room: [],
       List: {
-        name:"Room",
         items:['Melo', 'Family', 'Fantasy', 'Action']
       },
       // nav:{
@@ -46,16 +43,15 @@ export default {
     onClickJoinBtn(event) {
       event.preventDefault();
       //TODO store.users에 입력한 이름있으면 ,작동 안하고 message popUp되어 진행 막기.
-      // const newUser ={
-      //   // name: Math.ceil(Math.random()*10000000).toString(),
-      //   name: this.user.name,
-      //   room: this.user.room,
-      //   msg:this.user.msg
-      // }
-      // this.$store.state.user.newUser = newUser;
-      // this.$store.dispatch('user/userJoin',newUser);
-      // console.log("this.user.room:",newUser.room)
-       this.$router.replace(`/chat?channel=${this.room}`)
+      const newUser ={
+        name: Math.ceil(Math.random()*10000000).toString(),
+        room: this.user.room,
+        msg:this.user.msg
+      }
+      this.$store.state.user.newUser = newUser;
+      this.$store.dispatch('user/userJoin',newUser);
+      console.log("this.user.room:",newUser.room)
+       this.$router.push(`/chat?channel=${this.selectedChannel}`)
     }
   },
 };

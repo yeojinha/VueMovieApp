@@ -72,45 +72,21 @@ export default {
             }
             return years;
           })()
-          /*즉시실행함수
-          (function () {
-          //do something 
-          })();
-          (()=>{
 
-          })();
-
-          */
         },
-        // {
-        //   name:"rating",
-        //   items:[10,20,30,40,50,60,70,80,90,100]
-        // }
+
       ]
     }
   },
   methods: {   
-      //Search movies...
-      /*
-      Store의 Mutations를 실행할 때는 .commit()메소드를, 
-      Actions를 실행할 때는 .dispatch() 메소드를 사용.
-      */
-      /*
-      윗 부분에 v-model 양방향 데이터바인딩이 존재하는데
-      위 <template></template> select에서 데이터가 갱신되어 v-model에 따른 data () filter를 보면
-      title, type, year이 존재하고  select로 인해 값이 바뀔 수 있는데, 
-      그렇게 바뀌어진 데이터를 apply라는 메소드가 실행될 때,
-      store action이 사용할 수 있게 searchMovies 것에 전달할 수 있어야 한다. 
-      */
+
      async apply() {//search 누르면 movie의 searchMovies에 전달되어 실행(API)
       this.$store.dispatch('movie/searchMovies', {
         title: this.title,
         type: this.type,
         number: this.number,
         year: this.year,
-        //rating:this.rating
-      })//store의 모듈에 movie.js 안에 searchMovies 
-      //payload 안에는 const {title, type, number, year, star} = payload;
+      })
     },
 
   }

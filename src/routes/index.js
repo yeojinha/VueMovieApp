@@ -43,4 +43,11 @@ export default createRouter({
       component: NotFound,
     },
   ],
+  methods:{
+    socketClose(){
+       this.socket=this.$store.state.user.stateWebSocket;
+    // this.socket.close();
+        this.socket.close();
+    }
+  }
 });
