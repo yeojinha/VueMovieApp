@@ -41,6 +41,7 @@ export default {
   },
   data() {
     return {
+    websocket=this.$store.state.user.stateWebSocket,
     // user : this.$store.state.user.newUser,
       navigations: [
         {
@@ -96,7 +97,7 @@ export default {
       // this.$store.dispatch('user/userLeave',this.user)
       // localStorage.removeItem(this.user);          
       // console.log("After remove userList on Header: ", this.$store.state.user.users)
-      this.websocket=this.$store.state.user.stateWebSocket;
+      
       if(this.websocket===WebSocket.OPEN){
         this.websocket.close()
       }
