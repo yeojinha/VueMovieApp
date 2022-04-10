@@ -54,11 +54,7 @@ export default {
         this.appendNewMessage(this.tempName, vo.message, vo.time);
       }
     };
-
-    this.websocket.onopen = (event) => {
-      console.log('open event..', event);
-      
-    };
+    this.websocket.onopen = ()=>this.websocket.send("Message")
 
     this.websocket.onerror = (event) => {
       console.log('error', event);
