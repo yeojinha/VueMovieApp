@@ -44,7 +44,7 @@ import moment from 'moment'
 export default {
   created() {
     this.channel = this.$route.query.channel || '';
-    this.$store.state.user.stateWebSocket = new WebSocket('ws://localhost:9999/ws');
+    this.$store.state.user.stateWebSocket = new WebSocket('ws://peaceful-ridge-59102.herokuapp.com:9999/ws');
     // this.websocket = new SockJS('http://localhost:8080/ws/realtime');
     this.websocket=this.$store.state.user.stateWebSocket;
     this.websocket.onopen = (event) => {
