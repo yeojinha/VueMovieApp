@@ -47,6 +47,14 @@ export default {
     this.$store.state.user.stateWebSocket = new WebSocket('ws://peaceful-ridge-59102.herokuapp.com:9999/ws');
     // this.websocket = new SockJS('http://localhost:8080/ws/realtime');
     this.websocket=this.$store.state.user.stateWebSocket;
+    
+    this.websocket.onmessage = ({ data }) => {
+      const vo = JSON.parse(data);
+      if (vo.channel === this.channel) {
+        this.appendNewMessage(this.tempName, vo.message, vo.time);
+      }
+    };
+
     this.websocket.onopen = (event) => {
       console.log('open event..', event);
       
@@ -56,12 +64,7 @@ export default {
       console.log('error', event);
     };
 
-    this.websocket.onmessage = ({ data }) => {
-      const vo = JSON.parse(data);
-      if (vo.channel === this.channel) {
-        this.appendNewMessage(this.tempName, vo.message, vo.time);
-      }
-    };
+
     // this.websocket.ondisconnect=({data})=>{
     //   const temp=JSON.parse(data);
     //   if(vo.channel===this.channel){
