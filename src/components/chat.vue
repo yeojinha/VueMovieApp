@@ -110,7 +110,7 @@ export default {
     send() {
       console.log("websocket: ",this.websocket);
       console.log("state.websocket: ",this.$store.state.user.stateWebSocket)
-
+      console.log("this.websocket on Chat: ",this.websocket===WebSocket.OPEN);
       if (this.chatInputMessage === '') return;
       const message = {
         channel: this.channel,
@@ -140,7 +140,7 @@ export default {
     onClickleaveRoom(event){
         event.preventDefault();
          this.$router.replace('/')
-         if(this.$store.state.user.flag===true){
+         if(this.$store.state.user.flag==true){
            this.websocket.close();
            this.$store.state.user.flag=false;
          }
