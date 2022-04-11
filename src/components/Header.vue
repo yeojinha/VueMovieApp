@@ -109,7 +109,7 @@ export default {
     //  }else{
     //    console.log("on Hedaer websocket not closed")
     //  }
-      console.log("this.websocket on Header: ",this.websocket);
+      console.log("this.websocket on Header: ",this.websocket===WebSocket.OPEN);
       if(this.websocket===WebSocket.OPEN){
         this.websocket.close()
       }
