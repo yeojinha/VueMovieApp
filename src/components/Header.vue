@@ -104,11 +104,11 @@ export default {
       // console.log("this.$store.state.user.stateWebSocket===WebSocket.OPEN: ",this.$store.state.user.stateWebSocket===WebSocket.OPEN)
      this.websocket=this.$store.state.user.stateWebSocket;
      //TODO 역시ㅓ websocket이 close 작동 안한다.
-     if(this.websocket.close()){
-       console.log("on Header web closed")
-     }else{
-       console.log("on Hedaer websocket not closed")
-     }
+    //  if(this.websocket.close()){
+    //    console.log("on Header web closed")
+    //  }else{
+    //    console.log("on Hedaer websocket not closed")
+    //  }
       console.log("this.websocket on Header: ",this.websocket);
       if(this.websocket===WebSocket.OPEN){
         this.websocket.close()
