@@ -33,7 +33,7 @@
     <div class="chat-form-container">
       <form id="chat-form">
         <input id="msg" placeholder="Enter Message" required autocomplete="off" v-model="chatInputMessage" />
-        <button class="btn" @click="handleSend"><i class="fas fa-paper-plane"></i> Send</button>
+        <button class="btn" @click="send"><i class="fas fa-paper-plane"></i> Send</button>
       </form>
     </div>
   </div>
@@ -44,7 +44,8 @@ import moment from 'moment'
 export default {
   created() {
     this.channel = this.$route.query.channel || '';
-    this.$store.state.user.stateWebSocket = new WebSocket('wss://peaceful-ridge-59102.herokuapp.com/');
+    this.$store.state.user.stateWebSocket= new WebSocket('ws://localhost:3000/ws');
+    //this.$store.state.user.stateWebSocket = new WebSocket('wss://peaceful-ridge-59102.herokuapp.com/');
     this.websocket=this.$store.state.user.stateWebSocket;
     
     this.websocket.onmessage = ({ data }) => {
@@ -107,6 +108,9 @@ export default {
      }
    },
     send() {
+      console.log("websocket: ",this.websocket);
+      console.log("state.websocket: ",this.$store.state.user.stateWebSocket)
+
       if (this.chatInputMessage === '') return;
       const message = {
         channel: this.channel,
