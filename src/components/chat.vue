@@ -140,7 +140,11 @@ export default {
     onClickleaveRoom(event){
         event.preventDefault();
          this.$router.replace('/')
-         this.websocket.close();
+         if(this.$store.state.user.flag===true){
+           this.websocket.close();
+           this.$store.state.user.flag=false;
+         }
+            
     }
    
   }

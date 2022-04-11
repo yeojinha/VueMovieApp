@@ -110,8 +110,10 @@ export default {
     //    console.log("on Hedaer websocket not closed")
     //  }
       console.log("this.websocket on Header: ",this.websocket===WebSocket.OPEN);
-      if(this.websocket===WebSocket.OPEN){
+      console.log("this.$store.state.user.flag: ",this.$store.state.user.flag)
+      if(this.websocket===WebSocket.OPEN && this.$store.state.user.flag===true){
         this.websocket.close()
+        this.$store.state.user.flag=false;
       }
       
     }

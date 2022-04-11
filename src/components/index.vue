@@ -46,6 +46,7 @@ export default {
     onClickJoinBtn(event) {
       event.preventDefault();
       //TODO store.users에 입력한 이름있으면 ,작동 안하고 message popUp되어 진행 막기.
+      
       // const newUser ={
       //   // name: Math.ceil(Math.random()*10000000).toString(),
       //   name: this.user.name,
@@ -56,6 +57,8 @@ export default {
       // this.$store.dispatch('user/userJoin',newUser);
       // console.log("this.user.room:",newUser.room)
        this.$router.replace(`/chat?channel=${this.room}`)
+       /*flag줌*/
+       this.$store.state.user.flag=true;
     }
   },
 };
