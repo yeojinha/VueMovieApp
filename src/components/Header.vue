@@ -103,6 +103,7 @@ export default {
       else if(this.websocket.readyState===WebSocket.OPEN && this.$store.state.user.flag===true){
         this.websocket.close()
         this.$store.state.user.flag=false;
+        localStorage.clear();
         console.log("flag on Header inside: ",this.$store.state.user.flag);
         console.log("websocket check on HEADER inside: ", this.websocket.readyState===WebSocket.OPEN)
       }

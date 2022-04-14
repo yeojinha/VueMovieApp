@@ -54,7 +54,9 @@ export default {
   created() {
     this.channel = this.$route.query.channel || "";
     // this.$store.state.user.stateWebSocket= new WebSocket('ws://localhost:3000/');
-    this.$store.state.user.stateWebSocket = new WebSocket("ws://jonghwa220414.herokuapp.com/ws");
+    this.$store.state.user.stateWebSocket = new WebSocket(
+      "ws://jonghwa220414.herokuapp.com/ws"
+    );
     this.websocket = this.$store.state.user.stateWebSocket;
 
     this.websocket.getUiqueID = function () {
@@ -165,6 +167,7 @@ export default {
       event.preventDefault();
       if (this.$store.state.user.flag == true) {
         this.websocket.close();
+        localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
         console.log(
