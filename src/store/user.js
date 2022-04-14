@@ -1,4 +1,4 @@
-import { toSafeInteger } from "lodash";
+// import { toSafeInteger } from "lodash";
 
 export default {
   namespaced: true,
@@ -40,31 +40,31 @@ export default {
  
   // },
   methods:{
+     putUser(state,user)
+    {
+      state.newUser = user; 
+      console.log("state newUser: ",state.newUser);
+      state.users.push({
+        name:user.name,
+        room:user.room,
+        msg:user.msg
+        });
+      console.log("users array: ",state.users);    
+    },
+    pullUser(state,user){
+        const temp = state.users.find(us=>us.name===user.name)
+        const index = state.users.indexOf(temp);
+        console.log('index: ',index)
+        if (index !== -1) {
+        state.pulledUser=state.users.splice(index, 1)[0];
+        console.log("usrs.list: ",state.users);
+        console.log("state.pulledUser: ", state.pulledUser)
 
+      }
+    }
   },
   mutations: {
-    // putUser(state,user)
-    // {
-    //   state.newUser = user; 
-    //   console.log("state newUser: ",state.newUser);
-    //   state.users.push({
-    //     name:user.name,
-    //     room:user.room,
-    //     msg:user.msg
-    //     });
-    //   console.log("users array: ",state.users);    
-    // },
-    // pullUser(state,user){
-    //     const temp = state.users.find(us=>us.name===user.name)
-    //     const index = state.users.indexOf(temp);
-    //     console.log('index: ',index)
-    //     if (index !== -1) {
-    //     state.pulledUser=state.users.splice(index, 1)[0];
-    //     console.log("usrs.list: ",state.users);
-    //     console.log("state.pulledUser: ", state.pulledUser)
-
-    //   }
-    // }
+   
   },
   actions: {
     // userJoin(context,user) {

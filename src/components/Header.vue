@@ -94,11 +94,17 @@ export default {
     clickEventSocket(event){
      this.websocket=this.$store.state.user.stateWebSocket;
      //TODO 역시ㅓ websocket이 close 작동 안한다.
-      console.log("this.websocket on Header: ",this.websocket===WebSocket.OPEN);
-      console.log("this.$store.state.user.flag on Header: ",this.$store.state.user.flag)
-      if(this.websocket===WebSocket.OPEN && this.$store.state.user.flag===true){
+    //  console.log("flag on Header: ",this.$store.state.user.flag);
+    //  console.log("Store websocke readyState: ",this.$store.state.user.stateWebSocket.readyState)
+    
+      if(this.websocket===null){
+          return;
+      }
+      else if(this.websocket.readyState===WebSocket.OPEN && this.$store.state.user.flag===true){
         this.websocket.close()
         this.$store.state.user.flag=false;
+        console.log("flag on Header inside: ",this.$store.state.user.flag);
+        console.log("websocket check on HEADER inside: ", this.websocket.readyState===WebSocket.OPEN)
       }
     }
     

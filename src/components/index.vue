@@ -5,13 +5,13 @@
     </header>
     <main class="join-main">
       <form action="chat.html">
-        <!-- <div class="form-control">
+        <div class="form-control">
           <label for="username">Username</label>
-          <input type="text" v-model="user.name" placeholder="Enter username..." required />
-        </div> -->
+          <input type="text" v-model="this.username" placeholder="Enter username..." required />
+        </div>
         <div class="form-control">
           <label for="room">Room</label>
-          <select name="room" id="room" v-model="room">
+          <select name="room" id="room" v-model="this.room">
             <option v-for="room in List.items" :key="room">
               {{ room }}
             </option>
@@ -26,11 +26,11 @@
 export default {
   data() {
     return {
-      // user:{
-      //   name:'',
-      //   room:'Melo',
-      //   msg:''
-      // },
+      newUser:{
+        name:'',
+        room:''
+      },
+      username:'',
       room:'Melo',
       List: {
         name:"Room",
@@ -45,20 +45,15 @@ export default {
   methods: {
     onClickJoinBtn(event) {
       event.preventDefault();
-      //TODO store.users에 입력한 이름있으면 ,작동 안하고 message popUp되어 진행 막기.
-      
-      // const newUser ={
-      //   // name: Math.ceil(Math.random()*10000000).toString(),
-      //   name: this.user.name,
-      //   room: this.user.room,
-      //   msg:this.user.msg
-      // }
-      // this.$store.state.user.newUser = newUser;
-      // this.$store.dispatch('user/userJoin',newUser);
-      // console.log("this.user.room:",newUser.room)
+      const newUser={
+        name:this.username,
+        room:this.room
+      }
+      this.$store.state.user.flag=true;
+       console.log("flag: ",this.$store.state.user.flag)
        this.$router.replace(`/chat?channel=${this.room}`)
        /*flag줌*/
-       this.$store.state.user.flag=true;
+       
     }
   },
 };

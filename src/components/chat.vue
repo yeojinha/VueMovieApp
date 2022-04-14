@@ -44,16 +44,25 @@ import moment from 'moment'
 export default {
   created() {
     this.channel = this.$route.query.channel || '';
-    // this.$store.state.user.stateWebSocket= new WebSocket('ws://localhost:3000/ws');
-    this.$store.state.user.stateWebSocket = new WebSocket('wss://peaceful-ridge-59102.herokuapp.com');
+    // this.$store.state.user.stateWebSocket= new WebSocket('ws://localhost:3000/');
+    this.$store.state.user.stateWebSocket = new WebSocket('ws://peaceful-ridge-59102.herokuapp.com');
     this.websocket=this.$store.state.user.stateWebSocket;
     
+    this.websocket.getUiqueID=function(){
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      }
+      return s4() + s4() + '-' + s4();
+    };
+
     this.websocket.onmessage = ({ data }) => {
+      this.websocket.id = this.websocket.getUiqueID(); 
       const vo = JSON.parse(data);
       if (vo.channel === this.channel) {
         this.appendNewMessage(this.tempName, vo.message, vo.time);
       }
     };
+
     this.websocket.onopen = (event) => {
       console.log('open event..', event);
       
@@ -62,6 +71,7 @@ export default {
     this.websocket.onerror = (event) => {
       console.log('error', event);
     };
+
      this.websocket.onclose = (event) => {
             console.log('close', event); 
     };
@@ -70,6 +80,7 @@ export default {
     return {
       tempName: 'Ghost',
       user:{
+        id:null,
         name:'',
         room:''
       },
@@ -110,7 +121,7 @@ export default {
     send() {
       console.log("websocket: ",this.websocket);
       console.log("state.websocket: ",this.$store.state.user.stateWebSocket)
-      console.log("this.websocket on Chat: ",this.websocket===WebSocket.OPEN);
+      console.log("this.websocket on Chat: ",this.websocket.readyState===WebSocket.OPEN);
       if (this.chatInputMessage === '') return;
       const message = {
         channel: this.channel,
@@ -139,11 +150,15 @@ export default {
     //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
     onClickleaveRoom(event){
         event.preventDefault();
-         this.$router.replace('/')
          if(this.$store.state.user.flag==true){
+
            this.websocket.close();
            this.$store.state.user.flag=false;
+           console.log("flag on chat: ",this.$store.state.user.flag)
+           console.log("this.websocket.readyState: ",this.websocket.readyState===WebSocket.OPEN)
          }    
+         
+         this.$router.replace('/')
     }
   }
 };

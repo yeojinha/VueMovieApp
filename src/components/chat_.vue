@@ -1,17 +1,33 @@
 <template>
   <div class="chat-container">
     <header class="chat-header">
-      <h1><i class="fas fa-smile"></i> ChatCord</h1>
-      <button class="btn" @click="onClickleaveRoom">Leave Room</button>
+      <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
+    <!-- <a href="index.html" class="btn">Leave Room</a> -->
+    <button class="btn" @click="onClickleaveRoom">Leave Room</button>
     </header>
     <main class="chat-main">
       <div class="chat-sidebar">
         <h3><i class="fas fa-comments"></i> Channel Name:</h3>
-        <h2 id="room-name">{{ this.channel }}</h2>
-      
+        <h2 id="room-name">{{ this.channel }}</h2><!--TODO channel을 store에서 가져와야 함.-->
+        <!-- <h3><i class="fas fa-users"></i> Users</h3>
+        <ul id="users">
+          <li v-for="user in this.$store.state.user.users" 
+            :key="user">
+            <li v-if="'user.room'=='this.channel'">
+              {{ user.name }}
+            </li>
+          </li>
+        </ul> -->
       </div>
       <div class="chat-messages">
-      
+        <!-- <div class="message">
+          <p class="meta">Brad <span>9:12pm</span></p>
+          <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.</p>
+        </div>
+        <div class="message">
+          <p class="meta">Mary <span>9:15pm</span></p>
+          <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.</p>
+        </div> -->
       </div>
     </main>
     <div class="chat-form-container">
@@ -24,47 +40,84 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   created() {
     this.channel = this.$route.query.channel || '';
-    this.websocket = new WebSocket('ws://localhost:9999/ws');
-    // this.websocket = new SockJS('http://localhost:8080/ws/realtime');
+    const temp = this.$store.$state.newUser;  
+    const socket = io();//
 
-    this.websocket.onopen = (event) => {
-      console.log('open event..', event);
-    };
+    //Join chatRoom
+    socket.emit('joinRoom',temp);
 
-    this.websocket.onerror = (event) => {
-      console.log('error', event);
-    };
+// Get room and users
+// socket.on('roomUsers', ({ room, users }) => {
+//   outputRoomName(room);
+//   outputUsers(users);
+//   //on으로 roomUsers
+// });
+/*
+socket.on('message', (message) => {
+  console.log(message);
+  outputMessage(message);
 
-    this.websocket.onmessage = ({ data }) => {
+  // Scroll down
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+*/
+    socket.on('message',(data) => {
       const vo = JSON.parse(data);
       if (vo.channel === this.channel) {
-        this.appendNewMessage(this.username, vo.message);
+        //this.tempName -> vo.TempName
+        this.appendNewMessage(vo.tempName, vo.message, vo.time);
       }
-    };
-
-    this.websocket.onclose = (event) => {
-      console.log('close', event);
-    };
-  },
-  data() {
+      // chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+    
+   
+  },data() {
     return {
-      username: 'Ghost',
+      tempName: 'Ghost',
+      user:{
+        name:'',
+        room:''
+      },
+      // username:  this.$store.state.user.newUser.name,
       websocket: null,
       channel: '',
       chatInputMessage: '',
     };
   },
+  // computed:{
+  //   getThisRoom(){
+      
+  //   },
+  //   userList(){
+  //     // console.log("this.$store.state.user.users: ",this.$store.state.user.users.filter(user=>user.room == this.channel)); 
+  //     // console.log("this. Get user: ", this.getUser);
+  //     return this.$store.state.user.users.filter(user=>user.room == this.channel);
+  //   },
+  //   getUser(){
+  //     //TODO name으로 store users에서 해당하는 user가져오기.
+  //     for(let i=0;i<this.$store.state.user.users.length;i++){
+  //       if(this.username===this.$store.state.user.users[i].name){
+  //         return this.$store.state.user.users[i]
+  //       }
+  //     }
+  //   }
+  // },
   methods: {
     send() {
       if (this.chatInputMessage === '') return;
       const message = {
+        msgUser: this.temp,
         channel: this.channel,
         message: this.chatInputMessage,
       };
-      this.websocket.send(JSON.stringify(message));
+      
+//TODO  메시지 전달 서버에 메시지 전달하는데, ID까지 전달되느냐?
+      socket.emit('chatMessage',JSON.stringify(message));
       this.chatInputMessage = '';
     },
     onEnter() {
@@ -76,7 +129,7 @@ export default {
       const p = document.createElement('p');
       p.classList.add('meta');
       p.innerText = username;
-      p.innerHTML += `<span>${time}</span>`;
+      p.innerHTML += `<span>${moment(time).format('h:mm a')}</span>`;
       div.appendChild(p);
       const para = document.createElement('p');
       para.classList.add('text');
@@ -84,13 +137,13 @@ export default {
       div.appendChild(para);
       document.querySelector('.chat-messages').appendChild(div);
     },
-        onClickleaveRoom(event){
+    //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
+    onClickleaveRoom(event){
         event.preventDefault();
-        this.websocket.onclose = (event) => {
-        console.log('close', event);
-         };
-         //TODO router.push하면 /이동이 아닌 index.html/으로 이동하여 home으로 이동된다.
-         this.$router.replace('/')
+        this.$router.replace('/')
+        //TODO userLeave사용 시에,user 나가게 해야함.
+        const LeftUser = this.$store.user_.userLeave(socket.id);
+        console.log("LeftUser:: ",LeftUser) 
     }
   }
 };
