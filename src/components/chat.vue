@@ -52,7 +52,8 @@
 import moment from "moment";
 export default {
   created() {
-    const chatMessages = document.querySelector(".chat-messages");
+    const div = document.createElement("div");
+    // const chatMessages = document.querySelector(".chat-messages");
     this.channel = this.$route.query.channel || "";
     // this.$store.state.user.stateWebSocket = new WebSocket("ws://localhost:80/");
     this.$store.state.user.stateWebSocket = new WebSocket(
@@ -152,18 +153,17 @@ export default {
       this.send();
     },
     appendNewMessage(username, message, time) {
-      const div = document.createElement("div");
-      div.classList.add("message");
+      this.div.classList.add("message");
       const p = document.createElement("p");
       p.classList.add("meta");
       p.innerText = username;
       p.innerHTML += `<span>${moment(time).format("h:mm a")}</span>`;
-      div.appendChild(p);
+      this.div.appendChild(p);
       const para = document.createElement("p");
       para.classList.add("text");
       para.innerText = message;
-      div.appendChild(para);
-      document.querySelector(".chat-messages").appendChild(div);
+      this.div.appendChild(para);
+      document.querySelector(".chat-messages").appendChild(this.div);
       document.querySelector(".chat-messages").scrollTop =
         document.querySelector(".chat-messages").scrollHeight;
     },
@@ -171,6 +171,7 @@ export default {
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
+        document.querySelector(".chat-messages").removeChild(this.div);
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
@@ -180,7 +181,7 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      // document.querySelector(".chat-messages").removeChild(div);
+
       this.$router.replace("/");
     },
   },
