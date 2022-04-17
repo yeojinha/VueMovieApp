@@ -33,7 +33,7 @@
 
 <script>
 import Logo from "~/components/Logo";
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -41,13 +41,11 @@ export default {
   },
   data() {
     return {
-    
-    // user : this.$store.state.user.newUser,
+      // user : this.$store.state.user.newUser,
       navigations: [
         {
           name: "Search",
           href: "/",
-          
         },
         {
           name: "Movie",
@@ -55,8 +53,8 @@ export default {
           path: /^\/movie/, // '/movie'
         },
         {
-          name:"Chat",
-          href:"/index"
+          name: "Chat",
+          href: "/index",
         },
         {
           name: "About",
@@ -66,10 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('about',[
-      'image',
-      'name'
-       ])
+    ...mapState("about", ["image", "name"]),
     // image() {
     //   return this.$store.state.about.image;
     // },
@@ -79,43 +74,48 @@ export default {
   },
   methods: {
     isMatch(path) {
-      if (!path) return false      
-      else if(path==="/selections"){
+      if (!path) return false;
+      else if (path === "/selections") {
         apply();
-        
+
         return path.test(this.$route.fullPath);
-        
       }
       return path.test(this.$route.fullPath);
     },
     toAbout() {
       this.$router.replace("/about");
     },
-    clickEventSocket(event){
-     this.websocket=this.$store.state.user.stateWebSocket;
-     //TODO 역시ㅓ websocket이 close 작동 안한다.
-    //  console.log("flag on Header: ",this.$store.state.user.flag);
-    //  console.log("Store websocke readyState: ",this.$store.state.user.stateWebSocket.readyState)
-    
-      if(this.websocket===null){
-          return;
-      }
-      else if(this.websocket.readyState===WebSocket.OPEN && this.$store.state.user.flag===true){
-        this.websocket.close()
-        this.$store.state.user.flag=false;
+    clickEventSocket(event) {
+      event.preventDefault();
+      this.websocket = this.$store.state.user.stateWebSocket;
+      //TODO 역시ㅓ websocket이 close 작동 안한다.
+      console.log("flag on Header: ", this.$store.state.user.flag);
+      console.log(
+        "Store websocke readyState: ",
+        this.$store.state.user.stateWebSocket.readyState
+      );
+
+      if (this.websocket === null) {
+        return;
+      } else if (
+        this.websocket.readyState === WebSocket.OPEN &&
+        this.$store.state.user.flag === true
+      ) {
+        this.websocket.close();
+        this.$store.state.user.flag = false;
         localStorage.clear();
-        console.log("flag on Header inside: ",this.$store.state.user.flag);
-        console.log("websocket check on HEADER inside: ", this.websocket.readyState===WebSocket.OPEN)
+        console.log("flag on Header inside: ", this.$store.state.user.flag);
+        console.log(
+          "websocket check on HEADER inside: ",
+          this.websocket.readyState === WebSocket.OPEN
+        );
       }
-    }
-    
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
-
 header {
   height: 70px;
   padding: 40px 40px;
@@ -147,8 +147,9 @@ header {
       width: 100%;
     }
   }
-  @include media-breakpoint-down(sm){//줄여서(반응형) 공간 부족 시에 사라지게
-    .nav{
+  @include media-breakpoint-down(sm) {
+    //줄여서(반응형) 공간 부족 시에 사라지게
+    .nav {
       display: none;
     }
   }
