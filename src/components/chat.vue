@@ -52,8 +52,9 @@
 import moment from "moment";
 export default {
   created() {
+    const chatMessages = document.querySelector(".chat-messages");
     this.channel = this.$route.query.channel || "";
-    // this.$store.state.user.stateWebSocket= new WebSocket('ws://localhost:3000/');
+    // this.$store.state.user.stateWebSocket = new WebSocket("ws://localhost:80/");
     this.$store.state.user.stateWebSocket = new WebSocket(
       "ws://jonghwa220414.herokuapp.com/ws"
     );
@@ -73,6 +74,7 @@ export default {
       const vo = JSON.parse(data);
       if (vo.channel === this.channel) {
         this.appendNewMessage(this.tempName, vo.message, vo.time);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
       }
     };
 
@@ -165,7 +167,7 @@ export default {
     //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
     onClickleaveRoom(event) {
       event.preventDefault();
-      if (this.$store.state.user.flag == true) {
+      if (this.$store.state.user.flag === true) {
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
@@ -175,7 +177,6 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-
       this.$router.replace("/");
     },
   },
