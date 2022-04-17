@@ -164,7 +164,8 @@ export default {
       para.innerText = message;
       div.appendChild(para);
       document.querySelector(".chat-messages").appendChild(div);
-      this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+      document.querySelector(".chat-messages").scrollTop =
+        document.querySelector(".chat-messages").scrollHeight;
     },
     //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
     onClickleaveRoom(event) {
