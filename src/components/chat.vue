@@ -75,6 +75,8 @@ export default {
       if (vo.channel === this.channel) {
         this.appendNewMessage(this.tempName, vo.message, vo.time);
       }
+
+      this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
 
     this.websocket.onopen = (event) => {
@@ -177,6 +179,7 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
+      document.querySelector(".chat-messages").removeChild(div);
       this.$router.replace("/");
     },
   },
