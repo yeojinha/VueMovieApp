@@ -52,8 +52,7 @@
 import moment from "moment";
 export default {
   created() {
-    const div = document.createElement("div");
-    // const chatMessages = document.querySelector(".chat-messages");
+    const chatMessages = document.querySelector(".chat-messages");
     this.channel = this.$route.query.channel || "";
     // this.$store.state.user.stateWebSocket = new WebSocket("ws://localhost:80/");
     this.$store.state.user.stateWebSocket = new WebSocket(
@@ -153,25 +152,26 @@ export default {
       this.send();
     },
     appendNewMessage(username, message, time) {
-      this.div.classList.add("message");
+      const div = document.createElement("div");
+      div.classList.add("message");
       const p = document.createElement("p");
       p.classList.add("meta");
       p.innerText = username;
       p.innerHTML += `<span>${moment(time).format("h:mm a")}</span>`;
-      this.div.appendChild(p);
+      div.appendChild(p);
       const para = document.createElement("p");
       para.classList.add("text");
       para.innerText = message;
-      this.div.appendChild(para);
-      document.querySelector(".chat-messages").appendChild(this.div);
+      div.appendChild(para);
+      document.querySelector(".chat-messages").appendChild(div);
       document.querySelector(".chat-messages").scrollTop =
         document.querySelector(".chat-messages").scrollHeight;
     },
-    //TODO button router로 나가면, 다시 들어와서 메시지 치면 1개만 나와야 하는데, 나간 수 만큼 (모든 펑션) 작동함
+    //TODO document.querySelector(".chat-messges")에서 append messages할 때, div 붙는 것들을 삭제시켜야 한다.
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
-        document.querySelector(".chat-messages").removeChild(this.div);
+        // document.querySelector(".chat-messages").
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
