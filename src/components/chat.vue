@@ -180,7 +180,7 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      document.querySelector(".chat-messages").removeChild(div);
+      // document.querySelector(".chat-messages").removeChild(div);
       this.$router.replace("/");
     },
   },
