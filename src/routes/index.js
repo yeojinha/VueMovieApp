@@ -1,10 +1,10 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from './Home.vue';
-import Movie from './Movie.vue';
-import About from './About.vue';
-import NotFound from './NotFound.vue';
-import Index from '../components/index.vue';
-import Chat from '../components/chat.vue';
+import { createRouter, createWebHashHistory } from "vue-router";
+import Home from "./Home.vue";
+import Movie from "./Movie.vue";
+import About from "./About.vue";
+import NotFound from "./NotFound.vue";
+import Index from "../components/index.vue";
+import Chat from "../components/chat.vue";
 //src\routes\public\css\js\chat.html
 
 export default createRouter({
@@ -19,35 +19,43 @@ export default createRouter({
   routes: [
     //아래 이름을 이동
     {
-      path: '/', //page 구분
+      path: "/", //page 구분
       component: Home, //
     },
     {
-      path: '/movie/:id',
+      path: "/movie/:id",
       component: Movie,
     },
     {
-      path: '/chat',
+      path: "/chat",
       component: Chat,
     },
     {
-      path: '/about',
+      path: "/about",
       component: About,
     },
     {
-      path: '/index',
+      path: "/index",
       component: Index,
     },
     {
-      path: '/:notFound(.*)',
+      path: "/:notFound(.*)",
       component: NotFound,
     },
+    // {
+    //   path: "/",
+    //   component: Home,
+    //   beforeEnter(to, from, next) {
+    //     window.location.href =
+    //       "https://hardcore-cori-ba34bc.netlify.app/#/Home";
+    //   },
+    // },
   ],
-  methods:{
-    socketClose(){
-       this.socket=this.$store.state.user.stateWebSocket;
-    // this.socket.close();
-        this.socket.close();
-    }
-  }
+  methods: {
+    socketClose() {
+      this.socket = this.$store.state.user.stateWebSocket;
+      // this.socket.close();
+      this.socket.close();
+    },
+  },
 });
