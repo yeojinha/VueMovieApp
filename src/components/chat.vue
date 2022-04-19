@@ -14,7 +14,7 @@
         <ul id="users">
           <!-- v-if="'user.room' == 'this.channel'" -->
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          <li v-for="user in this.userList" :key="user">
+          <li v-for="user in userList" :key="user">
             {{ user.name }}
           </li>
         </ul>
@@ -181,7 +181,7 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
-        this.$store.user.commit("pullUser", this.chatUser); //나가면 pull해줌.
+        this.$store.commit("pullUser", this.chatUser); //나가면 pull해줌.
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
