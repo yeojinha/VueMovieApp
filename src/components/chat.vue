@@ -167,11 +167,12 @@ export default {
       document.querySelector(".chat-messages").scrollTop =
         document.querySelector(".chat-messages").scrollHeight;
     },
-    //TODO document.querySelector(".chat-messges")에서 append messages할 때, div 붙는 것들을 삭제시켜야 한다.
+    //TODO document.querySelector(".chat-messges")에서 append messages할 때, div class "message" 붙는 것들을 삭제시켜야 한다.
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
-        // document.querySelector(".chat-messages").
+        document.querySelector(".chat-messages").classLsit.remove("message");
+        //todo .chat-messages에서 classList가져와서 message class 삭제.
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
