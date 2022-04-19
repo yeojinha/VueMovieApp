@@ -89,6 +89,7 @@ export default {
       event.preventDefault();
       this.websocket = this.$store.state.user.stateWebSocket;
       //TODO 역시ㅓ websocket이 close 작동 안한다.
+
       console.log("flag on Header: ", this.$store.state.user.flag);
       console.log(
         "Store websocke readyState: ",

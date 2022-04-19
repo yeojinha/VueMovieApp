@@ -7,7 +7,12 @@
       <form action="chat.html">
         <div class="form-control">
           <label for="username">Username</label>
-          <input type="text" v-model="this.username" placeholder="Enter username..." required />
+          <input
+            type="text"
+            v-model="this.username"
+            placeholder="Enter username..."
+            required
+          />
         </div>
         <div class="form-control">
           <label for="room">Room</label>
@@ -26,15 +31,15 @@
 export default {
   data() {
     return {
-      newUser:{
-        name:'',
-        room:''
+      newUser: {
+        name: "",
+        room: "",
       },
-      username:'',
-      room:'Melo',
+      username: "",
+      room: "Melo",
       List: {
-        name:"Room",
-        items:['Melo', 'Family', 'Fantasy', 'Action']
+        name: "Room",
+        items: ["Melo", "Family", "Fantasy", "Action"],
       },
       // nav:{
       //   name:"chat",
@@ -45,19 +50,19 @@ export default {
   methods: {
     onClickJoinBtn(event) {
       event.preventDefault();
-      const newUser={
-        name:this.username,
-        room:this.room
-      }
-      this.$store.state.user.flag=true;
-       console.log("flag: ",this.$store.state.user.flag)
-       this.$router.replace(`/chat?channel=${this.room}`)
-       /*flag줌*/
-       
-    }
+      this.$store.state.user.reloadFlag = true; //for reload on Home.vue
+      const newUser = {
+        name: this.username,
+        room: this.room,
+      };
+      this.$store.state.user.flag = true;
+      console.log("flag: ", this.$store.state.user.flag);
+      this.$router.replace(`/chat?channel=${this.room}`);
+      /*flag줌*/
+    },
   },
 };
 </script>
 <style scoped>
-@import '../scss/chat.css';
+@import "../scss/chat.css";
 </style>

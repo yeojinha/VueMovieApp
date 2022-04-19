@@ -24,10 +24,14 @@ export default {
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
-    location.reload();
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
+    //todo store에서 flag걸어준다.  chat에 접속하면 flag 1
+    if (this.$store.state.user.reloadFlag === true) {
+      location.reload();
+      this.$store.state.user.reloadFlag = false;
+    }
   },
   methods: {
     unLoadEvent: function (event) {
