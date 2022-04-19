@@ -181,7 +181,7 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
-        this.$store.user.dispatch("userLeave", this.chatUser); //나가면 pull해줌.
+        this.$store.dispatch("user/userLeave", this.chatUser); //나가면 pull해줌.
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
