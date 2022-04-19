@@ -185,7 +185,7 @@ export default {
       // this.$router.go("//hardcore-cori-ba34bc.netlify.app/#/");
       //todo router로 이동했을 때, 전에 있던 내용들 다 지워져야 함. go는 현재 경로에서 refresh하는 것이다.
       //todo location href를 사용하던지 해야함.
-      window.location.replace("https://hardcore-cori-ba34bc.netlify.app/#/");
+      window.location.href = "https://hardcore-cori-ba34bc.netlify.app/#/";
     },
   },
 };

@@ -21,26 +21,32 @@ export default createRouter({
     {
       path: "/", //page 구분
       component: Home, //
+      name: "Home",
     },
     {
       path: "/movie/:id",
       component: Movie,
+      name: "Movie",
     },
     {
       path: "/chat",
       component: Chat,
+      name: "Chat",
     },
     {
       path: "/about",
       component: About,
+      name: "About",
     },
     {
       path: "/index",
       component: Index,
+      name: "Index",
     },
     {
       path: "/:notFound(.*)",
       component: NotFound,
+      name: "NotFound",
     },
     // {
     //   path: "/",
