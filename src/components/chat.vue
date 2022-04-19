@@ -182,7 +182,7 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      this.$router.go("/");
+      this.$router.push("/");
       // this.$router.replace("/");
     },
   },
