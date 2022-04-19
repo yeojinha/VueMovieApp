@@ -174,7 +174,7 @@ export default {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
         this.websocket.close();
-        localStorage.clear();
+        window.localstorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
         console.log(
@@ -182,8 +182,8 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      this.$router.push("/");
-      // this.$router.replace("/");
+      // this.$router.push("/");
+      this.$router.replace("/");
     },
   },
 };
