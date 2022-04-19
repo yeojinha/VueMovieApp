@@ -174,7 +174,7 @@ export default {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
         this.websocket.close();
-        localstorage.clear();
+        localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
         console.log(
@@ -182,7 +182,7 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      this.$router.push("//hardcore-cori-ba34bc.netlify.app/#/");
+      this.$router.go("//hardcore-cori-ba34bc.netlify.app/#/");
       //todo router로 이동했을 때, 전에 있던 내용들 다 지워져야 함. go는 현재 경로에서 refresh하는 것이다.
       //todo location href를 사용하던지 해야함.
       // this.$router.replace("/");
