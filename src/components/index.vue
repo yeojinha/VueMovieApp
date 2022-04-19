@@ -54,9 +54,13 @@ export default {
 
       this.$store.state.user.flag = true;
       console.log("flag: ", this.$store.state.user.flag);
+      // ws://localhost:80/
       this.$store.state.user.stateWebSocket = new WebSocket(
-        "ws://jonghwa220414.herokuapp.com/ws"
+        "ws://localhost:80/"
       );
+      // this.$store.state.user.stateWebSocket = new WebSocket(
+      //   "ws://jonghwa220414.herokuapp.com/ws"
+      // );
       //webSocket의 UniqueID 함수 생성하여 newUser에 전달.
       this.$store.state.user.stateWebSocket.getUniqueID = function () {
         function s4() {
