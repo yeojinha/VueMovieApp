@@ -7,14 +7,14 @@ export default {
     reloadFlag: false,
     flag: false,
     newUser: {
+      id: null,
       name: "",
       room: "",
-      msg: "",
     },
     user: {
+      id: null,
       name: "",
       room: "",
-      msg: "",
     },
     users: [],
     rooms: [],
@@ -43,19 +43,17 @@ export default {
   methods: {},
   mutations: {
     putUser(state, user) {
-      state.newUser = user;
-      console.log("state newUser: ", state.newUser);
+      // state.newUser = user;
+      // console.log("state newUser: ", state.newUser);
       state.users.push({
+        id: user.id,
         name: user.name,
         room: user.room,
-        msg: user.msg,
       });
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
-      const temp = state.users.find(
-        (us) => us.name === user.name && us.room == user.room
-      );
+      const temp = state.users.find((us) => us.id === user.id);
       console.log("pull user: ", temp);
       const index = state.users.indexOf(temp);
       console.log("index: ", index);

@@ -54,25 +54,25 @@ export default {
     const chatMessages = document.querySelector(".chat-messages");
     this.channel = this.$route.query.channel || "";
     // this.$store.state.user.stateWebSocket = new WebSocket("ws://localhost:80/");
-    this.$store.state.user.stateWebSocket = new WebSocket(
-      "ws://jonghwa220414.herokuapp.com/ws"
-    );
+    // this.$store.state.user.stateWebSocket = new WebSocket(
+    //   "ws://jonghwa220414.herokuapp.com/ws"
+    // );
     this.websocket = this.$store.state.user.stateWebSocket;
 
-    this.websocket.getUiqueID = function () {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + "-" + s4();
-    };
+    // this.websocket.getUiqueID = function () {
+    //   function s4() {
+    //     return Math.floor((1 + Math.random()) * 0x10000)
+    //       .toString(16)
+    //       .substring(1);
+    //   }
+    //   return s4() + s4() + "-" + s4();
+    // };
 
     this.websocket.onmessage = ({ data }) => {
-      this.websocket.id = this.websocket.getUiqueID();
+      // this.websocket.id = this.websocket.getUiqueID();
       const vo = JSON.parse(data);
       if (vo.channel === this.channel) {
-        this.appendNewMessage(this.tempName, vo.message, vo.time);
+        this.appendNewMessage(this.chatUser.name, vo.message, vo.time);
       }
 
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
@@ -92,6 +92,7 @@ export default {
   },
   data() {
     return {
+      chatUser: this.$store.state.user.newUser,
       tempName: "Ghost",
       user: {
         id: null,
@@ -180,6 +181,7 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
+        this.$store.user.commit("pullUser", this.chatUser); //나가면 pull해줌.
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
