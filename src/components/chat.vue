@@ -14,7 +14,7 @@
         <ul id="users">
           <!-- v-if="'user.room' == 'this.channel'" -->
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          <li v-for="user in userList()" :key="user.id">
+          <li v-for="user in this.$store.state.user.users" :key="user.id">
             {{ user.name }}
           </li>
         </ul>
@@ -125,7 +125,7 @@ export default {
   // },
   computed: {
     userList() {
-      const temp = this.$store.state.user.users.find(
+      const temp = this.$store.state.user.users.filter(
         (us) => us.name === user.name && us.room == user.room
       );
       return temp;
