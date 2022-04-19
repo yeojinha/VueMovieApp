@@ -24,10 +24,10 @@ export default {
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
+    location.reload();
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
-    location.reload();
   },
   methods: {
     unLoadEvent: function (event) {
