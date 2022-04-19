@@ -55,6 +55,8 @@ export default {
         name: this.username,
         room: this.room,
       };
+      console.log("newUser on index.vue: ", newUser);
+      this.$store.state.user.commit("putUser", newUser);
       this.$store.state.user.flag = true;
       console.log("flag: ", this.$store.state.user.flag);
       this.$router.replace(`/chat?channel=${this.room}`);

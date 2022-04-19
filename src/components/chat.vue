@@ -10,15 +10,14 @@
         <h3><i class="fas fa-comments"></i> Channel Name:</h3>
         <h2 id="room-name">{{ this.channel }}</h2>
         <!--TODO channel을 store에서 가져와야 함.-->
-        <!-- <h3><i class="fas fa-users"></i> Users</h3>
+        <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <li v-for="user in this.$store.state.user.users" 
-            :key="user">
-            <li v-if="'user.room'=='this.channel'">
-              {{ user.name }}
-            </li>
+          <!-- v-if="'user.room' == 'this.channel'" -->
+          <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+          <li v-for="user in this.userList" :key="user">
+            {{ user.name }}
           </li>
-        </ul> -->
+        </ul>
       </div>
       <div class="chat-messages">
         <!-- <div class="message">
@@ -123,6 +122,14 @@ export default {
   //     }
   //   }
   // },
+  computed: {
+    userList() {
+      const temp = this.$store.state.user.users.find(
+        (us) => us.name === user.name && us.room == user.room
+      );
+      return temp;
+    },
+  },
   methods: {
     handleSend() {
       console.log("websocket is? ", this.websocket);

@@ -40,7 +40,8 @@ export default {
   //   },
 
   // },
-  methods: {
+  methods: {},
+  mutations: {
     putUser(state, user) {
       state.newUser = user;
       console.log("state newUser: ", state.newUser);
@@ -49,10 +50,13 @@ export default {
         room: user.room,
         msg: user.msg,
       });
-      console.log("users array: ", state.users);
+      console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
-      const temp = state.users.find((us) => us.name === user.name);
+      const temp = state.users.find(
+        (us) => us.name === user.name && us.room == user.room
+      );
+      console.log("pull user: ", temp);
       const index = state.users.indexOf(temp);
       console.log("index: ", index);
       if (index !== -1) {
@@ -62,7 +66,6 @@ export default {
       }
     },
   },
-  mutations: {},
   actions: {
     // userJoin(context,user) {
     //   console.log('...user: ',{...user})
