@@ -187,6 +187,7 @@ export default {
       //todo location href를 사용하던지 해야함.
       // window.location.href = "https://hardcore-cori-ba34bc.netlify.app/#/";
       this.$router.push("/");
+      this.$router.go();
     },
   },
 };
