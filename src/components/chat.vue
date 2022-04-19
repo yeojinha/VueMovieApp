@@ -171,7 +171,11 @@ export default {
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
-        document.querySelector(".chat-messages").classLsit.remove("message");
+        document
+          .querySelector(".chat-messages")
+          .classLsit.remove(
+            ...document.querySelector(".chat-messages").classList
+          );
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         this.websocket.close();
         localStorage.clear();
