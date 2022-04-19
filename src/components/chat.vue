@@ -3,9 +3,7 @@
     <header class="chat-header">
       <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
       <!-- <a href="index.html" class="btn">Leave Room</a> -->
-      <button class="btn" @click="onClickleaveRoom">
-        <a href="//hardcore-cori-ba34bc.netlify.app/#/">Leave Room</a>
-      </button>
+      <button class="btn" @click="onClickleaveRoom">Leave Room</button>
     </header>
     <main class="chat-main">
       <div class="chat-sidebar">
@@ -184,11 +182,11 @@ export default {
           this.websocket.readyState === WebSocket.OPEN
         );
       }
-      // this.$router.go("//hardcore-cori-ba34bc.netlify.app/#/");
+      this.$router.replace("/");
       //todo router로 이동했을 때, 전에 있던 내용들 다 지워져야 함. go는 현재 경로에서 refresh하는 것이다.
       //todo location href를 사용하던지 해야함.
       // window.location.href = "https://hardcore-cori-ba34bc.netlify.app/#/";
-      // this.$router.go();
+      this.$router.go(-1);
       // setTimeout(function () {
       //   this.$router.push("/");
       // }, 1200);
