@@ -21,13 +21,13 @@ export default {
   created() {
     //store에서 무리
     this.$store.commit("movie/resetMovies"); //mutation의 resetMovies로 상태 변화
-    location.reload();
   },
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
   },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
+    location.reload();
   },
   methods: {
     unLoadEvent: function (event) {
