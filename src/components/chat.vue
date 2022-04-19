@@ -14,7 +14,7 @@
         <ul id="users">
           <!-- v-if="'user.room' == 'this.channel'" -->
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          <li v-for="user in userList" :key="user.id">
+          <li v-for="user in userList()" :key="user.id">
             {{ user.name }}
           </li>
         </ul>
