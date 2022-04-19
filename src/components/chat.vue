@@ -3,7 +3,9 @@
     <header class="chat-header">
       <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
       <!-- <a href="index.html" class="btn">Leave Room</a> -->
-      <button class="btn" @click="onClickleaveRoom">Leave Room</button>
+      <button class="btn" @click="onClickleaveRoom">
+        <a href="//hardcore-cori-ba34bc.netlify.app/#/">Leave Room</a>
+      </button>
     </header>
     <main class="chat-main">
       <div class="chat-sidebar">
