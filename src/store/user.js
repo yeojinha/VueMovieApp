@@ -65,13 +65,13 @@ export default {
     },
   },
   actions: {
-    // userJoin(context, user) {
-    //   console.log("...user: ", { ...user });
-    //   context.commit("putUser", user);
-    // },
-    // userLeave(context, user) {
-    //   context.commit("pullUser", { ...user });
-    // },
+    userJoin(context, user) {
+      console.log("...user: ", { ...user });
+      context.commit("putUser", user);
+    },
+    userLeave(context, user) {
+      context.commit("pullUser", { ...user });
+    },
   },
 };
 
