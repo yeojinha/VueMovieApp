@@ -12,11 +12,8 @@
         <!--TODO channel을 store에서 가져와야 함.-->
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <!-- v-if="'user.room' == 'this.channel'" -->
-          <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          <!-- todo userList에서 목록을 자동으로 업데이트해주지 않는다. -->
-          <li v-for="user in userList" :key="user.id">
-            <li>{{ user.name }}</li>
+          <li v-for="user in userList()" :key="user.id">
+            {{ user.name }}
           </li>
         </ul>
       </div>
