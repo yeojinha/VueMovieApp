@@ -14,7 +14,7 @@
         <ul id="users">
           <!-- v-if="'user.room' == 'this.channel'" -->
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          //todo userList에서 목록을 자동으로 업데이트해주지 않는다.
+          <!-- todo userList에서 목록을 자동으로 업데이트해주지 않는다. -->
           <li v-for="user in userList" :key="user.id">
             {{ user.name }}
           </li>
@@ -82,7 +82,11 @@ export default {
     this.websocket.onopen = ({ data }) => {
       const msg = `${this.chatUser.name}님 하이하이!`;
       console.log("message on onopen: ", msg);
-      this.websocket.send(JSON.stringify(msg));
+
+      console.log("JSON.stringify(ms) onopen: ", JSON.stringify(msg));
+      if (this.websocket.send(JSON.stringify(msg)) < 0) {
+        console.log("안보내짐 error발생");
+      }
       console.log("open event..", data);
     };
 
@@ -99,7 +103,10 @@ export default {
       // this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       const msg = `${this.chatUser.name}님 바이바이!`;
       console.log("message on onclose: ", msg);
-      this.websocket.send(JSON.stringify(msg));
+      console.log("JSON.stringify(ms) onclose: ", JSON.stringify(msg));
+      if (this.websocket.send(JSON.stringify(msg)) < 0) {
+        console.log("안보내짐 error발생");
+      }
       console.log("open event..", event);
     };
   },
