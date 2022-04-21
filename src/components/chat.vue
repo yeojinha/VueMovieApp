@@ -81,11 +81,13 @@ export default {
     };
 
     this.websocket.onopen = ({ data }) => {
-      const msg = `${this.chatUser.name}님 하이하이!`;
-      console.log("message on onopen: ", msg);
+      const message = {
+        message: `${this.chatUser.name}님 바이바이!`,
+      };
+      console.log("message on onopen: ", message);
 
-      console.log("JSON.stringify(ms) onopen: ", JSON.stringify(msg));
-      if (this.websocket.send(JSON.stringify(msg)) < 0) {
+      console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
+      if (this.websocket.send(JSON.stringify(message)) < 0) {
         console.log("안보내짐 error발생");
       } else {
         console.log("보내짐");
@@ -104,10 +106,12 @@ export default {
       // }
 
       // this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
-      const msg = `${this.chatUser.name}님 바이바이!`;
-      console.log("message on onclose: ", msg);
-      console.log("JSON.stringify(ms) onclose: ", JSON.stringify(msg));
-      if (this.websocket.send(JSON.stringify(msg)) < 0) {
+      const message = {
+        message: `${this.chatUser.name}님 바이바이!`,
+      };
+      console.log("message on onclose: ", message);
+      console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
+      if (this.websocket.send(JSON.stringify(message)) < 0) {
         console.log("안보내짐 error발생");
       } else {
         console.log("보내짐");
