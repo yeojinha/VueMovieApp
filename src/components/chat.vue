@@ -104,24 +104,18 @@ export default {
     };
 
     this.websocket.onclose = (event) => {
-      // const vo = JSON.parse(data);
-      // if (vo.channel === this.channel) {
-      //   this.appendNewMessage(this.chatUser.name, msg, vo.time);
+      // const message = {
+      //   message: `${this.chatUser.name}님 바이바이!`,
+      //   channel: this.channel,
+      //   bot: true,
+      // };
+      // console.log("message on onclose: ", message);
+      // console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
+      // if (this.websocket.send(JSON.stringify(message)) < 0) {
+      //   console.log("안보내짐 error발생");
+      // } else {
+      //   console.log("보내짐");
       // }
-
-      // this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
-      const message = {
-        message: `${this.chatUser.name}님 바이바이!`,
-        channel: this.channel,
-        bot: true,
-      };
-      console.log("message on onclose: ", message);
-      console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
-      if (this.websocket.send(JSON.stringify(message)) < 0) {
-        console.log("안보내짐 error발생");
-      } else {
-        console.log("보내짐");
-      }
       console.log("open event..", event);
     };
   },
@@ -235,6 +229,18 @@ export default {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
         this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
+        const message = {
+          message: `${this.chatUser.name}님 바이바이!`,
+          channel: this.channel,
+          bot: true,
+        };
+        console.log("message on onclose: ", message);
+        console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
+        if (this.websocket.send(JSON.stringify(message)) < 0) {
+          console.log("안보내짐 error발생");
+        } else {
+          console.log("보내짐");
+        }
         this.websocket.close();
         localStorage.clear();
         this.$store.state.user.flag = false;
