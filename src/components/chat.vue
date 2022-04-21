@@ -73,7 +73,9 @@ export default {
       // this.websocket.id = this.websocket.getUiqueID();
       const vo = JSON.parse(data);
       console.log("onmessage: ", vo.message, " and ", vo);
-      if (vo.channel === this.channel) {
+      if (vo.channel === this.channel && vo.bot === true) {
+        this.appendNewMessage("Bot-Message", vo.message, vo.time);
+      } else if (vo.channel === this.channel && vo.bot === false) {
         this.appendNewMessage(this.chatUser.name, vo.message, vo.time);
       }
 
@@ -84,6 +86,7 @@ export default {
       const message = {
         message: `${this.chatUser.name}님 하이하이!`,
         channel: this.channel,
+        bot: true,
       };
       console.log("message on onopen: ", message);
 
@@ -110,6 +113,7 @@ export default {
       const message = {
         message: `${this.chatUser.name}님 바이바이!`,
         channel: this.channel,
+        bot: true,
       };
       console.log("message on onclose: ", message);
       console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
@@ -183,6 +187,7 @@ export default {
         name: this.chatUser.name,
         channel: this.channel,
         message: this.chatInputMessage,
+        bot: false,
       };
       console.log("message on chat: ", message);
       this.websocket.send(JSON.stringify(message));
@@ -192,6 +197,22 @@ export default {
       this.send();
     },
     appendNewMessage(username, message, time) {
+      const div = document.createElement("div");
+      div.classList.add("message");
+      const p = document.createElement("p");
+      p.classList.add("meta");
+      p.innerText = username;
+      p.innerHTML += `<span>${moment(time).format("h:mm a")}</span>`;
+      div.appendChild(p);
+      const para = document.createElement("p");
+      para.classList.add("text");
+      para.innerText = message;
+      div.appendChild(para);
+      document.querySelector(".chat-messages").appendChild(div);
+      document.querySelector(".chat-messages").scrollTop =
+        document.querySelector(".chat-messages").scrollHeight;
+    },
+    appendNewMessageFromBot(username, message, time) {
       const div = document.createElement("div");
       div.classList.add("message");
       const p = document.createElement("p");
