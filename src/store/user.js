@@ -40,6 +40,11 @@ export default {
   //   },
 
   // },
+  getters: {
+    getUsers: function (state) {
+      return state.users;
+    },
+  },
   methods: {},
   mutations: {
     putUser(state, user) {
