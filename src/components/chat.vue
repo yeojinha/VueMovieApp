@@ -72,6 +72,7 @@ export default {
     this.websocket.onmessage = ({ data }) => {
       // this.websocket.id = this.websocket.getUiqueID();
       const vo = JSON.parse(data);
+      console.log("onmessage: ", vo.message, " and ", vo);
       if (vo.channel === this.channel) {
         this.appendNewMessage(this.chatUser.name, vo.message, vo.time);
       }
