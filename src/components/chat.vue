@@ -14,6 +14,7 @@
         <ul id="users">
           <!-- v-if="'user.room' == 'this.channel'" -->
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+          //todo userList에서 목록을 자동으로 업데이트해주지 않는다.
           <li v-for="user in userList" :key="user.id">
             {{ user.name }}
           </li>
@@ -78,8 +79,11 @@ export default {
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
 
-    this.websocket.onopen = (event) => {
-      console.log("open event..", event);
+    this.websocket.onopen = ({ data }) => {
+      const msg = `${this.chatUser.name}님 하이하이!`;
+      console.log("message on onopen: ", msg);
+      this.websocket.send(JSON.stringify(msg));
+      console.log("open event..", data);
     };
 
     this.websocket.onerror = (event) => {
@@ -87,7 +91,16 @@ export default {
     };
 
     this.websocket.onclose = (event) => {
-      console.log("close", event);
+      // const vo = JSON.parse(data);
+      // if (vo.channel === this.channel) {
+      //   this.appendNewMessage(this.chatUser.name, msg, vo.time);
+      // }
+
+      // this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+      const msg = `${this.chatUser.name}님 바이바이!`;
+      console.log("message on onclose: ", msg);
+      this.websocket.send(JSON.stringify(msg));
+      console.log("open event..", event);
     };
   },
   data() {
@@ -124,6 +137,7 @@ export default {
   //   }
   // },
   computed: {
+    //todo userList자동으로 업뎃해야함.
     userList() {
       return this.$store.state.user.users;
     },
@@ -147,9 +161,12 @@ export default {
       );
       if (this.chatInputMessage === "") return;
       const message = {
+        //todo name추가해서 server에서 처음 접속시 메세지 전달.
+        name: this.chatUser.name,
         channel: this.channel,
         message: this.chatInputMessage,
       };
+      console.log("message on chat: ", message);
       this.websocket.send(JSON.stringify(message));
       this.chatInputMessage = "";
     },
