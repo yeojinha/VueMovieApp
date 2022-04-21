@@ -50,6 +50,7 @@ export default {
   methods: {
     onClickJoinBtn(event) {
       event.preventDefault();
+      if (!this.username) return;
       this.$store.state.user.reloadFlag = true; //for reload on Home.vue
 
       this.$store.state.user.flag = true;
