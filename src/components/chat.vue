@@ -82,7 +82,8 @@ export default {
 
     this.websocket.onopen = ({ data }) => {
       const message = {
-        message: `${this.chatUser.name}님 바이바이!`,
+        message: `${this.chatUser.name}님 하이하이!`,
+        channel: this.channel,
       };
       console.log("message on onopen: ", message);
 
@@ -108,6 +109,7 @@ export default {
       // this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       const message = {
         message: `${this.chatUser.name}님 바이바이!`,
+        channel: this.channel,
       };
       console.log("message on onclose: ", message);
       console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
