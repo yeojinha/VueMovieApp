@@ -86,6 +86,8 @@ export default {
       console.log("JSON.stringify(ms) onopen: ", JSON.stringify(msg));
       if (this.websocket.send(JSON.stringify(msg)) < 0) {
         console.log("안보내짐 error발생");
+      } else {
+        console.log("보내짐");
       }
       console.log("open event..", data);
     };
@@ -106,6 +108,8 @@ export default {
       console.log("JSON.stringify(ms) onclose: ", JSON.stringify(msg));
       if (this.websocket.send(JSON.stringify(msg)) < 0) {
         console.log("안보내짐 error발생");
+      } else {
+        console.log("보내짐");
       }
       console.log("open event..", event);
     };
