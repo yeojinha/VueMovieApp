@@ -16,7 +16,7 @@
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
           <!-- todo userList에서 목록을 자동으로 업데이트해주지 않는다. -->
           <li v-for="user in userList" :key="user.id">
-            {{ user.name }}
+            <li>{{ user.name }}</li>
           </li>
         </ul>
       </div>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+//TODO 유저목록 갱신화 시켜야함.
 import moment from "moment";
 export default {
   created() {
