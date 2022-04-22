@@ -50,7 +50,7 @@ export default {
   mutations: {
     putUser(state, user) {
       state.mutationFlas++;
-      state.newUser = user;
+      // state.newUser = user;
       // console.log("state newUser: ", state.newUser);
       // state.users.push({
       //   id: user.id,
@@ -80,6 +80,7 @@ export default {
       context.commit("putUser", user);
     },
     userLeave(context, user) {
+      console.log("...user: ", { ...user });
       context.commit("pullUser", user);
     },
   },

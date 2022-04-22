@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       newUser: {
+        id: null,
         name: "",
         room: "",
       },
@@ -72,7 +73,7 @@ export default {
         return s4() + s4() + "-" + s4();
       };
       //newUser 웹소켓 uniqueId전달 받음
-      const newUser = {
+      let newUser = {
         id: this.$store.state.user.stateWebSocket.getUniqueID(),
         name: this.username,
         room: this.room,
