@@ -153,7 +153,9 @@ export default {
   computed: {
     //todo userList자동으로 업뎃해야함.
     userList() {
-      return this.$store.getters.getUsers;
+      console.log("getUsers: ", this.$store.getters.getUsers);
+      const List_of_users = this.$store.getters.getUsers;
+      return List_of_users;
     },
   },
   methods: {
