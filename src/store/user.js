@@ -55,12 +55,8 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      Vue.set(
-        state.users,
-        state.users.length,
-        JSON.parse(JSON.stringify(user))
-      );
-      // state.users = [...state.users, user];
+      state.users.push(user);
+      state.users = [...state.users];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
