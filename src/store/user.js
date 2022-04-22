@@ -6,7 +6,6 @@ export default {
     stateWebSocket: null,
     reloadFlag: false,
     flag: false,
-    index: 0,
     newUser: {
       id: null,
       name: "",
@@ -41,22 +40,22 @@ export default {
   //   },
 
   // },
-
+  getters: {
+    getUsers: function (state) {
+      return state.users;
+    },
+  },
   methods: {},
   mutations: {
     putUser(state, user) {
-      // state.newUser = user;
+      state.newUser = user;
       // console.log("state newUser: ", state.newUser);
-      state.users.push({
-        id: user.id,
-        name: user.name,
-        room: user.room,
-      });
-      // vue.set("state.users", state.index, {
+      // state.users.push({
       //   id: user.id,
       //   name: user.name,
       //   room: user.room,
       // });
+      state.users = [state.users, user];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
