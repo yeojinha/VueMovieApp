@@ -55,7 +55,7 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      state.users = [state.users, user];
+      state.users = [...state.users, user];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
