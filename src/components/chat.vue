@@ -119,7 +119,7 @@ export default {
   },
   data() {
     return {
-      listOfUsers = this.$store.getters['user/getUsers'],
+      // listOfUsers = this.$store.getters['user/getUsers'],
       chatUser: this.$store.state.user.newUser,
       tempName: "Ghost",
       user: {
