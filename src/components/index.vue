@@ -78,10 +78,11 @@ export default {
         room: this.room,
       };
       console.log("newUser on index.vue: ", newUser);
+
       this.$store.state.user.newUser = newUser;
       this.$store.commit("user/putUser", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
-
+      this.$store.state.user.index++;
       /*flag줌*/
     },
   },

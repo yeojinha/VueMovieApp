@@ -6,6 +6,7 @@ export default {
     stateWebSocket: null,
     reloadFlag: false,
     flag: false,
+    index: 0,
     newUser: {
       id: null,
       name: "",
@@ -47,6 +48,11 @@ export default {
       // state.newUser = user;
       // console.log("state newUser: ", state.newUser);
       state.users.push({
+        id: user.id,
+        name: user.name,
+        room: user.room,
+      });
+      vue.set("state.users", state.index, {
         id: user.id,
         name: user.name,
         room: user.room,
