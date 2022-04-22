@@ -57,8 +57,8 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      // state.users.push(user);
-      state.users = [...state.users, user];
+      state.users.push(user);
+      // state.users = [...state.users, user];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
@@ -77,10 +77,10 @@ export default {
   actions: {
     userJoin(context, user) {
       console.log("...user: ", { ...user });
-      context.commit("putUser", { ...user });
+      context.commit("putUser", user);
     },
     userLeave(context, user) {
-      context.commit("pullUser", { ...user });
+      context.commit("pullUser", user);
     },
   },
 };
