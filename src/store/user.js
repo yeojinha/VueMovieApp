@@ -52,11 +52,11 @@ export default {
         name: user.name,
         room: user.room,
       });
-      vue.set("state.users", state.index, {
-        id: user.id,
-        name: user.name,
-        room: user.room,
-      });
+      // vue.set("state.users", state.index, {
+      //   id: user.id,
+      //   name: user.name,
+      //   room: user.room,
+      // });
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
