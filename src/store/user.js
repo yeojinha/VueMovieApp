@@ -6,6 +6,7 @@ export default {
     stateWebSocket: null,
     reloadFlag: false,
     flag: false,
+    mutationFlas: 0,
     newUser: {
       id: null,
       name: "",
@@ -48,6 +49,7 @@ export default {
   methods: {},
   mutations: {
     putUser(state, user) {
+      state.mutationFlas++;
       state.newUser = user;
       // console.log("state newUser: ", state.newUser);
       // state.users.push({
@@ -55,11 +57,12 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      state.users.push(user);
-      state.users = [...state.users];
+      // state.users.push(user);
+      state.users = [...state.users, user];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
+      state.mutationFlas--;
       const temp = state.users.find((us) => us.id === user.id);
       console.log("pull user: ", temp);
       const index = state.users.indexOf(temp);

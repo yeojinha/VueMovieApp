@@ -119,6 +119,7 @@ export default {
   },
   data() {
     return {
+      listOfUsers = this.$store.getters['user/getUsers'],
       chatUser: this.$store.state.user.newUser,
       tempName: "Ghost",
       user: {
@@ -153,9 +154,6 @@ export default {
   computed: {
     //todo userList자동으로 업뎃해야함.
     userList() {
-      // console.log("getUsers: ", this.$store.state.user.users);
-      // const List_of_users = this.$store.state.user.users;
-      // return List_of_users;
       return this.$store.getters["user/getUsers"];
     },
   },
@@ -243,7 +241,7 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
-        localStorage.clear();
+        // localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
         console.log(
