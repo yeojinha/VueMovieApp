@@ -74,10 +74,10 @@ export default {
       console.log("onmessage: ", vo.message, " and ", vo);
       if (vo.channel === this.channel && vo.bot === true) {
         this.appendNewMessage("Bot-Message", vo.message, vo.time);
-      } else if (vo.channel === this.channel && vo.bot !== true) {
-        this.appendNewMessage(vo.name, vo.message, vo.time);
         this.USER_LIST(); //userList method 실행
         this.userRefresh = true;
+      } else if (vo.channel === this.channel && vo.bot !== true) {
+        this.appendNewMessage(vo.name, vo.message, vo.time);
       }
       this.userRefresh = false;
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
