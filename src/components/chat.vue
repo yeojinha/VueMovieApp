@@ -76,8 +76,10 @@ export default {
         this.appendNewMessage("Bot-Message", vo.message, vo.time);
       } else if (vo.channel === this.channel && vo.bot !== true) {
         this.appendNewMessage(vo.name, vo.message, vo.time);
+        this.USER_LIST(); //userList method 실행
+        this.userRefresh = true;
       }
-
+      this.userRefresh = false;
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
 
@@ -123,6 +125,8 @@ export default {
       // listOfUsers = this.$store.getters['user/getUsers'],
       chatUser: this.$store.state.user.newUser,
       tempName: "Ghost",
+      userRefresh: false,
+      userList: [],
       user: {
         id: null,
         name: "",
@@ -154,11 +158,14 @@ export default {
   // },
   computed: {
     //todo userList자동으로 업뎃해야함.
-    userList() {
-      return this.$store.getters["user/getUsers"];
-    },
   },
   methods: {
+    USER_LIST() {
+      if (this.userRefresh !== true)
+        //false 면
+        this.userList = this.$store.getters["user/getUsers"];
+      else return;
+    },
     handleSend() {
       console.log("websocket is? ", this.websocket);
       console.log("websocket is on?", this.websocket === WebSocket.OPEN);
