@@ -12,7 +12,7 @@
         <!--TODO channel을 store에서 가져와야 함.-->
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <li v-for="user in this.userList" :key="user.id">
+          <li v-for="user in USER_LIST" :key="user.id">
             {{ user.name }}
           </li>
         </ul>
@@ -74,12 +74,9 @@ export default {
       console.log("onmessage: ", vo.message, " and ", vo);
       if (vo.channel === this.channel && vo.bot === true) {
         this.appendNewMessage("Bot-Message", vo.message, vo.time);
-        this.USER_LIST(); //userList method 실행
-        this.userRefresh = true;
       } else if (vo.channel === this.channel && vo.bot !== true) {
         this.appendNewMessage(vo.name, vo.message, vo.time);
       }
-      this.userRefresh = false;
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
 
@@ -158,17 +155,10 @@ export default {
   //   }
   // },
   computed: {
-    //todo userList자동으로 업뎃해야함.
-  },
-  methods: {
     USER_LIST() {
-      if (this.userRefresh !== true) {
-        //false 면
-        // this.userList = this.$store.getters["user/getUsers"];
-        this.userList = [...this.$store.state.user.users];
-        console.log("this.userList.push on USER_LIST()", this.userList);
-      } else return;
+      return this.$store.state.user.users;
     },
+    methods: {},
     handleSend() {
       console.log("websocket is? ", this.websocket);
       console.log("websocket is on?", this.websocket === WebSocket.OPEN);
