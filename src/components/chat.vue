@@ -155,10 +155,7 @@ export default {
   computed: {
     //todo userList자동으로 업뎃해야함.
     userList() {
-      console.log("setTimeOut줌 1초");
-      setTimeout(() => {
-        return this.$store.getters["user/getUsers"];
-      }, 1000);
+      return this.$store.getters["user/getUsers"];
     },
   },
   methods: {
