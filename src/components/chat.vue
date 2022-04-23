@@ -161,10 +161,12 @@ export default {
   },
   methods: {
     USER_LIST() {
-      if (this.userRefresh !== true)
+      if (this.userRefresh !== true) {
         //false 면
-        this.userList = this.$store.getters["user/getUsers"];
-      else return;
+        // this.userList = this.$store.getters["user/getUsers"];
+        this.userList.push(this.$store.state.user.newUser);
+        console.log("this.userList.push on USER_LIST()", this.userList);
+      } else return;
     },
     handleSend() {
       console.log("websocket is? ", this.websocket);
