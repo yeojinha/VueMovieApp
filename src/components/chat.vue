@@ -88,6 +88,7 @@ export default {
         message: `${this.chatUser.name}님 반갑습니다!`,
         channel: this.channel,
         bot: true,
+        isJoin: true,
       };
       console.log("message on onopen: ", message);
 
@@ -164,7 +165,7 @@ export default {
       if (this.userRefresh !== true) {
         //false 면
         // this.userList = this.$store.getters["user/getUsers"];
-        this.userList.push(this.$store.state.user.newUser);
+        this.userList = { ...this.$store.state.user.users };
         console.log("this.userList.push on USER_LIST()", this.userList);
       } else return;
     },
@@ -242,6 +243,7 @@ export default {
           message: `${this.chatUser.name}님 안녕히가세요.`,
           channel: this.channel,
           bot: true,
+          isJoin: false,
         };
         console.log("message on onclose: ", message);
         console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
