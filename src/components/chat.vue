@@ -165,7 +165,7 @@ export default {
       if (this.userRefresh !== true) {
         //false 면
         // this.userList = this.$store.getters["user/getUsers"];
-        this.userList = { ...this.$store.state.user.users };
+        this.userList = [...this.$store.state.user.users];
         console.log("this.userList.push on USER_LIST()", this.userList);
       } else return;
     },
