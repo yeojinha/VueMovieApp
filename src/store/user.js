@@ -60,7 +60,7 @@ export default {
       state.users.push(user);
       // state.users.value.push(user);
       // state.users = [...state.users, user];
-      console.log("users array on users.js: ", state.users.value);
+      console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
       state.mutationFlas--;

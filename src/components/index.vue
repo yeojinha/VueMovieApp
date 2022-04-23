@@ -81,7 +81,7 @@ export default {
       console.log("newUser on index.vue: ", newUser);
 
       this.$store.state.user.newUser = newUser;
-      newUser = { ...newUser };
+
       this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
       this.$store.state.user.index++;
