@@ -1,5 +1,5 @@
 // import { toSafeInteger } from "lodash";
-
+import { ref } from "vue";
 export default {
   namespaced: true,
   state: {
@@ -8,16 +8,16 @@ export default {
     flag: false,
     mutationFlas: 0,
     newUser: {
-      id: null,
+      id: "",
       name: "",
       room: "",
     },
     user: {
-      id: null,
+      id: "",
       name: "",
       room: "",
     },
-    users: [],
+    users: ref([]),
     rooms: [],
     pulledUser: "",
   },
@@ -57,9 +57,9 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      state.users.push(user);
+      state.users.value.push(user);
       // state.users = [...state.users, user];
-      console.log("users array on users.js: ", state.users.push);
+      console.log("users array on users.js: ", state.users.value);
     },
     pullUser(state, user) {
       state.mutationFlas--;

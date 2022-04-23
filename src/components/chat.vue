@@ -48,6 +48,7 @@
 <script>
 //TODO 유저목록 갱신화 시켜야함.
 import moment from "moment";
+
 export default {
   created() {
     const chatMessages = document.querySelector(".chat-messages");
@@ -230,7 +231,7 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
-        this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
+        this.$store.dispatch("user/userLeave", this.chatUser); //나가면 pull해줌.
         const message = {
           message: `${this.chatUser.name}님 안녕히가세요.`,
           channel: this.channel,
