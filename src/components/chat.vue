@@ -12,7 +12,7 @@
         <!--TODO channel을 store에서 가져와야 함.-->
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <li v-for="user in this.userList" :key="user.id">
+          <li v-for="user in userList" :key="user.id">
             {{ user.name }}
           </li>
         </ul>
@@ -48,7 +48,6 @@
 <script>
 //TODO 유저목록 갱신화 시켜야함.
 import moment from "moment";
-
 export default {
   created() {
     const chatMessages = document.querySelector(".chat-messages");
@@ -74,12 +73,10 @@ export default {
       console.log("onmessage: ", vo.message, " and ", vo);
       if (vo.channel === this.channel && vo.bot === true) {
         this.appendNewMessage("Bot-Message", vo.message, vo.time);
-        this.USER_LIST(); //userList method 실행
-        this.userRefresh = true;
-      } else if (vo.channel === this.channel && vo.bot !== true) {
+      } else if (vo.channel === this.channel && vo.bot === false) {
         this.appendNewMessage(vo.name, vo.message, vo.time);
       }
-      this.userRefresh = false;
+
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
 
@@ -88,7 +85,6 @@ export default {
         message: `${this.chatUser.name}님 반갑습니다!`,
         channel: this.channel,
         bot: true,
-        isJoin: true,
       };
       console.log("message on onopen: ", message);
 
@@ -123,11 +119,8 @@ export default {
   },
   data() {
     return {
-      // listOfUsers = this.$store.getters['user/getUsers'],
       chatUser: this.$store.state.user.newUser,
       tempName: "Ghost",
-      userRefresh: false,
-      userList: [],
       user: {
         id: null,
         name: "",
@@ -158,10 +151,15 @@ export default {
   //   }
   // },
   computed: {
-    USER_LIST() {
-      return this.$store.state.user.users;
+    //todo userList자동으로 업뎃해야함.
+    userList() {
+      // console.log("getUsers: ", this.$store.state.user.users);
+      // const List_of_users = this.$store.state.user.users;
+      // return List_of_users;
+      return this.$store.getters["user/getUsers"];
     },
-    methods: {},
+  },
+  methods: {
     handleSend() {
       console.log("websocket is? ", this.websocket);
       console.log("websocket is on?", this.websocket === WebSocket.OPEN);
@@ -231,12 +229,11 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
-        this.$store.dispatch("user/userLeave", this.chatUser); //나가면 pull해줌.
+        this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
         const message = {
-          message: `${this.chatUser.name}님 안녕히가세요.`,
+          message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
           bot: true,
-          isJoin: false,
         };
         console.log("message on onclose: ", message);
         console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
@@ -246,7 +243,7 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
-        // localStorage.clear();
+        localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
         console.log(
