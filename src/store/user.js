@@ -17,9 +17,7 @@ export default {
       name: "",
       room: "",
     },
-    users: {
-      user_s: [],
-    },
+    users: [],
     rooms: [],
     pulledUser: "",
   },
@@ -45,7 +43,7 @@ export default {
   // },
   getters: {
     getUsers: function (state) {
-      return state.users.user_s;
+      return state.users;
     },
   },
   methods: {},
@@ -59,19 +57,19 @@ export default {
       //   name: user.name,
       //   room: user.room,
       // });
-      state.users.user_s.push(user);
+      state.users.push(user);
       // state.users = [...state.users, user];
-      console.log("users array on users.js: ", state.users.user_s);
+      console.log("users array on users.js: ", state.users.push);
     },
     pullUser(state, user) {
       state.mutationFlas--;
-      const temp = state.users.user_s.find((us) => us.id === user.id);
+      const temp = state.users.find((us) => us.id === user.id);
       console.log("pull user: ", temp);
       const index = state.users.indexOf(temp);
       console.log("index: ", index);
       if (index !== -1) {
-        state.pulledUser = state.users.user_s.splice(index, 1)[0];
-        console.log("usrs.list: ", state.users.user_s);
+        state.pulledUser = state.users.splice(index, 1)[0];
+        console.log("usrs.list: ", state.users);
         console.log("state.pulledUser: ", state.pulledUser);
       }
     },
