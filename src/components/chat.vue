@@ -126,6 +126,7 @@ export default {
         name: "",
         room: "",
       },
+      USER_LIST: [],
       // username:  this.$store.state.user.newUser.name,
       websocket: null,
       channel: "",
@@ -156,7 +157,7 @@ export default {
       // console.log("getUsers: ", this.$store.state.user.users);
       // const List_of_users = this.$store.state.user.users;
       // return List_of_users;
-      return this.$store.getters["user/getUsers"];
+      this.USER_LIST = this.$store.getters["user/getUsers"];
     },
   },
   methods: {
@@ -243,6 +244,10 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
+        while (this.USER_LIST.length > 0) {
+          this.USER_LIST.pop();
+        }
+        console.log("USER_LIST POP 확인: ", this.USER_LIST);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
