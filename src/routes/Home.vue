@@ -38,7 +38,7 @@ export default {
       if (this.isLeaveSite) return;
       event.preventDefault();
       event.returnValue = "";
-      // localStorage.clear();
+      localStorage.clear();
     },
   },
 };
