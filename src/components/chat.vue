@@ -82,7 +82,7 @@ export default {
 
     this.websocket.onopen = ({ data }) => {
       const message = {
-        message: `${this.chatUser.name}님 하이하이!`,
+        message: `${this.chatUser.name}님 반갑습니다!`,
         channel: this.channel,
         bot: true,
       };
@@ -229,7 +229,7 @@ export default {
         // document.querySelector(".chat-messages").remove("message");
         this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
         const message = {
-          message: `${this.chatUser.name}님 바이바이!`,
+          message: `${this.chatUser.name}님 안녕히가세요.`,
           channel: this.channel,
           bot: true,
         };
