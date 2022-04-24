@@ -40,7 +40,7 @@ export default {
       room: "Melo",
       List: {
         name: "Room",
-        items: ["Melo", "Family", "Fantasy", "Action"],
+        items: ["Melo", "Family", "Fantasy", "Action", "SF", "etc"],
       },
       // nav:{
       //   name:"chat",
