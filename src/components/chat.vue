@@ -36,7 +36,6 @@
           required
           autocomplete="off"
           v-model="chatInputMessage"
-          widht="500"
         />
         <button class="btn" @click="send">
           <i class="fas fa-paper-plane"></i> Send
