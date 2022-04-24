@@ -12,9 +12,8 @@
   </div>
 </template>
 
-
 <script>
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 import Loader from "~/components/Loader";
 
 export default {
@@ -25,12 +24,13 @@ export default {
     imageLoading: true;
   },
   computed: {
-    ...mapState('about',[// about 이라는 module 이름 명시하고 배열로 상태들의 이름을 명시함.
-      'image',
-      'email',
-      'name',
-      'phone'
-       ]),
+    ...mapState("about", [
+      // about 이라는 module 이름 명시하고 배열로 상태들의 이름을 명시함.
+      "image",
+      "email",
+      "name",
+      "phone",
+    ]),
     // image() {
     //   return this.$store.state.about.image; //store에 접급
     // },
@@ -59,7 +59,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 .about {
   text-align: center;
   .photo {
