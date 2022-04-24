@@ -62,8 +62,8 @@ export default {
 .about {
   text-align: center;
   .photo {
-    width: 350px;
-    height: 350px;
+    width: 550px;
+    height: 550px;
     margin: 40px auto 20px;
     padding: 30px;
     border: 10px solid $gray-300;
