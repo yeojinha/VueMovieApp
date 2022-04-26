@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
     <header class="chat-header">
-      <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
+      <h1><i class="fas fa-smile"></i>Movie-Chat-Room</h1>
       <!-- <a href="index.html" class="btn">Leave Room</a> -->
       <button class="btn" @click="onClickleaveRoom">Leave Room</button>
     </header>
@@ -17,16 +17,7 @@
           </li>
         </ul> -->
       </div>
-      <div class="chat-messages">
-        <!-- <div class="message">
-          <p class="meta">Brad <span>9:12pm</span></p>
-          <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.</p>
-        </div>
-        <div class="message">
-          <p class="meta">Mary <span>9:15pm</span></p>
-          <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, repudiandae.</p>
-        </div> -->
-      </div>
+      <div class="chat-messages"></div>
     </main>
     <div class="chat-form-container">
       <form id="chat-form">

@@ -1,5 +1,4 @@
 export default {
-  //"https://heropy.blog/css/images/logo.png",
   namespaced: true,
   state: () => {
     return {
@@ -11,3 +10,5 @@ export default {
     };
   },
 };
+
+//"https://heropy.blog/css/images/logo.png",
