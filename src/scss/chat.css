@@ -117,12 +117,13 @@ a {
 }
 
 .chat-form-container form {
-  width: 400px;
   display: flex;
 }
 
 .chat-form-container input[type="text"] {
   font-size: 16px;
+  display: inline-block;
+  width: 100%;
   padding: 5px;
   height: 40px;
   flex: 1;
