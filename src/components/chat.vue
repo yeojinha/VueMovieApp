@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
     <header class="chat-header">
-      <h1><i class="fas fa-smile"></i>Movie-Chat-Room</h1>
+      <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
       <!-- <a href="index.html" class="btn">Leave Room</a> -->
       <button class="btn" @click="onClickleaveRoom">Leave Room</button>
     </header>

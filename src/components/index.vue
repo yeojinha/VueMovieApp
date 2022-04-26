@@ -1,7 +1,7 @@
 <template>
   <div class="join-container">
     <header class="join-header">
-      <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
+      <h1><i class="fas fa-smile"></i>Movie-Chat-Room</h1>
     </header>
     <main class="join-main">
       <form action="chat.html">
