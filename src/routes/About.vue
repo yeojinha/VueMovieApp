@@ -24,13 +24,7 @@ export default {
     imageLoading: true;
   },
   computed: {
-    ...mapState("about", [
-      // about 이라는 module 이름 명시하고 배열로 상태들의 이름을 명시함.
-      "image",
-      "email",
-      "name",
-      "phone",
-    ]),
+    ...mapState("about", ["image", "email", "name", "phone"]),
     // image() {
     //   return this.$store.state.about.image; //store에 접급
     // },
@@ -67,9 +61,9 @@ export default {
     margin: 40px auto 20px;
     padding: 30px;
     border: 10px solid $gray-300;
-    border-radius: 50%;
+    // border-radius: 50%;
     box-sizing: border-box;
-    background-color: $gray-200;
+    // background-color: $gray-200;
     position: relative;
     img {
       width: 100%;
