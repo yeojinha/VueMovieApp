@@ -42,10 +42,6 @@ export default {
         name: "Room",
         items: ["Melo", "Family", "Fantasy", "Action", "SF", "etc"],
       },
-      // nav:{
-      //   name:"chat",
-      //   href:`/chat?channel=${this.channel}`
-      // }
     };
   },
   methods: {

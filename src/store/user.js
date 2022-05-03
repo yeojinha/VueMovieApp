@@ -21,26 +21,6 @@ export default {
     rooms: [],
     pulledUser: "",
   },
-  // getters: {
-  //   getCurrentUser(state,name) {
-  //     return state.users.find(user => user.name === name);
-  //   },
-  //   getLeftUser(state) {
-  //     return state.pulledUser;
-  //   }
-  // },
-  // computed:{
-  //     getRoomUsers(state,room) {
-  //     return state.users.filter(user => user.room === room);
-  //   },
-  //   getRecentUser(state){
-  //   return state.newUser;
-  //   },
-  //   getRoomName(state){
-  //     return state.user.room;
-  //   },
-
-  // },
   getters: {
     getUsers: function (state) {
       return state.users;
@@ -50,16 +30,7 @@ export default {
   mutations: {
     putUser(state, user) {
       state.mutationFlas++;
-      // state.newUser = user;
-      // console.log("state newUser: ", state.newUser);
-      // state.users.push({
-      //   id: user.id,
-      //   name: user.name,
-      //   room: user.room,
-      // });
       state.users.push(user);
-      // state.users.value.push(user);
-      // state.users = [...state.users, user];
       console.log("users array on users.js: ", state.users);
     },
     pullUser(state, user) {
@@ -86,40 +57,3 @@ export default {
     },
   },
 };
-
-// const users = [];
-
-// // Join user to chat
-// function userJoin(id, username, room) {
-//   const user = { id, username, room };
-
-//   users.push(user);
-
-//   return user;
-// }
-
-// // Get current user
-// function getCurrentUser(id) {
-//   return users.find(user => user.id === id);
-// }
-
-// // User leaves chat
-// function userLeave(id) {
-//   const index = users.findIndex(user => user.id === id);
-
-//   if (index !== -1) {
-//     return users.splice(index, 1)[0];
-//   }
-// }
-
-// // Get room users
-// function getRoomUsers(room) {
-//   return users.filter(user => user.room === room);
-// }
-
-// module.exports = {
-//   userJoin,
-//   getCurrentUser,
-//   userLeave,
-//   getRoomUsers
-// };

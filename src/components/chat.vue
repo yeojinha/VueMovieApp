@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
     <header class="chat-header">
-      <h1><i class="fas fa-smile"></i>영화-채팅-방</h1>
+      <h1><i class="fas fa-smile"></i>Movie-Chat-Room</h1>
       <!-- <a href="index.html" class="btn">Leave Room</a> -->
       <button class="btn" @click="onClickleaveRoom">Leave Room</button>
     </header>
@@ -9,13 +9,6 @@
       <div class="chat-sidebar">
         <h3><i class="fas fa-comments"></i> Channel Name:</h3>
         <h2 id="room-name">{{ this.channel }}</h2>
-        <!--TODO channel을 store에서 가져와야 함.-->
-        <!-- <h3><i class="fas fa-users"></i> Users</h3>
-        <ul id="users">
-          <li v-for="user in userList" :key="user.id">
-            {{ user.name }}
-          </li>
-        </ul> -->
       </div>
       <div class="chat-messages"></div>
     </main>
@@ -37,29 +30,13 @@
 </template>
 
 <script>
-//TODO 유저목록 갱신화 시켜야함.
 import moment from "moment";
 export default {
   created() {
-    const chatMessages = document.querySelector(".chat-messages");
     this.channel = this.$route.query.channel || "";
-    // this.$store.state.user.stateWebSocket = new WebSocket("ws://localhost:80/");
-    // this.$store.state.user.stateWebSocket = new WebSocket(
-    //   "ws://jonghwa220414.herokuapp.com/ws"
-    // );
     this.websocket = this.$store.state.user.stateWebSocket;
 
-    // this.websocket.getUiqueID = function () {
-    //   function s4() {
-    //     return Math.floor((1 + Math.random()) * 0x10000)
-    //       .toString(16)
-    //       .substring(1);
-    //   }
-    //   return s4() + s4() + "-" + s4();
-    // };
-
     this.websocket.onmessage = ({ data }) => {
-      // this.websocket.id = this.websocket.getUiqueID();
       const vo = JSON.parse(data);
       console.log("onmessage: ", vo.message, " and ", vo);
       if (vo.channel === this.channel && vo.bot === true) {
@@ -93,18 +70,6 @@ export default {
     };
 
     this.websocket.onclose = (event) => {
-      // const message = {
-      //   message: `${this.chatUser.name}님 바이바이!`,
-      //   channel: this.channel,
-      //   bot: true,
-      // };
-      // console.log("message on onclose: ", message);
-      // console.log("JSON.stringify(ms) onclose: ", JSON.stringify(message));
-      // if (this.websocket.send(JSON.stringify(message)) < 0) {
-      //   console.log("안보내짐 error발생");
-      // } else {
-      //   console.log("보내짐");
-      // }
       console.log("open event..", event);
     };
   },
@@ -124,30 +89,9 @@ export default {
       chatInputMessage: "",
     };
   },
-  // computed:{
-  //   getThisRoom(){
 
-  //   },
-  //   userList(){
-  //     // console.log("this.$store.state.user.users: ",this.$store.state.user.users.filter(user=>user.room == this.channel));
-  //     // console.log("this. Get user: ", this.getUser);
-  //     return this.$store.state.user.users.filter(user=>user.room == this.channel);
-  //   },
-  //   getUser(){
-  //     //TODO name으로 store users에서 해당하는 user가져오기.
-  //     for(let i=0;i<this.$store.state.user.users.length;i++){
-  //       if(this.username===this.$store.state.user.users[i].name){
-  //         return this.$store.state.user.users[i]
-  //       }
-  //     }
-  //   }
-  // },
   computed: {
-    //todo userList자동으로 업뎃해야함.
     userList() {
-      // console.log("getUsers: ", this.$store.state.user.users);
-      // const List_of_users = this.$store.state.user.users;
-      // return List_of_users;
       this.USER_LIST = this.$store.getters["user/getUsers"];
     },
   },
@@ -188,7 +132,7 @@ export default {
       div.classList.add("message");
       const p = document.createElement("p");
       p.classList.add("meta");
-      p.innerText = username;
+      p.innerText = username + " ";
       p.innerHTML += `<span>${moment(time).format("h:mm a")}</span>`;
       div.appendChild(p);
       const para = document.createElement("p");
@@ -248,12 +192,6 @@ export default {
         );
       }
       this.$router.replace("/");
-      //todo router로 이동했을 때, 전에 있던 내용들 다 지워져야 함. go는 현재 경로에서 refresh하는 것이다.
-      //todo location href를 사용하던지 해야함.
-      // window.location.href = "https://hardcore-cori-ba34bc.netlify.app/#/";
-      // setTimeout(function () {
-      //   this.$router.push("/");
-      // }, 1200);
     },
   },
 };
