@@ -100,19 +100,9 @@ export default {
   computed: {
     userList() {
       this.USER_LIST = this.$store.getters["user/getUsers"];
-      console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
     },
   },
   methods: {
-    handleSend() {
-      console.log("websocket is? ", this.websocket);
-      console.log("websocket is on?", this.websocket === WebSocket.OPEN);
-      if (this.websocket === WebSocket.OPEN) {
-        this.send();
-      } else if (this.websocket == WebSocket.CONNECTING) {
-        this.websocket.addEventListener("open", () => this.handleSend());
-      }
-    },
     send() {
       console.log("websocket: ", this.websocket);
       console.log("state.websocket: ", this.$store.state.user.stateWebSocket);
@@ -128,6 +118,8 @@ export default {
         message: this.chatInputMessage,
         bot: false,
       };
+
+      console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
       console.log("message on chat: ", message);
       this.websocket.send(JSON.stringify(message));
       this.chatInputMessage = "";
