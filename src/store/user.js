@@ -36,7 +36,6 @@ export default {
     },
     pullUser(state, user) {
       state.mutationFlas--;
-      console.log("pull user: ", temp);
       const index = state.users.indexOf(user);
       console.log("index: ", index);
       if (index !== -1) {
