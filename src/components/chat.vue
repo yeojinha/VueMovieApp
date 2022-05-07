@@ -46,9 +46,12 @@ export default {
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
       if (
-        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) > 0
+        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
       )
+        console.log("새로운 유저 서버에 안보내짐");
+      else {
         console.log("새로운 유저 서버에 보내짐");
+      }
 
       const message = {
         name: "bot",
@@ -227,10 +230,12 @@ export default {
                 fresh: true,
                 new: false,
               })
-            ) > 0
+            ) < 0
           )
+            console.log("chatUser 안보내짐");
+          else {
             console.log("chatUser 보내짐");
-
+          }
           console.log("보내짐");
         }
         setTimeout(function () {
