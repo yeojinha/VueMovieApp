@@ -100,6 +100,7 @@ export default {
   computed: {
     userList() {
       this.USER_LIST = this.$store.getters["user/getUsers"];
+      console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
     },
   },
   methods: {
