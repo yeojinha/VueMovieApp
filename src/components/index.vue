@@ -56,18 +56,7 @@ export default {
       // this.$store.state.user.stateWebSocket = new WebSocket(
       //   "ws://localhost:80/"
       // );
-      this.$store.state.user.stateWebSocket = new WebSocket(
-        "ws://jonghwa220414.herokuapp.com/ws"
-      );
-      //webSocket의 UniqueID 함수 생성하여 newUser에 전달.
-      this.$store.state.user.stateWebSocket.getUniqueID = function () {
-        function s4() {
-          return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-        }
-        return s4() + s4() + "-" + s4();
-      };
+
       //newUser 웹소켓 uniqueId전달 받음
       let newUser = {
         // id: this.$store.sta/te.user.stateWebSocket.getUniqueID(),
