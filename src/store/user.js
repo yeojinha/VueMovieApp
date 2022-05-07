@@ -23,6 +23,7 @@ export default {
   },
   getters: {
     getUsers: function (state) {
+      console.log("state.users on getters: ", state.users);
       return state.users;
     },
   },
