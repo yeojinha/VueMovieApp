@@ -82,14 +82,20 @@ export default {
           fresh: vo.true,
         };
         console.log("vo.fresh 체크 작동함");
+        console.log(
+          " vo.fresh 체크 전 users on onmessage: ",
+          this.$store.state.user.users
+        );
+        console.log("User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
-        if (!User in this.USER_LIST) {
+        if (!User in userList) {
           this.$store.state.user.index++;
           this.$store.dispatch("user/userJoin", User);
+          console.log("users on onmessage: ", this.$store.state.user.users);
         } else {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
           this.$store.state.user.index--;
-          while (this.USER_LIST.length > 0) {
+          while (this.$store.state.user.users.length > 0) {
             //!! store의 list에서 User를 pull 해줌
             this.$store.commit("user/pullUser", User); //나가면 pull해줌.
           }
