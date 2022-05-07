@@ -96,7 +96,7 @@ export default {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
           console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
           this.$store.state.user.index--;
-          this.$store.commit("user/pullUser", User); //나가면 pull해줌
+          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         }
         //!vo.fresh가 false인 경우는 메시지인 경우
       } else if (vo.fresh !== true) {
@@ -222,8 +222,8 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
-
-        console.log("USER_LIST POP 확인: ", this.USER_LIST);
+        //!! 본인 저장소에서 지워야
+        this.$store.dispatch("user/userLeave", this.chatUser);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
