@@ -66,7 +66,7 @@ export default {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
-      if (vo.fresh === true) {
+      if (vo.fresh === true && !vo.bot) {
         console.log("vo.fresh 작동 확인");
         let User = {
           // id: vo.id,
@@ -75,7 +75,9 @@ export default {
           fresh: vo.true,
           new: vo.new,
         };
+        console.log("서버에서 받은 User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
+
         if (
           this.$store.state.user.users.find(
             (us) =>
@@ -90,7 +92,8 @@ export default {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
         } else if (
           this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
+            (us) =>
+              us.name == User.name && us.room == User.room && User.new === false
           ) !== undefined
         ) {
           this.$store.state.user.index--;
@@ -202,7 +205,7 @@ export default {
       if (this.$store.state.user.flag === true) {
         //!! this.chatUser가 old한 상태 server에 전달되게 하라.
         this.chatUser.new = false;
-        this.websocket.send(JSON.stringify(this.chatUser));
+
         const message = {
           message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
@@ -211,6 +214,19 @@ export default {
         if (this.websocket.send(JSON.stringify(message)) < 0) {
           console.log("안보내짐 error발생");
         } else {
+          if (
+            this.websocket.send(
+              JSON.stringify({
+                name: this.chatUser.name,
+                room: this.channel,
+                bot: false,
+                fresh: true,
+                new: false,
+              })
+            ) > 0
+          )
+            console.log("chatUser 보내짐");
+
           console.log("보내짐");
         }
         setTimeout(function () {

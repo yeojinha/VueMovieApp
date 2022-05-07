@@ -47,7 +47,15 @@ export default {
   methods: {
     onClickJoinBtn(event) {
       event.preventDefault();
+      //!! 이름명 입력 안했거나, 중복이름 존재하면 X
       if (!this.username) return;
+      else if (
+        this.$store.state.user.users.find(
+          (us) => us.name == this.username && us.room == this.room
+        )
+      ) {
+        return;
+      }
       this.$store.state.user.reloadFlag = true; //for reload on Home.vue
 
       this.$store.state.user.flag = true;
