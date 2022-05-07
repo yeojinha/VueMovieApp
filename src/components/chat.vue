@@ -84,25 +84,19 @@ export default {
         };
         console.log("서버에서 받은 User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
-
-        if (
-          this.$store.state.user.users.find(
-            (us) =>
-              us.name == User.name && us.room == User.room && User.new == true
-          ) === undefined
-        ) {
+        temp = this.$store.state.user.users.find(
+          (us) => us.name == User.name && us.room == User.room && !User.new
+        );
+        console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
+        //!! 이름이 다르
+        if (temp === undefined) {
           this.$store.state.user.index++;
           //!! new User은 old
           User.new = false;
           this.$store.dispatch("user/userJoin", User);
           console.log("유저 리스트 추가 : ", this.$store.state.user.users);
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
-        } else if (
-          this.$store.state.user.users.find(
-            (us) =>
-              us.name == User.name && us.room == User.room && User.new === false
-          ) !== undefined
-        ) {
+        } else {
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
           console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
