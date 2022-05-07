@@ -218,7 +218,7 @@ export default {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
         //!! this.chatUser가 old한 상태 server에 전달되게 하라.
-        this.charUser.new = false;
+        this.chatUser.new = false;
         this.websocket.send(JSON.stringify(this.chatUser));
         console.log(
           "send this.chatUser for leaving chnnel on event: ",
