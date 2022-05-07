@@ -72,18 +72,28 @@ export default {
 
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
-      //!!vo.fresh(새로운 사람 입장/추가만 하는 경우)
+      //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       console.log("vo JSON 내용 체크 onmessage: ", vo);
       if (vo.fresh === true) {
-        let newUser = {
+        let User = {
           id: vo.id,
           name: vo.name,
           room: vo.room,
           fresh: vo.true,
         };
         console.log("vo.fresh 체크 작동함");
-        this.$store.state.user.index++;
-        this.$store.dispatch("user/userJoin", newUser);
+        //!! User가 리스트에 없다면 추가하는 것
+        if (!User in this.USER_LIST) {
+          this.$store.state.user.index++;
+          this.$store.dispatch("user/userJoin", User);
+        } else {
+          //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
+          this.$store.state.user.index--;
+          while (this.USER_LIST.length > 0) {
+            //!! store의 list에서 User를 pull 해줌
+            this.$store.commit("user/pullUser", User); //나가면 pull해줌.
+          }
+        }
         //!vo.fresh가 false인 경우는 메시지인 경우
       } else if (vo.fresh !== true) {
         if (vo.channel === this.channel && vo.bot === true) {
@@ -189,11 +199,12 @@ export default {
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
-        //todo .chat-messages에서 classList가져와서 message class 삭제.
-        // document.querySelector(".chat-messages").remove("message");
-
         //!! this.chatUser가 server에 전달되게 하라.
         this.websocket.send(JSON.stringify(this.chatUser));
+        console.log(
+          "send this.chatUser for leaving chnnel on event: ",
+          this.chatUser
+        );
         const message = {
           message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
@@ -207,10 +218,7 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
-        while (this.USER_LIST.length > 0) {
-          //!! 아래 commit은 onmessage에서 작동하게 해주고
-          this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
-        }
+
         console.log("USER_LIST POP 확인: ", this.USER_LIST);
         localStorage.clear();
         this.$store.state.user.flag = false;
