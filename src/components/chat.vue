@@ -94,6 +94,7 @@ export default {
           console.log("users on onmessage: ", this.$store.state.user.users);
         } else {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
+          console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
           this.$store.state.user.index--;
           this.$store.commit("user/pullUser", User); //나가면 pull해줌
         }
