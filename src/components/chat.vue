@@ -84,7 +84,7 @@ export default {
         };
         console.log("서버에서 받은 User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
-        temp = this.$store.state.user.users.find(
+        let temp = this.$store.state.user.users.find(
           (us) => us.name == User.name && us.room == User.room && !User.new
         );
         console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
