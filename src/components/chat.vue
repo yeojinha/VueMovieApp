@@ -76,13 +76,15 @@ export default {
       const vo = JSON.parse(data);
       //!!vo[0].list(새로운 사람 입장/퇴장만 하는 경우)
       console.log("vo JSON 내용 체크 onmessage: ", vo);
-      if (vo[0].list === true) {
-        // let User = {
-        //   // id: vo.id,
-        //   name: vo.name,
-        //   room: vo.room,
-        //   fresh: vo.true,
-        // };
+      if (vo.channel === this.channel && vo.bot === true) {
+        this.appendNewMessage("Bot-Message", vo.message, vo.time);
+      } else if (
+        vo.channel === this.channel &&
+        vo.bot === false &&
+        vo.message.length > 0
+      ) {
+        this.appendNewMessage(vo.name, vo.message, vo.time);
+      } else {
         console.log("vo.fresh 체크 작동함");
         console.log(
           " users에 vo 주입 전 users on onmessage: ",
@@ -113,12 +115,6 @@ export default {
         //   this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         // }
         //!vo.fresh가 false인 경우는 메시지인 경우
-      } else {
-        if (vo.channel === this.channel && vo.bot === true) {
-          this.appendNewMessage("Bot-Message", vo.message, vo.time);
-        } else if (vo.channel === this.channel && vo.bot === false) {
-          this.appendNewMessage(vo.name, vo.message, vo.time);
-        }
       }
 
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
