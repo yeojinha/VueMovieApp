@@ -47,9 +47,7 @@ export default {
       this.$store.state.user.newUser
     );
     //todo newUser를 server에 전달.
-    this.$store.state.user.stateWebSocket.send(
-      JSON.stringify(this.$store.state.user.newUser)
-    );
+
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       //!!vo.fresh(새로운 사람 입장/추가만 하는 경우)
@@ -84,7 +82,8 @@ export default {
         fresh: false,
       };
       console.log("message on onopen: ", message);
-
+      //!! new User send to server
+      this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
       console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
       if (this.websocket.send(JSON.stringify(message)) < 0) {
         console.log("안보내짐 error발생");
