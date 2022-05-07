@@ -95,10 +95,7 @@ export default {
         } else {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
           this.$store.state.user.index--;
-          while (this.$store.state.user.users.length > 0) {
-            //!! store의 list에서 User를 pull 해줌
-            this.$store.commit("user/pullUser", User); //나가면 pull해줌.
-          }
+          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         }
         //!vo.fresh가 false인 경우는 메시지인 경우
       } else if (vo.fresh !== true) {
