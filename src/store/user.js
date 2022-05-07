@@ -21,7 +21,6 @@ export default {
   },
   getters: {
     getUsers: function (state) {
-      console.log("state.users on getters: ", state.users);
       return state.users;
     },
   },
@@ -30,21 +29,22 @@ export default {
     putUser(state, user) {
       state.mutationFlas++;
       state.users.push(user);
-      console.log("users array on users.js: ", state.users);
+      console.log("users array on putUser: ", state.users);
     },
     pullUser(state, user) {
+      console.log("before pull User on pullUser: ", state.users);
       state.mutationFlas--;
       const temp = state.users.find(
         (us) => us.name === user.name && us.room === user.room
       );
-      console.log("pull user: ", temp);
+      console.log("found user: ", temp);
       const index = state.users.indexOf(temp);
       console.log("index: ", index);
       if (index !== -1) {
         state.pulledUser = state.users.splice(index, 1)[0];
-        console.log("usrs.list: ", state.users);
-        console.log("state.pulledUser: ", state.pulledUser);
       }
+      console.log("After usrs array on pullUser: ", state.users);
+      console.log("state.pulledUser: ", state.pulledUser);
     },
   },
   actions: {

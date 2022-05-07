@@ -140,6 +140,7 @@ export default {
       this.USER_LIST = this.$store.getters["user/getUsers"].filter(
         (user) => user.room == this.channel
       );
+      console.log("userList filterd List: ", this.USER_LIST);
       return this.$store.getters["user/getUsers"].filter(
         (user) => user.room == this.channel
       );
