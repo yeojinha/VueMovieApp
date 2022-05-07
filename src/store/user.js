@@ -36,9 +36,8 @@ export default {
     },
     pullUser(state, user) {
       state.mutationFlas--;
-      const temp = state.users.find((us) => us.id === user.id);
       console.log("pull user: ", temp);
-      const index = state.users.indexOf(temp);
+      const index = state.users.indexOf(user);
       console.log("index: ", index);
       if (index !== -1) {
         state.pulledUser = state.users.splice(index, 1)[0];
