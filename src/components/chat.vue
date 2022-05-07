@@ -138,10 +138,10 @@ export default {
   computed: {
     userList() {
       this.USER_LIST = this.$store.getters["user/getUsers"].filter(
-        (room) => room == this.channel
+        (user) => user.room == this.channel
       );
       return this.$store.getters["user/getUsers"].filter(
-        (room) => room == this.channel
+        (user) => user.room == this.channel
       );
     },
   },
