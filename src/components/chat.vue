@@ -73,42 +73,46 @@ export default {
 
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
-      //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
+      //!!vo[0].list(새로운 사람 입장/퇴장만 하는 경우)
       console.log("vo JSON 내용 체크 onmessage: ", vo);
-      if (vo.fresh === true) {
-        let User = {
-          // id: vo.id,
-          name: vo.name,
-          room: vo.room,
-          fresh: vo.true,
-        };
+      if (vo[0].list === true) {
+        // let User = {
+        //   // id: vo.id,
+        //   name: vo.name,
+        //   room: vo.room,
+        //   fresh: vo.true,
+        // };
         console.log("vo.fresh 체크 작동함");
         console.log(
-          " vo.fresh 체크 전 users on onmessage: ",
+          " users에 vo 주입 전 users on onmessage: ",
           this.$store.state.user.users
         );
-        console.log("User: ", User);
+        this.$store.state.user.users = vo;
+        console.log(
+          " users에 vo 주입 후에 users on onmessage: ",
+          this.$store.state.user.users
+        );
         //!! User가 리스트에 없다면 추가하는 것
-        if (
-          this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
-          ) == undefined
-        ) {
-          this.$store.state.user.index++;
-          this.$store.dispatch("user/userJoin", User);
-          console.log("users on onmessage: ", this.$store.state.user.users);
-          //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
-        } else if (
-          this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
-          )
-        ) {
-          console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
-          this.$store.state.user.index--;
-          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
-        }
+        // if (
+        //   this.$store.state.user.users.find(
+        //     (us) => us.name == User.name && us.room == User.room
+        //   ) == undefined
+        // ) {
+        //   this.$store.state.user.index++;
+        //   this.$store.dispatch("user/userJoin", User);
+        //   console.log("users on onmessage: ", this.$store.state.user.users);
+        //   //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
+        // } else if (
+        //   this.$store.state.user.users.find(
+        //     (us) => us.name == User.name && us.room == User.room
+        //   )
+        // ) {
+        //   console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
+        //   this.$store.state.user.index--;
+        //   this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+        // }
         //!vo.fresh가 false인 경우는 메시지인 경우
-      } else if (vo.fresh !== true) {
+      } else if (vo[0].list !== true) {
         if (vo.channel === this.channel && vo.bot === true) {
           this.appendNewMessage("Bot-Message", vo.message, vo.time);
         } else if (vo.channel === this.channel && vo.bot === false) {
