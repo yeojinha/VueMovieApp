@@ -70,7 +70,7 @@ export default {
       };
       //newUser 웹소켓 uniqueId전달 받음
       let newUser = {
-        id: this.$store.state.user.stateWebSocket.getUniqueID(),
+        // id: this.$store.sta/te.user.stateWebSocket.getUniqueID(),
         name: this.username,
         room: this.room,
         fresh: true,

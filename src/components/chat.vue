@@ -76,7 +76,7 @@ export default {
       console.log("vo JSON 내용 체크 onmessage: ", vo);
       if (vo.fresh === true) {
         let User = {
-          id: vo.id,
+          // id: vo.id,
           name: vo.name,
           room: vo.room,
           fresh: vo.true,
