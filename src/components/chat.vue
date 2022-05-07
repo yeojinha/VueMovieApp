@@ -122,7 +122,8 @@ export default {
 
   computed: {
     userList() {
-      return this.$store.getters["user/getUsers"];
+      this.USER_LIST = this.$store.getters["user/getUsers"];
+      return this.USER_LIST;
     },
   },
   methods: {
@@ -190,7 +191,9 @@ export default {
       if (this.$store.state.user.flag === true) {
         //todo .chat-messages에서 classList가져와서 message class 삭제.
         // document.querySelector(".chat-messages").remove("message");
-        this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
+
+        //!! this.chatUser가 server에 전달되게 하라.
+        this.websocket.send(JSON.stringify(this.chatUser));
         const message = {
           message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
@@ -205,7 +208,8 @@ export default {
         }
         this.websocket.close();
         while (this.USER_LIST.length > 0) {
-          this.USER_LIST.pop();
+          //!! 아래 commit은 onmessage에서 작동하게 해주고
+          this.$store.commit("user/pullUser", this.chatUser); //나가면 pull해줌.
         }
         console.log("USER_LIST POP 확인: ", this.USER_LIST);
         localStorage.clear();
