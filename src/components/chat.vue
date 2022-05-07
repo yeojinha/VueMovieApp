@@ -93,8 +93,8 @@ export default {
           this.$store.state.user.index++;
           this.$store.dispatch("user/userJoin", User);
           console.log("users on onmessage: ", this.$store.state.user.users);
-        } else {
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
+        } else if (this.$store.state.user.users.includes(User)) {
           console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
@@ -140,7 +140,12 @@ export default {
       this.USER_LIST = this.$store.getters["user/getUsers"].filter(
         (user) => user.room == this.channel
       );
-      console.log("userList filterd List: ", this.USER_LIST);
+      console.log(
+        "userList filterd List: ",
+        this.$store.getters["user/getUsers"].filter(
+          (user) => user.room == this.channel
+        )
+      );
       return this.$store.getters["user/getUsers"].filter(
         (user) => user.room == this.channel
       );
@@ -228,8 +233,6 @@ export default {
           console.log("보내짐");
         }
         this.websocket.close();
-        //!! 본인 저장소에서 지워야
-        this.$store.dispatch("user/userLeave", this.chatUser);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
