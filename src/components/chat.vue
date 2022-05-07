@@ -36,7 +36,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import moment from "moment";
 export default {
@@ -47,9 +46,8 @@ export default {
       "this.$store.state.user.newUser: ",
       this.$store.state.user.newUser
     );
-
     this.websocket.onopen = ({ data }) => {
-      //!! new User send to server .
+      //!! new User send to server
       this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
       console.log("this new User onopen: ", this.$store.state.user.newUser);
       const message = {
@@ -60,7 +58,6 @@ export default {
         fresh: false,
       };
       console.log("message on onopen: ", message);
-
       console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
       if (this.websocket.send(JSON.stringify(message)) < 0) {
         console.log("안보내짐 error발생");
@@ -70,7 +67,6 @@ export default {
       console.log("open event..", data);
     };
     //todo newUser를 server에 전달.
-
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
@@ -80,8 +76,7 @@ export default {
           // id: vo.id,
           name: vo.name,
           room: vo.room,
-          fresh: vo.fresh,
-          new: vo.new,
+          fresh: vo.true,
         };
         console.log("vo.fresh 체크 작동함");
         console.log(
@@ -92,15 +87,17 @@ export default {
         //!! User가 리스트에 없다면 추가하는 것
         if (
           this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
+            (us) =>
+              us.name == User.name &&
+              ((us.room == User.room) == User.new) == true
           ) == undefined
         ) {
           this.$store.state.user.index++;
-          //!! 신규 유저는 이제 new가 아니다.
+          //!! new User은 old
           User.new = false;
           this.$store.dispatch("user/userJoin", User);
           console.log("users on onmessage: ", this.$store.state.user.users);
-          //!! User가 있는데, 요청이 들어온 것은 user퇴장
+          //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
         } else if (
           this.$store.state.user.users.find(
             (us) => us.name == User.name && us.room == User.room
@@ -118,13 +115,11 @@ export default {
           this.appendNewMessage(vo.name, vo.message, vo.time);
         }
       }
-
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
     this.websocket.onerror = (event) => {
       console.log("error", event);
     };
-
     this.websocket.onclose = (event) => {
       console.log("open event..", event);
     };
@@ -145,7 +140,6 @@ export default {
       chatInputMessage: "",
     };
   },
-
   computed: {
     userList() {
       this.USER_LIST = this.$store.getters["user/getUsers"].filter(
@@ -179,10 +173,8 @@ export default {
         bot: false,
         fresh: false,
       };
-
       console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
       console.log("message on chat: ", message);
-
       this.websocket.send(JSON.stringify(message));
       this.chatInputMessage = "";
     },
@@ -225,7 +217,8 @@ export default {
     onClickleaveRoom(event) {
       event.preventDefault();
       if (this.$store.state.user.flag === true) {
-        //!! this.chatUser가 server에 전달되게 하라.
+        //!! this.chatUser가 old한 상태 server에 전달되게 하라.
+        this.charUser.new = false;
         this.websocket.send(JSON.stringify(this.chatUser));
         console.log(
           "send this.chatUser for leaving chnnel on event: ",
@@ -245,7 +238,7 @@ export default {
         }
         setTimeout(function () {
           this.websocket.close();
-        }, 1900);
+        }, 2000);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
@@ -259,7 +252,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 @import "../scss/chat.css";
 </style>
