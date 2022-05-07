@@ -13,11 +13,7 @@
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-          <li
-            v-for="user in userList"
-            v-if="user.room !== this.channel"
-            :key="user.id"
-          >
+          <li v-for="user in userList" :key="user.id">
             {{ user.name }}
           </li>
         </ul>
@@ -141,8 +137,12 @@ export default {
 
   computed: {
     userList() {
-      this.USER_LIST = this.$store.getters["user/getUsers"];
-      return this.$store.getters["user/getUsers"];
+      this.USER_LIST = this.$store.getters["user/getUsers"].filter(
+        (room) => room == this.channel
+      );
+      return this.$store.getters["user/getUsers"].filter(
+        (room) => room == this.channel
+      );
     },
   },
   methods: {
