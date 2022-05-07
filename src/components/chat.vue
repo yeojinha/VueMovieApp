@@ -72,25 +72,23 @@ export default {
     //todo newUser를 server에 전달.
 
     this.websocket.onmessage = ({ data }) => {
-      console.log("data 내용 체크 onmessage: ", data);
       const vo = JSON.parse(data);
-      //!!vo[0].list(새로운 사람 입장/퇴장만 하는 경우)
+      //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       console.log("vo JSON 내용 체크 onmessage: ", vo);
-      if (vo.channel === this.channel && vo.bot === true) {
-        this.appendNewMessage("Bot-Message", vo.message, vo.time);
-      } else if (
-        vo.channel === this.channel &&
-        vo.bot === false &&
-        vo.message.length > 0
-      ) {
-        this.appendNewMessage(vo.name, vo.message, vo.time);
-      } else {
+      if (vo.fresh === true) {
+        let User = {
+          // id: vo.id,
+          name: vo.name,
+          room: vo.room,
+          fresh: vo.true,
+        };
         console.log("vo.fresh 체크 작동함");
         console.log(
-          " users에 vo 주입 전 users on onmessage: ",
+          " vo.fresh 체크 전 users on onmessage: ",
           this.$store.state.user.users
         );
-        // !! User가 리스트에 없다면 추가하는 것
+        console.log("User: ", User);
+        //!! User가 리스트에 없다면 추가하는 것
         if (
           this.$store.state.user.users.find(
             (us) => us.name == User.name && us.room == User.room
@@ -109,7 +107,13 @@ export default {
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         }
-        // !vo.fresh가 false인 경우는 메시지인 경우
+        //!vo.fresh가 false인 경우는 메시지인 경우
+      } else if (vo.fresh !== true) {
+        if (vo.channel === this.channel && vo.bot === true) {
+          this.appendNewMessage("Bot-Message", vo.message, vo.time);
+        } else if (vo.channel === this.channel && vo.bot === false) {
+          this.appendNewMessage(vo.name, vo.message, vo.time);
+        }
       }
 
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
@@ -153,7 +157,6 @@ export default {
       return this.$store.getters["user/getUsers"].filter(
         (user) => user.room == this.channel
       );
-      // return this.$store.state.user.users;
     },
   },
   methods: {
@@ -239,7 +242,7 @@ export default {
         }
         setTimeout(function () {
           this.websocket.close();
-        }, 2000);
+        }, 1900);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
