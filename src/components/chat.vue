@@ -72,6 +72,7 @@ export default {
     //todo newUser를 server에 전달.
 
     this.websocket.onmessage = ({ data }) => {
+      console.log("data 내용 체크 onmessage: ", data);
       const vo = JSON.parse(data);
       //!!vo[0].list(새로운 사람 입장/퇴장만 하는 경우)
       console.log("vo JSON 내용 체크 onmessage: ", vo);
@@ -112,7 +113,7 @@ export default {
         //   this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         // }
         //!vo.fresh가 false인 경우는 메시지인 경우
-      } else if (vo[0].list !== true) {
+      } else {
         if (vo.channel === this.channel && vo.bot === true) {
           this.appendNewMessage("Bot-Message", vo.message, vo.time);
         } else if (vo.channel === this.channel && vo.bot === false) {
