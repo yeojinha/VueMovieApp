@@ -240,7 +240,9 @@ export default {
         } else {
           console.log("보내짐");
         }
-        this.websocket.close();
+        setTimeout(function () {
+          this.websocket.close();
+        }, 2000);
         localStorage.clear();
         this.$store.state.user.flag = false;
         console.log("flag on chat: ", this.$store.state.user.flag);
