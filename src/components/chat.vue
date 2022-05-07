@@ -89,12 +89,20 @@ export default {
         );
         console.log("User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
-        if (!this.$store.state.user.users.includes(User)) {
+        if (
+          this.$store.state.user.users.find(
+            (us) => us.name == User.name && us.room == User.room
+          ) == undefined
+        ) {
           this.$store.state.user.index++;
           this.$store.dispatch("user/userJoin", User);
           console.log("users on onmessage: ", this.$store.state.user.users);
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
-        } else if (this.$store.state.user.users.includes(User)) {
+        } else if (
+          this.$store.state.user.users.find(
+            (us) => us.name == User.name && us.room == User.room
+          )
+        ) {
           console.log("User가 있는데, 요청이 들어온 것은 나가는 것이다.");
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
