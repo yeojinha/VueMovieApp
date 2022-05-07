@@ -8,12 +8,10 @@ export default {
     flag: false,
     mutationFlas: 0,
     newUser: {
-      id: "",
       name: "",
       room: "",
     },
     user: {
-      id: "",
       name: "",
       room: "",
     },
@@ -36,7 +34,11 @@ export default {
     },
     pullUser(state, user) {
       state.mutationFlas--;
-      const index = state.users.indexOf(user);
+      const temp = state.users.find(
+        (us) => us.name === user.name && us.room === user.room
+      );
+      console.log("pull user: ", temp);
+      const index = state.users.indexOf(temp);
       console.log("index: ", index);
       if (index !== -1) {
         state.pulledUser = state.users.splice(index, 1)[0];

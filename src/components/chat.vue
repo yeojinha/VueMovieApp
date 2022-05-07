@@ -12,7 +12,12 @@
         <!--TODO channel을 store에서 가져와야 함.-->
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <li v-for="user in userList" :key="user.id">
+          <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+          <li
+            v-for="user in userList"
+            v-if="user.room === this.channel"
+            :key="user.id"
+          >
             {{ user.name }}
           </li>
         </ul>
