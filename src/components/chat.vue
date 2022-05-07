@@ -15,7 +15,7 @@
           <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
           <li
             v-for="user in userList"
-            v-if="user.room == this.channel"
+            v-if="user.room !== this.channel"
             :key="user.id"
           >
             {{ user.name }}
