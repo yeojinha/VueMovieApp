@@ -133,7 +133,7 @@ export default {
   computed: {
     userList() {
       this.USER_LIST = this.$store.getters["user/getUsers"];
-      return this.USER_LIST;
+      return this.$store.getters["user/getUsers"];
     },
   },
   methods: {
