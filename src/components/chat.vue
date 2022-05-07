@@ -42,14 +42,34 @@ export default {
   created() {
     this.channel = this.$route.query.channel || "";
     this.websocket = this.$store.state.user.stateWebSocket;
-
+    console.log(
+      "this.$store.state.user.newUser: ",
+      this.$store.state.user.newUser
+    );
+    //todo newUser를 server에 전달.
+    this.$store.state.user.stateWebSocket.send(
+      JSON.stringify(this.$store.state.user.newUser)
+    );
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
-      console.log("onmessage: ", vo.message, " and ", vo);
-      if (vo.channel === this.channel && vo.bot === true) {
-        this.appendNewMessage("Bot-Message", vo.message, vo.time);
-      } else if (vo.channel === this.channel && vo.bot === false) {
-        this.appendNewMessage(vo.name, vo.message, vo.time);
+      //!!vo.fresh(새로운 사람 입장/추가만 하는 경우)
+      if (vo.fresh === true) {
+        newUser = {
+          id: vo.id,
+          name: vo.name,
+          room: vo.room,
+          fresh: vo.true,
+        };
+        this.$store.state.user.index++;
+        this.$store.dispatch("user/userJoin", newUser);
+
+        //!vo.fresh가 false인 경우는 메시지인 경우
+      } else if (vo.fresh !== true) {
+        if (vo.channel === this.channel && vo.bot === true) {
+          this.appendNewMessage("Bot-Message", vo.message, vo.time);
+        } else if (vo.channel === this.channel && vo.bot === false) {
+          this.appendNewMessage(vo.name, vo.message, vo.time);
+        }
       }
 
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
@@ -57,9 +77,11 @@ export default {
 
     this.websocket.onopen = ({ data }) => {
       const message = {
+        name: "bot",
         message: `${this.chatUser.name}님 반갑습니다!`,
         channel: this.channel,
         bot: true,
+        fresh: false,
       };
       console.log("message on onopen: ", message);
 
@@ -117,15 +139,12 @@ export default {
         channel: this.channel,
         message: this.chatInputMessage,
         bot: false,
+        fresh: false,
       };
 
       console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
       console.log("message on chat: ", message);
-      const json = JSON.parse(message.toString());
-      console.log("json on app.js: ", json);
-      json.time = Date.now();
-      message2 = JSON.stringify(json);
-      console.log("message on app.js: ", message2);
+
       this.websocket.send(JSON.stringify(message));
       this.chatInputMessage = "";
     },

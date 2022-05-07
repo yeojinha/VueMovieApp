@@ -73,14 +73,16 @@ export default {
         id: this.$store.state.user.stateWebSocket.getUniqueID(),
         name: this.username,
         room: this.room,
+        fresh: true,
       };
+      //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
 
       this.$store.state.user.newUser = newUser;
 
-      this.$store.dispatch("user/userJoin", newUser);
+      // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
-      this.$store.state.user.index++;
+
       /*flag줌*/
     },
   },
