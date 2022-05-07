@@ -10,6 +10,8 @@ export default {
     newUser: {
       name: "",
       room: "",
+      new: true,
+      fresh: true,
     },
     user: {
       name: "",

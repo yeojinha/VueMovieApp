@@ -49,7 +49,7 @@ export default {
     );
 
     this.websocket.onopen = ({ data }) => {
-      //!! new User send to server
+      //!! new User send to server .
       this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
       console.log("this new User onopen: ", this.$store.state.user.newUser);
       const message = {
@@ -80,7 +80,8 @@ export default {
           // id: vo.id,
           name: vo.name,
           room: vo.room,
-          fresh: vo.true,
+          fresh: vo.fresh,
+          new: vo.new,
         };
         console.log("vo.fresh 체크 작동함");
         console.log(
@@ -95,9 +96,11 @@ export default {
           ) == undefined
         ) {
           this.$store.state.user.index++;
+          //!! 신규 유저는 이제 new가 아니다.
+          User.new = false;
           this.$store.dispatch("user/userJoin", User);
           console.log("users on onmessage: ", this.$store.state.user.users);
-          //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
+          //!! User가 있는데, 요청이 들어온 것은 user퇴장
         } else if (
           this.$store.state.user.users.find(
             (us) => us.name == User.name && us.room == User.room

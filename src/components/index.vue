@@ -62,6 +62,7 @@ export default {
         // id: this.$store.sta/te.user.stateWebSocket.getUniqueID(),
         name: this.username,
         room: this.room,
+        new: true,
         fresh: true,
       };
       //newUser 서버에 전달
