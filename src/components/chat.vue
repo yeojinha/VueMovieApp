@@ -121,6 +121,11 @@ export default {
 
       console.log("this.USER-LIST on computed userList(): ", this.USER_LIST);
       console.log("message on chat: ", message);
+      const json = JSON.parse(message.toString());
+      console.log("json on app.js: ", json);
+      json.time = Date.now();
+      message2 = JSON.stringify(json);
+      console.log("message on app.js: ", message2);
       this.websocket.send(JSON.stringify(message));
       this.chatInputMessage = "";
     },
