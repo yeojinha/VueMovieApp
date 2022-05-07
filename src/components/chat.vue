@@ -88,7 +88,7 @@ export default {
         );
         console.log("User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
-        if (!User in userList) {
+        if (!this.$store.state.user.users.includes(User)) {
           this.$store.state.user.index++;
           this.$store.dispatch("user/userJoin", User);
           console.log("users on onmessage: ", this.$store.state.user.users);
