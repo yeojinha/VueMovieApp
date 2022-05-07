@@ -45,7 +45,11 @@ export default {
 
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
-      this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
+      if (
+        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) > 0
+      )
+        console.log("새로운 유저 서버에 보내짐");
+
       const message = {
         name: "bot",
         message: `${this.chatUser.name}님 반갑습니다!`,
