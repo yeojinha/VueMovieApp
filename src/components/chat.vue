@@ -146,18 +146,19 @@ export default {
 
   computed: {
     userList() {
-      this.USER_LIST = this.$store.getters["user/getUsers"].filter(
-        (user) => user.room == this.channel
-      );
-      console.log(
-        "userList filterd List: ",
-        this.$store.getters["user/getUsers"].filter(
-          (user) => user.room == this.channel
-        )
-      );
-      return this.$store.getters["user/getUsers"].filter(
-        (user) => user.room == this.channel
-      );
+      // this.USER_LIST = this.$store.getters["user/getUsers"].filter(
+      //   (user) => user.room == this.channel
+      // );
+      // console.log(
+      //   "userList filterd List: ",
+      //   this.$store.getters["user/getUsers"].filter(
+      //     (user) => user.room == this.channel
+      //   )
+      // );
+      // return this.$store.getters["user/getUsers"].filter(
+      //   (user) => user.room == this.channel
+      // );
+      return this.$store.state.user.users;
     },
   },
   methods: {
