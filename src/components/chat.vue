@@ -46,21 +46,44 @@ export default {
       "this.$store.state.user.newUser: ",
       this.$store.state.user.newUser
     );
+
+    this.websocket.onopen = ({ data }) => {
+      //!! new User send to server
+      this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
+      console.log("this new User onopen: ", this.$store.state.user.newUser);
+      const message = {
+        name: "bot",
+        message: `${this.chatUser.name}님 반갑습니다!`,
+        channel: this.channel,
+        bot: true,
+        fresh: false,
+      };
+      console.log("message on onopen: ", message);
+
+      console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
+      if (this.websocket.send(JSON.stringify(message)) < 0) {
+        console.log("안보내짐 error발생");
+      } else {
+        console.log("보내짐");
+      }
+      console.log("open event..", data);
+    };
     //todo newUser를 server에 전달.
 
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       //!!vo.fresh(새로운 사람 입장/추가만 하는 경우)
+      console.log("vo JSON 내용 체크 onmessage: ", vo);
       if (vo.fresh === true) {
-        newUser = {
+        let newUser = {
           id: vo.id,
           name: vo.name,
           room: vo.room,
           fresh: vo.true,
         };
+        console.log("vo.fresh 체크 작동함");
         this.$store.state.user.index++;
         this.$store.dispatch("user/userJoin", newUser);
-
         //!vo.fresh가 false인 경우는 메시지인 경우
       } else if (vo.fresh !== true) {
         if (vo.channel === this.channel && vo.bot === true) {
@@ -72,27 +95,6 @@ export default {
 
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
-
-    this.websocket.onopen = ({ data }) => {
-      const message = {
-        name: "bot",
-        message: `${this.chatUser.name}님 반갑습니다!`,
-        channel: this.channel,
-        bot: true,
-        fresh: false,
-      };
-      console.log("message on onopen: ", message);
-      //!! new User send to server
-      this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
-      console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
-      if (this.websocket.send(JSON.stringify(message)) < 0) {
-        console.log("안보내짐 error발생");
-      } else {
-        console.log("보내짐");
-      }
-      console.log("open event..", data);
-    };
-
     this.websocket.onerror = (event) => {
       console.log("error", event);
     };
