@@ -9,6 +9,13 @@
       <div class="chat-sidebar">
         <h3><i class="fas fa-comments"></i> Channel Name:</h3>
         <h2 id="room-name">{{ this.channel }}</h2>
+        <!--TODO channel을 store에서 가져와야 함.-->
+        <h3><i class="fas fa-users"></i> Users</h3>
+        <ul id="users">
+          <li v-for="user in userList" :key="user.id">
+            {{ user.name }}
+          </li>
+        </ul>
       </div>
       <div class="chat-messages"></div>
     </main>
