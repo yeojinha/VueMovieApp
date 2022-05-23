@@ -30,14 +30,13 @@ export default {
     //todo store에서 flag걸어준다.  chat에 접속하면 flag 1
     if (this.$store.state.user.reloadFlag === true) {
       location.reload();
+      socketClose();
       this.$store.state.user.reloadFlag = false;
     }
   },
   methods: {
     unLoadEvent: function (event) {
-      if (this.isLeaveSite) return;
       event.preventDefault();
-      event.returnValue = "";
       socketClose();
       localStorage.clear();
     },
