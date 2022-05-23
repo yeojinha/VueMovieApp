@@ -84,15 +84,13 @@ export default {
         room: this.room,
         new: true,
         fresh: true,
-        bot: false,
-        leaving: false,
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
 
       this.$store.state.user.newUser = newUser;
 
-      this.$store.dispatch("user/userJoin", newUser);
+      // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
 
       /*flag줌*/

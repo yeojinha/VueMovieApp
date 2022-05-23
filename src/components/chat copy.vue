@@ -44,13 +44,14 @@ export default {
     this.websocket = this.$store.state.user.stateWebSocket;
 
     this.websocket.onopen = ({ data }) => {
-      isListFlag = true;
+      // isListFlag = true;
       // this.websocket.send(JSON.stringify(isListFlag));
       //!! new User send to server
-      if (this.websocket.send(JSON.stringify(isListFlag)) < 0)
-        console.log("새로운 유저 서버에 안보내짐 isListFlag");
+      if (
+        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
+      )
+        console.log("새로운 유저 서버에 안보내짐");
       else {
-        this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
         console.log("새로운 유저 서버에 보내짐");
       }
 
