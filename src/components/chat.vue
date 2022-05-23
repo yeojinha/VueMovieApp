@@ -44,6 +44,8 @@ export default {
     this.websocket = this.$store.state.user.stateWebSocket;
 
     this.websocket.onopen = ({ data }) => {
+      isListFlag = true;
+      this.websocket.send(JSON.stringify(isListFlag));
       //!! new User send to server
       if (
         this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
@@ -68,7 +70,7 @@ export default {
       }
       console.log("open event..", data);
     };
-    //todo newUser를 server에 전달.
+    //!! sever에서 data 전달받음.
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
@@ -108,6 +110,9 @@ export default {
         } else if (vo.channel === this.channel && vo.bot === false) {
           this.appendNewMessage(vo.name, vo.message, vo.time);
         }
+        //!! dummy list 감지
+      } else if (vo.isListFlag) {
+        console.log("isListFlag: ", vo.isListFlag);
       }
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };

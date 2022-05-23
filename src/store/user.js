@@ -32,7 +32,10 @@ export default {
     putUser(state, user) {
       state.mutationFlas++;
       state.users.push(user);
-      state.userList.push(user); //dummy list 만듬
+      temp = user;
+      temp.dummy = true;
+      state.userList.push(temp); //dummy list 만듬
+      console.log("users dummy on putUser: ", state.userList);
       console.log("users array on putUser: ", state.users);
     },
     pullUser(state, user) {
