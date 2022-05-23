@@ -61,7 +61,7 @@ export default createRouter({
       let userTemp = this.$store.state.user.thisUser;
       if (this.$store.state.user.flag === true) {
         //!! this.chatUser가 old한 상태 server에 전달되게 하라.
-        this.chatUser.new = false;
+        userTemp.new = false;
 
         const message = {
           message: `${userTemp.name}님 안녕히가세요!`,
