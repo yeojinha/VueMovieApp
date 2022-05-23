@@ -77,7 +77,7 @@ export default {
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       if (vo.isListFlag) {
         console.log("isListFlag: ", vo.isListFlag);
-        for (let i = 0; i < this.$store.state.user.userList.length(); i++) {
+        for (let i = 0; i < this.$store.state.user.mutationFlas; i++) {
           this.websocket.send(
             JSON.stringify(this.$store.state.user.userList[i])
           );

@@ -30,10 +30,8 @@ export default {
   methods: {},
   mutations: {
     putUser(state, user) {
-      state.mutationFlas++;
-
       //!! 중복 추가 방지
-      for (let i = 0; i < state.users.length(); i++) {
+      for (let i = 0; i < state.mutationFlas; i++) {
         if (
           state.users[i].name == user.name &&
           state.users[i].room == user.room
@@ -45,7 +43,7 @@ export default {
         dummyUser.dummy = true;
         state.userList.push(dummyUser); //dummy list 만듬
       }
-
+      state.mutationFlas++;
       console.log("users dummy on putUser: ", state.userList);
       console.log("users array on putUser: ", state.users);
     },
