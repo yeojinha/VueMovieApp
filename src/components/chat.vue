@@ -42,10 +42,7 @@ export default {
   created() {
     this.channel = this.$route.query.channel || "";
     this.websocket = this.$store.state.user.stateWebSocket;
-
     this.websocket.onopen = ({ data }) => {
-      // isListFlag = true;
-      // this.websocket.send(JSON.stringify(isListFlag));
       //!! new User send to server
       if (
         this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
@@ -54,7 +51,6 @@ export default {
       else {
         console.log("새로운 유저 서버에 보내짐");
       }
-
       const message = {
         name: "bot",
         message: `${this.chatUser.name}님 반갑습니다!`,
@@ -70,15 +66,11 @@ export default {
       }
       console.log("open event..", data);
     };
-
-    //!! sever에서 data 전달받음.
+    //todo newUser를 server에 전달.
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
-      //  if (vo.isListFlag) {
-      //   console.log("isListFlag: ", vo.isListFlag);
-      // } else
       if (vo.fresh === true && !vo.bot) {
         console.log("vo.fresh 작동 확인");
         let User = {
@@ -114,11 +106,9 @@ export default {
         } else if (vo.channel === this.channel && vo.bot === false) {
           this.appendNewMessage(vo.name, vo.message, vo.time);
         }
-        //!! dummy list 감지
       }
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
-
     this.websocket.onerror = (event) => {
       console.log("error", event);
     };
@@ -129,7 +119,7 @@ export default {
   data() {
     return {
       chatUser: this.$store.state.user.newUser,
-      // tempName: "Ghost",
+      tempName: "Ghost",
       user: {
         id: null,
         name: "",
@@ -214,7 +204,6 @@ export default {
       if (this.$store.state.user.flag === true) {
         //!! this.chatUser가 old한 상태 server에 전달되게 하라.
         this.chatUser.new = false;
-
         const message = {
           message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
@@ -229,7 +218,7 @@ export default {
                 name: this.chatUser.name,
                 room: this.channel,
                 bot: false,
-                fresh: true, //true -> false
+                fresh: true,
                 new: false,
               })
             ) < 0
@@ -242,8 +231,8 @@ export default {
         }
         setTimeout(function () {
           this.websocket.close();
-          localStorage.clear();
         }, 2000);
+        localStorage.clear();
         this.$store.state.user.flag = false;
       }
       this.$router.replace("/");

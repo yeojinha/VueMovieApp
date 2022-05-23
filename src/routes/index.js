@@ -8,6 +8,8 @@ import Chat from "../components/chat.vue";
 //src\routes\public\css\js\chat.html
 
 export default createRouter({
+  // Hash모드는 #들어간 것으로 들어가기
+  // https://google.comm/#/search
   history: createWebHashHistory(),
   scrollBehavior() {
     //이동시 scroll 맨 위로 설정
@@ -58,42 +60,8 @@ export default createRouter({
   methods: {
     socketClose() {
       this.socket = this.$store.state.user.stateWebSocket;
-      let userTemp = this.$store.state.user.thisUser;
-      if (this.$store.state.user.flag === true) {
-        //!! this.chatUser가 old한 상태 server에 전달되게 하라.
-        userTemp.new = false;
-
-        const message = {
-          message: `${userTemp.name}님 안녕히가세요!`,
-          channel: userTemp.room,
-          bot: true,
-        };
-        if (this.socket.send(JSON.stringify(message)) < 0) {
-          console.log("안보내짐 error발생");
-        } else {
-          if (
-            this.socket.send(
-              JSON.stringify({
-                name: userTemp.name,
-                room: userTemp.room,
-                bot: false,
-                fresh: false, //true -> false
-                new: false,
-              })
-            ) < 0
-          )
-            console.log("chatUser 안보내짐");
-          else {
-            console.log("chatUser 보내짐");
-          }
-          console.log("보내짐");
-        }
-        setTimeout(function () {
-          this.socket.close();
-          localStorage.clear();
-        }, 2500);
-        this.$store.state.user.flag = false;
-      }
+      // this.socket.close();
+      this.socket.close();
     },
   },
 });

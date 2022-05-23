@@ -54,11 +54,9 @@ export default {
           (us) => us.name == this.username && us.room == this.room
         )
       ) {
-        alert("아이디 중복");
         return;
       }
       this.$store.state.user.reloadFlag = true; //for reload on Home.vue
-
       this.$store.state.user.flag = true;
       console.log("flag: ", this.$store.state.user.flag);
       // ws://localhost:80/
@@ -87,12 +85,9 @@ export default {
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
-
       this.$store.state.user.newUser = newUser;
-
       // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
-
       /*flag줌*/
     },
   },

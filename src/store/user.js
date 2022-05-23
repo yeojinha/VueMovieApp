@@ -1,4 +1,3 @@
-// import { toSafeInteger } from "lodash";
 import { ref } from "vue";
 export default {
   namespaced: true,
@@ -13,18 +12,11 @@ export default {
       new: true,
       fresh: true,
     },
-    thisUser: {
-      name: "",
-      room: "",
-      new: true,
-      fresh: true,
-    },
     user: {
       name: "",
       room: "",
     },
-    userList: [],
-    users: [],
+    users: ref([]),
     rooms: [],
     pulledUser: "",
   },
