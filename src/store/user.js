@@ -33,7 +33,7 @@ export default {
     putUser(state, user) {
       state.mutationFlas++;
       state.users.push(user);
-      temp = {
+      let temp = {
         name: user.name,
         room: user.room,
         new: user.new,
