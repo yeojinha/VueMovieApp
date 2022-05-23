@@ -68,11 +68,11 @@ export default createRouter({
           channel: userTemp.room,
           bot: true,
         };
-        if (this.websocket.send(JSON.stringify(message)) < 0) {
+        if (this.socket.send(JSON.stringify(message)) < 0) {
           console.log("안보내짐 error발생");
         } else {
           if (
-            this.websocket.send(
+            this.socket.send(
               JSON.stringify({
                 name: userTemp.name,
                 room: userTemp.room,
