@@ -77,7 +77,8 @@ export default {
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       if (vo.isListFlag) {
         console.log("isListFlag: ", vo.isListFlag);
-      } else if (vo.fresh === true && !vo.bot) {
+      }
+      if (vo.fresh === true && !vo.bot) {
         console.log("vo.fresh 작동 확인");
         let User = {
           // id: vo.id,
