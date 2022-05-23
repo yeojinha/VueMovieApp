@@ -48,7 +48,7 @@ export default {
       // this.websocket.send(JSON.stringify(isListFlag));
       //!! new User send to server
       if (
-        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
+        this.websocket.send(JSON.stringify(this.$store.state.user.thisUser)) < 0
       )
         console.log("새로운 유저 서버에 안보내짐");
       else {
