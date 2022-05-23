@@ -13,7 +13,12 @@ export default {
       new: true,
       fresh: true,
     },
-    thisUser,
+    thisUser: {
+      name: "",
+      room: "",
+      new: true,
+      fresh: true,
+    },
     user: {
       name: "",
       room: "",
