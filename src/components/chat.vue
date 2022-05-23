@@ -121,7 +121,7 @@ export default {
   data() {
     return {
       chatUser: this.$store.state.user.newUser,
-      tempName: "Ghost",
+      // tempName: "Ghost",
       user: {
         id: null,
         name: "",

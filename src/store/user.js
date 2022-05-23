@@ -18,7 +18,7 @@ export default {
       room: "",
     },
     userList: [],
-    users: ref([]),
+    users: [],
     rooms: [],
     pulledUser: "",
   },
