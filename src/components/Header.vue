@@ -77,7 +77,7 @@ export default {
       if (!path) return false;
       else if (path === "/selections") {
         apply();
-
+        socketClose();
         return path.test(this.$route.fullPath);
       }
       return path.test(this.$route.fullPath);

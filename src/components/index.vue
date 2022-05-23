@@ -85,11 +85,6 @@ export default {
         new: true,
         fresh: true,
       };
-      this.$store.state.user.thisUser = newUser;
-      console.log(
-        "this.$store.state.user.thisUser: ",
-        this.$store.state.user.thisUser
-      );
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
 
