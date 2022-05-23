@@ -229,7 +229,7 @@ export default {
                 name: this.chatUser.name,
                 room: this.channel,
                 bot: false,
-                fresh: false, //true -> false
+                fresh: true, //true -> false
                 new: false,
               })
             ) < 0
