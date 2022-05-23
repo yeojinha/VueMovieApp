@@ -30,21 +30,11 @@ export default {
   methods: {},
   mutations: {
     putUser(state, user) {
-      //!! 중복 추가 방지
-      for (let i = 0; i < state.mutationFlas; i++) {
-        if (
-          state.users[i].name == user.name &&
-          state.users[i].room == user.room
-        ) {
-          break;
-        }
-        state.users.push(user);
-        let dummyUser = user;
-        dummyUser.dummy = true;
-        state.userList.push(dummyUser); //dummy list 만듬
-        break;
-      }
       state.mutationFlas++;
+      state.users.push(user);
+      temp = user;
+      temp.dummy = true;
+      state.userList.push(temp); //dummy list 만듬
       console.log("users dummy on putUser: ", state.userList);
       console.log("users array on putUser: ", state.users);
     },
@@ -65,7 +55,6 @@ export default {
       console.log("state.pulledUser: ", state.pulledUser);
     },
   },
-
   actions: {
     userJoin(context, user) {
       console.log("...user: ", { ...user });

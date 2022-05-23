@@ -44,13 +44,14 @@ export default {
     this.websocket = this.$store.state.user.stateWebSocket;
 
     this.websocket.onopen = ({ data }) => {
-      let isListFlag = true;
+      // isListFlag = true;
       // this.websocket.send(JSON.stringify(isListFlag));
       //!! new User send to server
-      if (this.websocket.send(JSON.stringify(isListFlag)) < 0)
-        console.log("새로운 유저 서버에 안보내짐 isListFlag");
+      if (
+        this.websocket.send(JSON.stringify(this.$store.state.user.newUser)) < 0
+      )
+        console.log("새로운 유저 서버에 안보내짐");
       else {
-        // this.websocket.send(JSON.stringify(this.$store.state.user.newUser));
         console.log("새로운 유저 서버에 보내짐");
       }
 
@@ -75,18 +76,9 @@ export default {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
-      if (vo.isListFlag) {
-        console.log("isListFlag: ", vo.isListFlag);
-        for (let i = 0; i < this.$store.state.user.mutationFlas; i++) {
-          this.websocket.send(
-            JSON.stringify(this.$store.state.user.userList[i])
-          );
-          console.log(
-            "userList 더미 확인: ",
-            this.$store.state.user.userList[i]
-          );
-        }
-      }
+      //  if (vo.isListFlag) {
+      //   console.log("isListFlag: ", vo.isListFlag);
+      // } else
       if (vo.fresh === true && !vo.bot) {
         console.log("vo.fresh 작동 확인");
         let User = {
