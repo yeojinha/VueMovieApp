@@ -34,12 +34,12 @@ export default {
       state.mutationFlas++;
       state.users.push(user);
       temp = {
-        name: user.username,
+        name: user.name,
         room: user.room,
-        new: true,
-        fresh: true,
-        bot: false,
-        leaving: false,
+        new: user.new,
+        fresh: user.fresh,
+        bot: user.bot,
+        leaving: user.leaving,
         dummy: false,
       };
       state.userList.push(temp); //dummy list 만듬
