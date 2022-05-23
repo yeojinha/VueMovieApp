@@ -13,6 +13,7 @@ export default {
       new: true,
       fresh: true,
     },
+    temp,
     user: {
       name: "",
       room: "",
@@ -32,9 +33,9 @@ export default {
     putUser(state, user) {
       state.mutationFlas++;
       state.users.push(user);
-      temp = user;
+      state.temp = user;
       temp.dummy = true;
-      state.userList.push(temp); //dummy list 만듬
+      state.userList.push(state.temp); //dummy list 만듬
       console.log("users dummy on putUser: ", state.userList);
       console.log("users array on putUser: ", state.users);
     },
