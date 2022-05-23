@@ -36,12 +36,13 @@ export default {
           state.users[i].name == user.name &&
           state.users[i].room == user.room
         ) {
-          return;
+          break;
         }
         state.users.push(user);
         let dummyUser = user;
         dummyUser.dummy = true;
         state.userList.push(dummyUser); //dummy list 만듬
+        break;
       }
       state.mutationFlas++;
       console.log("users dummy on putUser: ", state.userList);
