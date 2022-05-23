@@ -75,7 +75,9 @@ export default {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
-      if (vo.fresh === true && !vo.bot) {
+      if (vo.isListFlag) {
+        console.log("isListFlag: ", vo.isListFlag);
+      } else if (vo.fresh === true && !vo.bot) {
         console.log("vo.fresh 작동 확인");
         let User = {
           // id: vo.id,
@@ -111,8 +113,6 @@ export default {
           this.appendNewMessage(vo.name, vo.message, vo.time);
         }
         //!! dummy list 감지
-      } else if (vo.isListFlag) {
-        console.log("isListFlag: ", vo.isListFlag);
       }
       this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     };
