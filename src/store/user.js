@@ -38,10 +38,6 @@ export default {
     putUser(state, user) {
       state.mutationFlas++;
       state.users.push(user);
-      temp = user;
-      temp.dummy = true;
-      state.userList.push(temp); //dummy list 만듬
-      console.log("users dummy on putUser: ", state.userList);
       console.log("users array on putUser: ", state.users);
     },
     pullUser(state, user) {
@@ -55,7 +51,6 @@ export default {
       console.log("index: ", index);
       if (index !== -1) {
         state.pulledUser = state.users.splice(index, 1)[0];
-        state.userList.splice(index, 1)[0]; // dummy List pull
       }
       console.log("After usrs array on pullUser: ", state.users);
       console.log("state.pulledUser: ", state.pulledUser);
