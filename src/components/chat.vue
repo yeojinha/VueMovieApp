@@ -221,7 +221,7 @@ export default {
                 name: this.chatUser.name,
                 room: this.channel,
                 bot: false,
-                fresh: true,
+                fresh: false, //true -> false
                 new: false,
               })
             ) < 0
@@ -234,8 +234,8 @@ export default {
         }
         setTimeout(function () {
           this.websocket.close();
+          localStorage.clear();
         }, 2000);
-        localStorage.clear();
         this.$store.state.user.flag = false;
       }
       this.$router.replace("/");

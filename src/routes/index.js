@@ -8,8 +8,6 @@ import Chat from "../components/chat.vue";
 //src\routes\public\css\js\chat.html
 
 export default createRouter({
-  // Hash모드는 #들어간 것으로 들어가기
-  // https://google.comm/#/search
   history: createWebHashHistory(),
   scrollBehavior() {
     //이동시 scroll 맨 위로 설정
