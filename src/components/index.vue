@@ -54,6 +54,7 @@ export default {
           (us) => us.name == this.username && us.room == this.room
         )
       ) {
+        alert("아이디 중복");
         return;
       }
       this.$store.state.user.reloadFlag = true; //for reload on Home.vue
