@@ -34,6 +34,7 @@
 <script>
 import Logo from "~/components/Logo";
 import { mapState } from "vuex";
+
 export default {
   components: {
     Logo: Logo,
@@ -75,7 +76,44 @@ export default {
     isMatch(path) {
       if (!path) return false;
       else if (path === "/selections") {
-        apply();
+        apply(); ////////////////////
+        this.socket = this.$store.state.user.stateWebSocket;
+        let userTemp = this.$store.state.user.thisUser;
+        if (this.$store.state.user.flag === true) {
+          //!! this.chatUser가 old한 상태 server에 전달되게 하라.
+          userTemp.new = false;
+
+          const message = {
+            message: `${userTemp.name}님 안녕히가세요!`,
+            channel: userTemp.room,
+            bot: true,
+          };
+          if (this.socket.send(JSON.stringify(message)) < 0) {
+            console.log("안보내짐 error발생");
+          } else {
+            if (
+              this.socket.send(
+                JSON.stringify({
+                  name: userTemp.name,
+                  room: userTemp.room,
+                  bot: false,
+                  fresh: false, //true -> false
+                  new: false,
+                })
+              ) < 0
+            )
+              console.log("chatUser 안보내짐");
+            else {
+              console.log("chatUser 보내짐");
+            }
+            console.log("보내짐");
+          }
+          setTimeout(function () {
+            this.socket.close();
+            localStorage.clear();
+          }, 2500);
+          this.$store.state.user.flag = false;
+        } //////////////
         return path.test(this.$route.fullPath);
       }
       return path.test(this.$route.fullPath);
@@ -85,43 +123,7 @@ export default {
     },
     clickEventSocket(event) {
       event.preventDefault();
-      this.websocket = this.$store.state.user.stateWebSocket;
-      //TODO  websocket이 close 작동 안한다.
-      console.log("flag on Header: ", this.$store.state.user.flag);
-      console.log(
-        "Store websocke readyState: ",
-        this.$store.state.user.stateWebSocket.readyState
-      );
-      if (this.websocket === null) {
-        return;
-      } else if (
-        this.websocket.readyState === WebSocket.OPEN &&
-        this.$store.state.user.flag === true
-      ) {
-        let userTemp = this.$store.state.user.thisUser;
-        const message = {
-          message: `${userTemp.name}님 안녕히가세요!`,
-          channel: userTemp.room,
-          bot: true,
-          leaving: true,
-          fresh: false,
-          new: false,
-        };
-        if (this.socket.send(JSON.stringify(message)) < 0) {
-          console.log("안보내짐  on Header");
-        } else {
-          console.log("보내짐");
-        }
-
-        this.websocket.close();
-        this.$store.state.user.flag = false;
-        localStorage.clear();
-        console.log("flag on Header inside: ", this.$store.state.user.flag);
-        console.log(
-          "websocket check on HEADER inside: ",
-          this.websocket.readyState === WebSocket.OPEN
-        );
-      }
+      socketClose();
     },
   },
 };
@@ -151,6 +153,7 @@ header {
     right: 40px;
     margin: auto;
     transition: 0.4s;
+
     &:hover {
       background-color: darken($gray-200, 10%);
     }

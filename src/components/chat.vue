@@ -97,10 +97,11 @@ export default {
         } else {
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+          this.appendNewMessage("Bot-Message", vo.message, vo.time);
           console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
         }
         //!vo.fresh가 false인 경우는 메시지인 경우
-      } else if (vo.fresh !== true) {
+      } else if (vo.fresh !== true && vo.leaving == undefined) {
         if (vo.channel === this.channel && vo.bot === true) {
           this.appendNewMessage("Bot-Message", vo.message, vo.time);
         } else if (vo.channel === this.channel && vo.bot === false) {
@@ -208,25 +209,28 @@ export default {
           message: `${this.chatUser.name}님 안녕히가세요!`,
           channel: this.channel,
           bot: true,
+          leaving: true,
+          fresh: false,
+          new: false,
         };
         if (this.websocket.send(JSON.stringify(message)) < 0) {
           console.log("안보내짐 error발생");
         } else {
-          if (
-            this.websocket.send(
-              JSON.stringify({
-                name: this.chatUser.name,
-                room: this.channel,
-                bot: false,
-                fresh: true,
-                new: false,
-              })
-            ) < 0
-          )
-            console.log("chatUser 안보내짐");
-          else {
-            console.log("chatUser 보내짐");
-          }
+          // if (
+          //   this.websocket.send(
+          //     JSON.stringify({
+          //       name: this.chatUser.name,
+          //       room: this.channel,
+          //       bot: false,
+          //       fresh: true,
+          //       new: false,
+          //     })
+          //   ) < 0
+          // )
+          //   console.log("chatUser 안보내짐");
+          // else {
+          //   console.log("chatUser 보내짐");
+          // }
           console.log("보내짐");
         }
         setTimeout(function () {
