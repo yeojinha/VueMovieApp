@@ -12,7 +12,10 @@ export default {
       new: true,
       fresh: true,
     },
-    thisUser,
+    thisUser: {
+      name: "",
+      room: "",
+    },
     user: {
       name: "",
       room: "",
