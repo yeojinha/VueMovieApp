@@ -112,8 +112,9 @@ export default {
         } else {
           console.log("보내짐");
         }
-
-        this.websocket.close();
+        setTimeout(function () {
+          this.websocket.close();
+        }, 2500);
         this.$store.state.user.flag = false;
         localStorage.clear();
         console.log("flag on Header inside: ", this.$store.state.user.flag);
