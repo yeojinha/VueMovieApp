@@ -102,13 +102,12 @@ else !fresh -> 그냥 추가  */
         let check = this.websocket.send(
           JSON.stringify(this.$store.state.user.users)
         );
-        if (check >= 0)
+        if (check < 0) console.log("user List 안보내짐");
+        else {
           console.log(
             "stirngified - >userList on chat.vue: ",
             JSON.stringify(this.$store.state.user.users)
           );
-        else {
-          console.log("user List 안보내짐");
         }
       } else if (!Array.isArray(vo) && !vo.fresh) {
         //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
