@@ -88,6 +88,7 @@ export default {
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
       this.$store.state.user.newUser = newUser;
+      console.log("new User on index.vue: ", this.$store.state.user.newUser);
       // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
       /*flag줌*/

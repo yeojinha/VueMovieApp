@@ -11,6 +11,7 @@ export default {
       room: "",
       new: true,
       fresh: true,
+      leaving: undefined,
     },
     user: {
       name: "",

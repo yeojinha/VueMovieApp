@@ -88,7 +88,7 @@ export default {
         );
         console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
         //!! 이름이 다르
-        if (temp === undefined && temp.leaving === false) {
+        if (temp === undefined && User.leaving === false) {
           //**  존재하지 않고 입장 유저면
           this.$store.state.user.index++;
           User.new = false;
