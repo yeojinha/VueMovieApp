@@ -45,11 +45,9 @@ export default {
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
       //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
-      let enterFlag = {
-        entering: true,
-      };
+
       //** 입장 시그널 전달  */
-      let check = this.websocket.send(JSON.stringify(enterFlag));
+      let check = this.websocket.send(this.$store.state.user.newUser);
       if (check < 0)
         //!! 아래 사항 출력 시에 check 보내짐.
         console.log("check flag 안보내짐");
@@ -147,6 +145,22 @@ else !fresh -> 그냥 추가  */
         console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
       } else if (vo.entering) {
         this.$store.state.user.lengthOfList++;
+        let temp = this.$store.state.user.users.find(
+          (us) => us.name == User.name && us.room == User.room
+        );
+        if (temp === undefined) {
+          let User = {
+            // id: vo.id,
+            name: vo.name,
+            room: vo.room,
+            fresh: vo.true,
+            new: vo.new,
+            bot: vo.bot,
+            leaving: vo.leaving,
+            entering: false,
+          };
+          this.$store.dispatch("user/userJoin", User);
+        }
         console.log("lengthOfList -> ", this.$store.state.user.lengthOfList);
         //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
         console.log(
