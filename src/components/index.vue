@@ -65,7 +65,7 @@ export default {
       //   "ws://localhost:80/"
       // );
       this.$store.state.user.stateWebSocket = new WebSocket(
-        "ws://chat-server-yeojin.herokuapp.com/ws"
+        "ws://yeojin-chat-server.herokuapp.com/ws"
       );
       //webSocket의 UniqueID 함수 생성하여 newUser에 전달.
       this.$store.state.user.stateWebSocket.getUniqueID = function () {
