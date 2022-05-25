@@ -50,12 +50,15 @@ export default {
       };
       //** 입장 시그널 전달  */
       let check = this.websocket.send(JSON.stringify(enterFlag));
-      if (check >= 0)
+      if (check < 0)
         //!! 아래 사항 출력 시에 check 보내짐.
+        console.log("check flag 안보내짐");
+      else {
         console.log(
           "check on chat.vue 유저리스트 공유 flag 전송 (0이상이면 정상작동): ",
           check
         );
+      }
 
       const message = {
         name: "bot",
@@ -81,7 +84,19 @@ export default {
       //**array  */
       /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
 else !fresh -> 그냥 추가  */
-      if (!Array.isArray(vo) && vo.entering) {
+      if (!Array.isArray(vo) && vo.leaving) {
+        let User = {
+          // id: vo.id,
+          name: vo.name,
+          room: vo.room,
+          fresh: vo.true,
+          new: vo.new,
+          leaving: vo.leaving,
+        };
+        this.$store.state.user.index--;
+        this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+        console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
+      } else if (!Array.isArray(vo) && vo.entering) {
         //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
         console.log("userlist: ", JSON.stringify(this.$store.state.user.users));
         let check = this.websocket.send(
@@ -101,18 +116,6 @@ else !fresh -> 그냥 추가  */
           this.appendNewMessage("Bot-Message", vo.message, vo.time);
         } else if (vo.channel === this.channel && !vo.bot) {
           this.appendNewMessage(vo.name, vo.message, vo.time);
-        } else if (vo.leaving) {
-          let User = {
-            // id: vo.id,
-            name: vo.name,
-            room: vo.room,
-            fresh: vo.true,
-            new: vo.new,
-            leaving: vo.leaving,
-          };
-          this.$store.state.user.index--;
-          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
-          console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
         }
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       } else if (Array.isArray(vo)) {
