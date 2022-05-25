@@ -78,7 +78,7 @@ export default {
 
     //todo newUser를 server에 전달.
     this.websocket.onmessage = ({ data }) => {
-      console.log("instance of : ", vo instanceof Array);
+      console.log("vo length : ", vo.length());
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
       console.log("after parse typeOf: ", typeof vo);
