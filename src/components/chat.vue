@@ -47,16 +47,7 @@ export default {
       //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
 
       //** 입장 시그널 전달  */
-      let check = this.websocket.send(this.$store.state.user.newUser);
-      if (check < 0)
-        //!! 아래 사항 출력 시에 check 보내짐.
-        console.log("check flag 안보내짐");
-      else {
-        console.log(
-          "check on chat.vue 유저리스트 공유 flag 전송 (0이상이면 정상작동): ",
-          check
-        );
-      }
+      this.websocket.send(this.$store.state.user.newUser);
 
       const message = {
         name: "bot",

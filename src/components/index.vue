@@ -85,7 +85,7 @@ export default {
         fresh: false,
         bot: false,
         leaving: false,
-        entering: false,
+        entering: true,
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
