@@ -83,11 +83,11 @@ export default {
 else !fresh -> 그냥 추가  */
       if (!Array.isArray(vo) && vo.entering) {
         //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
+        console.log("userlist: ", JSON.stringify(this.$store.state.user.users));
         let check = this.websocket.send(
           JSON.stringify(this.$store.state.user.users)
         );
         if (check >= 0)
-          //!! 아래 사항 출력 시에 check 보내짐.
           console.log(
             "stirngified - >userList on chat.vue: ",
             JSON.stringify(this.$store.state.user.users)
