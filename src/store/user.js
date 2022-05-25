@@ -12,6 +12,7 @@ export default {
       new: true,
       fresh: true,
       leaving: undefined,
+      entering: false,
     },
     user: {
       name: "",

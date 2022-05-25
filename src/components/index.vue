@@ -82,8 +82,10 @@ export default {
         name: this.username,
         room: this.room,
         new: true,
-        fresh: true,
+        fresh: false,
+        bot: false,
         leaving: false,
+        entering: false,
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
