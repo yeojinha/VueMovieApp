@@ -5,7 +5,7 @@ export default {
     stateWebSocket: null,
     reloadFlag: false,
     flag: false,
-    temp: undefined,
+
     lengthOfList: 0,
     mutationFlas: 0,
     newUser: {
@@ -38,9 +38,9 @@ export default {
     },
     pullUser(state, user) {
       console.log("before pull User on pullUser: ", state.users);
-      this.$store.state.user.lengthOfList--;
+      // this.$store.state.user.lengthOfList--;
       state.mutationFlas--;
-      state.temp = state.users.find(
+      let temp = state.users.find(
         (us) => us.name === user.name && us.room === user.room
       );
       console.log("found user: ", temp);
