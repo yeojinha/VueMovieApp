@@ -80,6 +80,7 @@ export default {
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
       console.log("this.websocket.onmessage: ", vo);
+      console.log("typeOf: ", typeof vo);
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       //**array  */
       /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
