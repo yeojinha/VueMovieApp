@@ -135,6 +135,7 @@ else !fresh -> 그냥 추가  */
         this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
       } else if (vo.entering) {
+        //!!vo entering
         this.$store.state.user.lengthOfList++;
         let temp = this.$store.state.user.users.find(
           (us) => us.name == User.name && us.room == User.room

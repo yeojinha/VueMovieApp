@@ -92,7 +92,7 @@ export default {
       this.$store.state.user.newUser = newUser;
       console.log("new User on index.vue: ", this.$store.state.user.newUser);
       //* newUser을 먼저 리스트에 추가. */
-      this.$store.dispatch("user/userJoin", newUser);
+      // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
       /*flag줌*/
     },

@@ -13,8 +13,8 @@ export default {
       room: "",
       new: true,
       fresh: true,
-      leaving: undefined,
-      entering: false,
+      leaving: false,
+      entering: true,
     },
     user: {
       name: "",
