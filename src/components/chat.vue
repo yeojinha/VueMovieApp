@@ -120,8 +120,10 @@ else !fresh -> 그냥 추가  */
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       } else if (Array.isArray(vo)) {
         //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
+
         let leng = vo.length();
-        for (let i = 0; i < leng; i++) {
+        console.log("array고 vo.length() -> ", vo.length());
+        for (let i = 0; i < vo.length(); i++) {
           let User = {
             // id: vo.id,
             name: vo[i].name,
