@@ -44,20 +44,18 @@ export default {
     this.websocket = this.$store.state.user.stateWebSocket;
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
-      if (this.$store.state.user.mutationFlas > 0) {
-        //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
-        let enterFlag = {
-          entering: true,
-        };
-        //** 입장 시그널 전달  */
-        let check = this.websocket.send(JSON.stringify(enterFlag));
-        if (check >= 0)
-          //!! 아래 사항 출력 시에 check 보내짐.
-          console.log(
-            "check on chat.vue 유저리스트 공유 flag 전송 (0이상이면 정상작동): ",
-            check
-          );
-      }
+      //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
+      let enterFlag = {
+        entering: true,
+      };
+      //** 입장 시그널 전달  */
+      let check = this.websocket.send(JSON.stringify(enterFlag));
+      if (check >= 0)
+        //!! 아래 사항 출력 시에 check 보내짐.
+        console.log(
+          "check on chat.vue 유저리스트 공유 flag 전송 (0이상이면 정상작동): ",
+          check
+        );
 
       const message = {
         name: "bot",
