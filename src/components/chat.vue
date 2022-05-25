@@ -96,10 +96,10 @@ export default {
       //**array
       if (Array.isArray(vo)) {
         //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
-        let leng = this.$store.state.user.lengthOfList();
+        let leng = this.$store.state.user.lengthOfList;
         console.log(
           "array고 vo.length() -> ",
-          this.$store.state.user.lengthOfList()
+          this.$store.state.user.lengthOfList
         );
         for (let i = 0; i < leng; i++) {
           let User = {
