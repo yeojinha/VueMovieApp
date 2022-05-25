@@ -45,7 +45,7 @@ export default {
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
       //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
-
+      console.log("this.$store.state.user.newUser-> ",this.$store.state.user.newUser)
       //** 입장 시그널 전달  */
       this.websocket.send(this.$store.state.user.newUser);
 
@@ -59,18 +59,14 @@ export default {
         entering: false,
       };
       console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
-      if (this.websocket.send(JSON.stringify(message)) < 0) {
-        console.log("안보내짐 error발생");
-      } else {
-        console.log("보내짐");
-      }
-      console.log("open event..", data);
-    };
+      setTimeout(() => {
+      this.websocket.send(JSON.stringify(message))
+      }, 1500);
 
     //todo newUser를 server에 전달.
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
-      console.log("vo.");
+
       console.log(
         "this.websocket.onmessage: ",
         vo,
