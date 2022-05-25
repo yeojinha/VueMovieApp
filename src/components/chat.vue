@@ -87,7 +87,7 @@ export default {
           (us) => us.name == User.name && us.room == User.room && !User.new
         );
         console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
-        //* 입장 */
+        //!! 이름이 다르
         if (temp === undefined && User.leaving === false) {
           //**  존재하지 않고 입장 유저면
           this.$store.state.user.index++;
