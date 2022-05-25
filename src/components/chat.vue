@@ -103,6 +103,18 @@ else !fresh -> 그냥 추가  */
           this.appendNewMessage("Bot-Message", vo.message, vo.time);
         } else if (vo.channel === this.channel && !vo.bot) {
           this.appendNewMessage(vo.name, vo.message, vo.time);
+        } else if (vo.leaving) {
+          let User = {
+            // id: vo.id,
+            name: vo.name,
+            room: vo.room,
+            fresh: vo.true,
+            new: vo.new,
+            leaving: vo.leaving,
+          };
+          this.$store.state.user.index--;
+          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+          console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
         }
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       } else if (Array.isArray(vo)) {
@@ -131,10 +143,6 @@ else !fresh -> 그냥 추가  */
             this.$store.dispatch("user/userJoin", User);
             console.log("유저 리스트 추가 : ", this.$store.state.user.users);
             //!! User가 list에 있는데 요청 -> user가 나간다
-          } else {
-            this.$store.state.user.index--;
-            this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
-            console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
           }
         }
       }
