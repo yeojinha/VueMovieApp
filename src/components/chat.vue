@@ -79,6 +79,7 @@ export default {
           room: vo.room,
           fresh: vo.true,
           new: vo.new,
+          leaving: vo.leaving,
         };
         console.log("서버에서 받은 User: ", User);
         //!! User가 리스트에 없다면 추가하는 것
@@ -87,9 +88,9 @@ export default {
         );
         console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
         //!! 이름이 다르
-        if (temp === undefined) {
+        if (temp === undefined && temp.leaving === false) {
+          //**  존재하지 않고 입장 유저면
           this.$store.state.user.index++;
-          //!! new User은 old
           User.new = false;
           this.$store.dispatch("user/userJoin", User);
           console.log("유저 리스트 추가 : ", this.$store.state.user.users);
@@ -220,6 +221,7 @@ export default {
                 bot: false,
                 fresh: true,
                 new: false,
+                leaving: true,
               })
             ) < 0
           )
