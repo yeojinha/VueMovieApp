@@ -99,16 +99,11 @@ else !fresh -> 그냥 추가  */
       } else if (!Array.isArray(vo) && vo.entering) {
         //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
         console.log("userlist: ", JSON.stringify(this.$store.state.user.users));
-        let check = this.websocket.send(
+        this.websocket.send(JSON.stringify(this.$store.state.user.users));
+        console.log(
+          "stirngified - >userList on chat.vue: ",
           JSON.stringify(this.$store.state.user.users)
         );
-        if (check < 0) console.log("user List 안보내짐");
-        else {
-          console.log(
-            "stirngified - >userList on chat.vue: ",
-            JSON.stringify(this.$store.state.user.users)
-          );
-        }
       } else if (!Array.isArray(vo) && !vo.fresh) {
         //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
         if (vo.channel === this.channel && vo.bot) {
