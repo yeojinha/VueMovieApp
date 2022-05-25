@@ -95,7 +95,7 @@ export default {
           this.$store.dispatch("user/userJoin", User);
           console.log("유저 리스트 추가 : ", this.$store.state.user.users);
           //!! User가 있는데, 요청이 들어온 것은 나가는 것이다.
-        } else {
+        } else if (temp !== undefined && User.leaving) {
           this.$store.state.user.index--;
           this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
           console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
