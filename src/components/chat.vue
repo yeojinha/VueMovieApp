@@ -45,7 +45,10 @@ export default {
     this.websocket.onopen = ({ data }) => {
       //!! new User send to server
       //!! 처음 입장 시에, 유저리스트를 다른 유저들에게 공유해달라고 flag 보낸다.
-      console.log("this.$store.state.user.newUser-> ",this.$store.state.user.newUser)
+      console.log(
+        "this.$store.state.user.newUser-> ",
+        this.$store.state.user.newUser
+      );
       //** 입장 시그널 전달  */
       this.websocket.send(this.$store.state.user.newUser);
 
@@ -60,83 +63,63 @@ export default {
       };
       console.log("JSON.stringify(ms) onopen: ", JSON.stringify(message));
       setTimeout(() => {
-      this.websocket.send(JSON.stringify(message))
+        this.websocket.send(JSON.stringify(message));
       }, 1500);
 
-    //todo newUser를 server에 전달.
-    this.websocket.onmessage = ({ data }) => {
-      const vo = JSON.parse(data);
+      //todo newUser를 server에 전달.
+      this.websocket.onmessage = ({ data }) => {
+        const vo = JSON.parse(data);
 
-      console.log(
-        "this.websocket.onmessage: ",
-        vo,
-        "\n",
-        "Array.isArray(vo): ",
-        Array.isArray(vo),
-        "\n",
-        "this.$store.state.user.lengthOfList -> ",
-        this.$store.state.user.lengthOfList
-      );
-      //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
-      //**array
-      if (Array.isArray(vo)) {
-        //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
-        let leng = this.$store.state.user.lengthOfList;
         console.log(
-          "array고 vo.length() -> ",
+          "this.websocket.onmessage: ",
+          vo,
+          "\n",
+          "Array.isArray(vo): ",
+          Array.isArray(vo),
+          "\n",
+          "this.$store.state.user.lengthOfList -> ",
           this.$store.state.user.lengthOfList
         );
-        for (let i = 0; i < leng; i++) {
-          let User = {
-            // id: vo.id,
-            name: vo[i].name,
-            room: vo[i].room,
-            fresh: vo[i].true,
-            new: vo[i].new,
-            bot: vo[i].bot,
-            leaving: vo[i].leaving,
-            entering: false,
-          };
-          console.log("서버에서 받은 User: ", User);
-          //!! User가 리스트에 없다면 추가하는 것
-          let temp = this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
+        //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
+        //**array
+        if (Array.isArray(vo)) {
+          //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
+          let leng = this.$store.state.user.lengthOfList;
+          console.log(
+            "array고 vo.length() -> ",
+            this.$store.state.user.lengthOfList
           );
-          console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
-          //* 입장 */
-          if (temp === undefined) {
-            //**  존재하지 않고 입장 유저면
-            this.$store.state.user.index++;
-            User.new = false;
-            this.$store.dispatch("user/userJoin", User);
-            console.log("유저 리스트 추가 : ", this.$store.state.user.users);
-            //!! User가 list에 있는데 요청 -> user가 나간다
+          for (let i = 0; i < leng; i++) {
+            let User = {
+              // id: vo.id,
+              name: vo[i].name,
+              room: vo[i].room,
+              fresh: vo[i].true,
+              new: vo[i].new,
+              bot: vo[i].bot,
+              leaving: vo[i].leaving,
+              entering: false,
+            };
+            console.log("서버에서 받은 User: ", User);
+            //!! User가 리스트에 없다면 추가하는 것
+            let temp = this.$store.state.user.users.find(
+              (us) => us.name == User.name && us.room == User.room
+            );
+            console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
+            //* 입장 */
+            if (temp === undefined) {
+              //**  존재하지 않고 입장 유저면
+              this.$store.state.user.index++;
+              User.new = false;
+              this.$store.dispatch("user/userJoin", User);
+              console.log("유저 리스트 추가 : ", this.$store.state.user.users);
+              //!! User가 list에 있는데 요청 -> user가 나간다
+            }
           }
         }
-      }
-      /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
+        /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
 else !fresh -> 그냥 추가  */
-      if (vo.leaving) {
-        let User = {
-          // id: vo.id,
-          name: vo.name,
-          room: vo.room,
-          fresh: vo.true,
-          new: vo.new,
-          bot: vo.bot,
-          leaving: vo.leaving,
-          entering: false,
-        };
-        this.$store.state.user.index--;
-        this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
-        console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
-      } else if (vo.entering) {
-        //!!vo entering
-        this.$store.state.user.lengthOfList++;
-        let temp = this.$store.state.user.users.find(
-          (us) => us.name == User.name && us.room == User.room
-        );
-        if (temp === undefined) {
+        if (vo.leaving) {
           let User = {
             // id: vo.id,
             name: vo.name,
@@ -147,34 +130,55 @@ else !fresh -> 그냥 추가  */
             leaving: vo.leaving,
             entering: false,
           };
-          this.$store.dispatch("user/userJoin", User);
+          this.$store.state.user.index--;
+          this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+          console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
+        } else if (vo.entering) {
+          //!!vo entering
+          this.$store.state.user.lengthOfList++;
+          let temp = this.$store.state.user.users.find(
+            (us) => us.name == User.name && us.room == User.room
+          );
+          if (temp === undefined) {
+            let User = {
+              // id: vo.id,
+              name: vo.name,
+              room: vo.room,
+              fresh: vo.true,
+              new: vo.new,
+              bot: vo.bot,
+              leaving: vo.leaving,
+              entering: false,
+            };
+            this.$store.dispatch("user/userJoin", User);
+          }
+          console.log("lengthOfList -> ", this.$store.state.user.lengthOfList);
+          //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
+          console.log(
+            "userlist on vo.entering : ",
+            JSON.stringify(this.$store.state.user.users)
+          );
+          this.websocket.send(JSON.stringify(this.$store.state.user.users));
+          console.log(
+            "stirngified - >userList on chat.vue: ",
+            JSON.stringify(this.$store.state.user.users)
+          );
+        } else if (!vo.fresh) {
+          //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
+          if (vo.channel === this.channel && vo.bot) {
+            this.appendNewMessage("Bot-Message", vo.message, vo.time);
+          } else if (vo.channel === this.channel && !vo.bot) {
+            this.appendNewMessage(vo.name, vo.message, vo.time);
+          }
+          this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
         }
-        console.log("lengthOfList -> ", this.$store.state.user.lengthOfList);
-        //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
-        console.log(
-          "userlist on vo.entering : ",
-          JSON.stringify(this.$store.state.user.users)
-        );
-        this.websocket.send(JSON.stringify(this.$store.state.user.users));
-        console.log(
-          "stirngified - >userList on chat.vue: ",
-          JSON.stringify(this.$store.state.user.users)
-        );
-      } else if (!vo.fresh) {
-        //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
-        if (vo.channel === this.channel && vo.bot) {
-          this.appendNewMessage("Bot-Message", vo.message, vo.time);
-        } else if (vo.channel === this.channel && !vo.bot) {
-          this.appendNewMessage(vo.name, vo.message, vo.time);
-        }
-        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
-      }
-      //** */
-      this.websocket.onerror = (event) => {
-        console.log("error", event);
-      };
-      this.websocket.onclose = (event) => {
-        console.log("open event..", event);
+        //** */
+        this.websocket.onerror = (event) => {
+          console.log("error", event);
+        };
+        this.websocket.onclose = (event) => {
+          console.log("open event..", event);
+        };
       };
     };
   },
