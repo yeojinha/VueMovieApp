@@ -88,9 +88,7 @@ export default {
         "\n",
         "Array.isArray(vo): ",
         Array.isArray(vo),
-        "\n",
-        "vo.length(): ",
-        vo.length()
+        "\n"
       );
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       //**array
