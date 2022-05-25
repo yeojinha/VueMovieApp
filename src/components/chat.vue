@@ -92,74 +92,73 @@ export default {
       );
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       //**array  */if (Array.isArray(vo)) {
-        //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
+      //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
 
-        let leng = vo.length();
-        console.log("array고 vo.length() -> ", vo.length());
-        for (let i = 0; i < leng; i++) {
-          let User = {
-            // id: vo.id,
-            name: vo[i].name,
-            room: vo[i].room,
-            fresh: vo[i].true,
-            new: vo[i].new,
-            leaving: vo[i].leaving,
-          };
-          console.log("서버에서 받은 User: ", User);
-          //!! User가 리스트에 없다면 추가하는 것
-          let temp = this.$store.state.user.users.find(
-            (us) => us.name == User.name && us.room == User.room
-          );
-          console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
-          //* 입장 */
-          if (temp === undefined) {
-            //**  존재하지 않고 입장 유저면
-            this.$store.state.user.index++;
-            User.new = false;
-            this.$store.dispatch("user/userJoin", User);
-            console.log("유저 리스트 추가 : ", this.$store.state.user.users);
-            //!! User가 list에 있는데 요청 -> user가 나간다
-          }
-        }
-      }
-      /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
-else !fresh -> 그냥 추가  */
-      if (vo.leaving) {
+      let leng = vo.length();
+      console.log("array고 vo.length() -> ", vo.length());
+      for (let i = 0; i < leng; i++) {
         let User = {
           // id: vo.id,
-          name: vo.name,
-          room: vo.room,
-          fresh: vo.true,
-          new: vo.new,
-          leaving: vo.leaving,
+          name: vo[i].name,
+          room: vo[i].room,
+          fresh: vo[i].true,
+          new: vo[i].new,
+          leaving: vo[i].leaving,
         };
-        this.$store.state.user.index--;
-        this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
-        console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
-      } else if (vo.entering) {
-        //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
-        console.log("userlist: ", JSON.stringify(this.$store.state.user.users));
-        this.websocket.send(JSON.stringify(this.$store.state.user.users));
-        console.log(
-          "stirngified - >userList on chat.vue: ",
-          JSON.stringify(this.$store.state.user.users)
+        console.log("서버에서 받은 User: ", User);
+        //!! User가 리스트에 없다면 추가하는 것
+        let temp = this.$store.state.user.users.find(
+          (us) => us.name == User.name && us.room == User.room
         );
-      } else if (!Array.isArray(vo) && !vo.fresh) {
-        //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
-        if (vo.channel === this.channel && vo.bot) {
-          this.appendNewMessage("Bot-Message", vo.message, vo.time);
-        } else if (vo.channel === this.channel && !vo.bot) {
-          this.appendNewMessage(vo.name, vo.message, vo.time);
+        console.log("filter로 User와 같은 것을 temp에 넣음: ", temp);
+        //* 입장 */
+        if (temp === undefined) {
+          //**  존재하지 않고 입장 유저면
+          this.$store.state.user.index++;
+          User.new = false;
+          this.$store.dispatch("user/userJoin", User);
+          console.log("유저 리스트 추가 : ", this.$store.state.user.users);
+          //!! User가 list에 있는데 요청 -> user가 나간다
         }
-        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       }
-      //** */
-      this.websocket.onerror = (event) => {
-        console.log("error", event);
+    };
+    /*Arr 체크 -> for문 -> 객체 fresh -> bot-messges
+else !fresh -> 그냥 추가  */
+    if (vo.leaving) {
+      let User = {
+        // id: vo.id,
+        name: vo.name,
+        room: vo.room,
+        fresh: vo.true,
+        new: vo.new,
+        leaving: vo.leaving,
       };
-      this.websocket.onclose = (event) => {
-        console.log("open event..", event);
-      };
+      this.$store.state.user.index--;
+      this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
+      console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
+    } else if (vo.entering) {
+      //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
+      console.log("userlist: ", JSON.stringify(this.$store.state.user.users));
+      this.websocket.send(JSON.stringify(this.$store.state.user.users));
+      console.log(
+        "stirngified - >userList on chat.vue: ",
+        JSON.stringify(this.$store.state.user.users)
+      );
+    } else if (!Array.isArray(vo) && !vo.fresh) {
+      //** arr도 아니고 vo.fresh이면 새로운 유저 입장에 대한 bot-msg 혹은 유저가 보낸 msg이다 */
+      if (vo.channel === this.channel && vo.bot) {
+        this.appendNewMessage("Bot-Message", vo.message, vo.time);
+      } else if (vo.channel === this.channel && !vo.bot) {
+        this.appendNewMessage(vo.name, vo.message, vo.time);
+      }
+      this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    }
+    //** */
+    this.websocket.onerror = (event) => {
+      console.log("error", event);
+    };
+    this.websocket.onclose = (event) => {
+      console.log("open event..", event);
     };
   },
   data() {
