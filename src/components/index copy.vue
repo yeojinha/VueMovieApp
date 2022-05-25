@@ -47,13 +47,14 @@ export default {
   methods: {
     onClickJoinBtn(event) {
       event.preventDefault();
-      //!! 이름명 입력 안했거나, 중복이름 존재하면 X
+      //!! 이름명 입력 안했거나, 중복이름 (같은 방에) 존재하면 X
       if (!this.username) return;
       else if (
         this.$store.state.user.users.find(
           (us) => us.name == this.username && us.room == this.room
         )
       ) {
+        alert("아이디 중복");
         return;
       }
       this.$store.state.user.reloadFlag = true; //for reload on Home.vue
@@ -82,10 +83,13 @@ export default {
         room: this.room,
         new: true,
         fresh: true,
+        leaving: false,
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
       this.$store.state.user.newUser = newUser;
+      console.log("new User on index.vue: ", this.$store.state.user.newUser);
+      //* newUser을 먼저 리스트에 추가. */
       // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
       /*flag줌*/
