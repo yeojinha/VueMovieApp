@@ -88,14 +88,19 @@ export default {
         "\n",
         "Array.isArray(vo): ",
         Array.isArray(vo),
-        "\n"
+        "\n",
+        "this.$store.state.user.lengthOfList -> ",
+        this.$store.state.user.lengthOfList
       );
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       //**array
       if (Array.isArray(vo)) {
         //**받은게 arr이면 for문으로 돌려서 추가시켜야함*/
-        let leng = vo.length();
-        console.log("array고 vo.length() -> ", vo.length());
+        let leng = this.$store.state.user.lengthOfList();
+        console.log(
+          "array고 vo.length() -> ",
+          this.$store.state.user.lengthOfList()
+        );
         for (let i = 0; i < leng; i++) {
           let User = {
             // id: vo.id,
@@ -141,6 +146,8 @@ else !fresh -> 그냥 추가  */
         this.$store.dispatch("user/userLeave", User); //나가면 pull해줌
         console.log("유저 퇴장 후 리스트 : ", this.$store.state.user.users);
       } else if (vo.entering) {
+        this.$store.state.user.lengthOfList++;
+        console.log("lengthOfList -> ", this.$store.state.user.lengthOfList);
         //** 받은게 arr가 아니고 entering flag이면 현재 userList를 전달 */
         console.log(
           "userlist on vo.entering : ",

@@ -5,6 +5,7 @@ export default {
     stateWebSocket: null,
     reloadFlag: false,
     flag: false,
+    lengthOfList: 0,
     mutationFlas: 0,
     newUser: {
       name: "",
