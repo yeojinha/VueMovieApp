@@ -79,12 +79,16 @@ export default {
     //todo newUser를 server에 전달.
     this.websocket.onmessage = ({ data }) => {
       const vo = JSON.parse(data);
+      console.log("vo.");
       console.log(
         "this.websocket.onmessage: ",
         vo,
         "\n",
         "Array.isArray(vo): ",
-        Array.isArray(vo)
+        Array.isArray(vo),
+        "\n",
+        "vo.length(): ",
+        vo.length()
       );
       //!!vo.fresh(새로운 사람 입장/퇴장만 하는 경우)
       //**array  */
