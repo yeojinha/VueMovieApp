@@ -65,7 +65,7 @@ export default {
       //   "ws://localhost:80/"
       // );
       this.$store.state.user.stateWebSocket = new WebSocket(
-        "ws://yeojin-chat-server.herokuapp.com/ws"
+        "ws://chat-server-yeojin.herokuapp.com/ws"
       );
       //webSocket의 UniqueID 함수 생성하여 newUser에 전달.
       this.$store.state.user.stateWebSocket.getUniqueID = function () {
@@ -82,13 +82,16 @@ export default {
         name: this.username,
         room: this.room,
         new: true,
-        fresh: true,
+        fresh: false,
+        bot: false,
         leaving: false,
+        entering: true,
       };
       //newUser 서버에 전달
       console.log("newUser on index.vue: ", newUser);
       this.$store.state.user.newUser = newUser;
       console.log("new User on index.vue: ", this.$store.state.user.newUser);
+      //* newUser을 먼저 리스트에 추가. */
       // this.$store.dispatch("user/userJoin", newUser);
       this.$router.replace(`/chat?channel=${this.room}`);
       /*flag줌*/
